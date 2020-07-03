@@ -1,0 +1,113 @@
+{
+    "resultcode": "200",
+    "reason": "successed!",
+    "result": {
+        "sk": {
+            "temp": "15",
+            "wind_direction": "南风",
+            "wind_strength": "3级",
+            "humidity": "45%",
+            "time": "11:24"
+        },
+        "today": {
+            "temperature": "4℃~20℃",
+            "weather": "小雨",
+            "weather_id": {
+                "fa": "07",
+                "fb": "07"
+            },
+            "wind": "西南风微风",
+            "week": "星期三",
+            "city": "太原",
+            "date_y": "2020年04月08日",
+            "dressing_index": "较冷",
+            "dressing_advice": "建议着大衣、呢外套加毛衣、卫衣等服装。体弱者宜着厚外套、厚毛衣。因昼夜温差较大，注意增减衣服。",
+            "uv_index": "最弱",
+            "comfort_index": "",
+            "wash_index": "不宜",
+            "travel_index": "较不宜",
+            "exercise_index": "较不宜",
+            "drying_index": ""
+        },
+        "future": {
+            "day_20200408": {
+                "temperature": "4℃~20℃",
+                "weather": "小雨",
+                "weather_id": {
+                    "fa": "07",
+                    "fb": "07"
+                },
+                "wind": "西南风微风",
+                "week": "星期三",
+                "date": "20200408"
+            },
+            "day_20200409": {
+                "temperature": "2℃~7℃",
+                "weather": "小雨转阴",
+                "weather_id": {
+                    "fa": "07",
+                    "fb": "02"
+                },
+                "wind": "东风微风",
+                "week": "星期四",
+                "date": "20200409"
+            },
+            "day_20200410": {
+                "temperature": "-1℃~9℃",
+                "weather": "小雨转阴",
+                "weather_id": {
+                    "fa": "07",
+                    "fb": "02"
+                },
+                "wind": "东风3-5级",
+                "week": "星期五",
+                "date": "20200410"
+            },
+            "day_20200411": {
+                "temperature": "-2℃~15℃",
+                "weather": "多云转晴",
+                "weather_id": {
+                    "fa": "01",
+                    "fb": "00"
+                },
+                "wind": "东风3-5级",
+                "week": "星期六",
+                "date": "20200411"
+            },
+            "day_20200412": {
+                "temperature": "-1℃~22℃",
+                "weather": "多云转晴",
+                "weather_id": {
+                    "fa": "01",
+                    "fb": "00"
+                },
+                "wind": "南风3-5级",
+                "week": "星期日",
+                "date": "20200412"
+            },
+            "day_20200413": {
+                "temperature": "-2℃~15℃",
+                "weather": "多云转晴",
+                "weather_id": {
+                    "fa": "01",
+                    "fb": "00"
+                },
+                "wind": "东风3-5级",
+                "week": "星期一",
+                "date": "20200413"
+            },
+            "day_20200414": {
+                "temperature": "-1℃~9℃",
+                "weather": "小雨转阴",
+                "weather_id": {
+                    "fa": "07",
+                    "fb": "02"
+                },
+                "wind": "东风3-5级",
+                "week": "星期二",
+                "date": "20200414"
+            }
+        }
+    },
+    "error_code": 0
+}
