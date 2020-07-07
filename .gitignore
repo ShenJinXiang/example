@@ -25,5 +25,10 @@ hs_err_pid*
 # gradle
 .gradle/
 build/
-
+# maven
 target/
+
+# macOs
+.DS_Store
+
+*.iml
