@@ -56,16 +56,16 @@ public class MainWindow {
     private void initList() {
         list = new ArrayList<>();
         JButton flowButton = new JButton("FlowLayout");
-        LayoutWindow layoutWindow = new FlowWindow("FlowLayout", layoutWindowWidth, layoutWindowHeight);
+        LayoutWindow layoutWindow = new FlowWindow("流式布局", layoutWindowWidth, layoutWindowHeight);
 
         JButton borderButton = new JButton("BorderLayout");
-        LayoutWindow borderWindow = new BorderWindow("BorderLayout", layoutWindowWidth, layoutWindowHeight);
+        LayoutWindow borderWindow = new BorderWindow("边界布局", layoutWindowWidth, layoutWindowHeight);
 
         JButton cardButton = new JButton("CardLayout");
         LayoutWindow cardWindow = new CardWindow("CardLayout", layoutWindowWidth, layoutWindowHeight);
 
         JButton gridButton = new JButton("GridLayout");
-        LayoutWindow gridWindow = new GridWindow("GridLayout", layoutWindowWidth, layoutWindowHeight);
+        LayoutWindow gridWindow = new GridWindow("网格布局之计算器", layoutWindowWidth, layoutWindowHeight);
 
         JButton gridBagButton = new JButton("GridBagLayout");
         LayoutWindow gridBagWindow = new GridBagWindow("GridBagLayout", layoutWindowWidth, layoutWindowHeight);
