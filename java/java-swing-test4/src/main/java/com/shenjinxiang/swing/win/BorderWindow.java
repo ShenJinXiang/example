@@ -11,7 +11,7 @@ public class BorderWindow extends LayoutWindow {
 
     public BorderWindow(String title, int width, int height) {
         super(title, width, height);
-        this.jFrame.setLayout(new BorderLayout());
+        this.jFrame.setLayout(new BorderLayout(40, 20));
         this.jFrame.add(new JButton("东"), BorderLayout.EAST);
         this.jFrame.add(new JButton("西"), BorderLayout.WEST);
         this.jFrame.add(new JButton("南"), BorderLayout.SOUTH);
