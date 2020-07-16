@@ -1,6 +1,8 @@
 package com.shenjinxiang.swing;
 
 import com.shenjinxiang.swing.win.KeyEventWin;
+import com.shenjinxiang.swing.win.MouseEventWin;
+import com.shenjinxiang.swing.win.MoveTurtleWin;
 
 /**
  * @Author: ShenJinXiang
@@ -10,5 +12,7 @@ public class Start {
 
     public static void main(String[] args) {
         new KeyEventWin();
+        new MouseEventWin();
+        new MoveTurtleWin();
     }
 }
