@@ -14,6 +14,7 @@ public class LayoutWindow {
         this.jFrame = new JFrame(title);
         this.jFrame.setBounds(20, 20, width, height);
         this.jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.jFrame.setLocationRelativeTo(null);
     }
 
     public void show() {
