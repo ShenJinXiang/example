@@ -1,2 +1,3 @@
-config:
-  python-command: E:\temp\20200716\aaa.bat
+spring:
+  profiles:
+    active: dev
