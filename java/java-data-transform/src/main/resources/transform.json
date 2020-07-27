@@ -1,0 +1,40 @@
+[
+  {
+    "enable": true,
+    "in": {
+      "type": "UDP",
+      "ip": "127.0.0.1",
+      "port": 5001,
+      "dataHandler": "com.shenjinxiang.transform.handler.UdpDataHandler"
+    },
+    "out": [
+      {
+        "type": "TCP",
+        "ip": 5002
+      },
+      {
+        "type": "TCP",
+        "ip": 5002
+      }
+    ]
+  },
+  {
+    "enable": true,
+    "in": {
+      "type": "TCP",
+      "ip": "127.0.0.1",
+      "port": 6001,
+      "dataHandler": "com.shenjinxiang.transform.handler.TcpDataHandler"
+    },
+    "out": [
+      {
+        "type": "TCP",
+        "ip": 6002
+      },
+      {
+        "type": "TCP",
+        "ip": 6002
+      }
+    ]
+  }
+]
