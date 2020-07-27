@@ -9,6 +9,7 @@ import com.shenjinxiang.swing.win.MainWindow;
 public class Start {
 
     public static void main(String[] args) {
-        new MainWindow("布局", 400, 200);
+//        new MainWindow("布局", 400, 200);
+
     }
 }
