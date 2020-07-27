@@ -1,5 +1,6 @@
 package com.shenjinxiang.transform;
 
+import com.shenjinxiang.transform.core.Init;
 import com.shenjinxiang.transform.kit.PathKit;
 import com.shenjinxiang.transform.kit.ThreadPool;
 
@@ -10,9 +11,7 @@ import com.shenjinxiang.transform.kit.ThreadPool;
 public class Start {
 
     public static void main(String[] args) throws Exception {
-        System.out.println(PathKit.isJar());
-        System.out.println(PathKit.getCrrentFilePath());
-        System.out.println(PathKit.getCurrentPath());
+        Init.run(args);
         ThreadPool.getThread();
     }
 }
