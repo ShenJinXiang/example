@@ -1,15 +1,14 @@
 package com.shenjinxiang.transform.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.shenjinxiang.transform.core.Consts;
 import com.shenjinxiang.transform.domain.TransformGroup;
 import com.shenjinxiang.transform.domain.TransformReceive;
 import com.shenjinxiang.transform.domain.TransformSend;
 import com.shenjinxiang.transform.kit.JsonKit;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -39,15 +38,15 @@ public class TransformConfig {
                 }
                 inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
             }
-            ByteOutputStream byteOutputStream = new ByteOutputStream();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             int len = 0;
             byte[] buff = new byte[1024 * 1024];
             while ((len = inputStream.read(buff)) != -1) {
-                byteOutputStream.write(buff, 0, len);
+                byteArrayOutputStream.write(buff, 0, len);
             }
-            byteOutputStream.flush();
+            byteArrayOutputStream.flush();
 
-            byte[] bytes = byteOutputStream.getBytes();
+            byte[] bytes = byteArrayOutputStream.toByteArray();
             String content = new String(bytes, Consts.ENCODE);
 //            groupList = JsonKit.fromJson(content, new TypeReference<List<TransformGroup>>() {});
             groupList = JsonKit.fromJsonAsList(content, TransformGroup.class);
