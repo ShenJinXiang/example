@@ -1,6 +1,7 @@
 package com.shenjinxiang.transform.kit;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shenjinxiang.transform.domain.TransformGroup;
 import com.shenjinxiang.transform.domain.TransformReceive;
@@ -31,6 +32,16 @@ public class JsonKit {
     public static <T> T fromJson(String content, TypeReference<T> valueType) {
         try {
             return objectMapper.readValue(content, valueType);
+        } catch (Exception e) {
+            logger.error("解析json字符串出错", e);
+        }
+        return null;
+    }
+
+    public static <T> List<T> fromJsonAsList(String content, Class<T> valueType) {
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(List.class, valueType);
+            return objectMapper.readValue(content, javaType);
         } catch (Exception e) {
             logger.error("解析json字符串出错", e);
         }

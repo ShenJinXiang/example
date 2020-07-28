@@ -49,7 +49,8 @@ public class TransformConfig {
 
             byte[] bytes = byteOutputStream.getBytes();
             String content = new String(bytes, Consts.ENCODE);
-            groupList = JsonKit.fromJson(content, new TypeReference<List<TransformGroup>>() {});
+//            groupList = JsonKit.fromJson(content, new TypeReference<List<TransformGroup>>() {});
+            groupList = JsonKit.fromJsonAsList(content, TransformGroup.class);
             if (null != groupList && groupList.size() > 0) {
                 logGroupList();
             } else {
