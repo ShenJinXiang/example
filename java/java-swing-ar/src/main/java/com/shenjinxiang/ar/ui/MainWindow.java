@@ -28,7 +28,11 @@ public class MainWindow extends JFrame {
         this.screenHeight = dimension.height;
 
         setBounds(0, 0, this.screenWidth, this.screenHeight);
+        // 不可调整大小
         setResizable(false);
+        // 去掉顶部标题栏
+        setUndecorated(true);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -38,6 +42,7 @@ public class MainWindow extends JFrame {
             }
         });
         setVisible(true);
+        // 最大化
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
