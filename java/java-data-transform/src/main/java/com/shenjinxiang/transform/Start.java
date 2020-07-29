@@ -1,8 +1,6 @@
 package com.shenjinxiang.transform;
 
-import com.shenjinxiang.transform.config.TransformConfig;
 import com.shenjinxiang.transform.core.Init;
-import com.shenjinxiang.transform.kit.ThreadPool;
 
 /**
  * @Author: ShenJinXiang
