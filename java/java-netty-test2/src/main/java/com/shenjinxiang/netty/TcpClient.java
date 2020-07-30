@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * @Author: ShenJinXiang
@@ -36,6 +37,7 @@ public class TcpClient {
                 channel.pipeline().addLast(new LineBasedFrameDecoder(1024 * 50));
                 channel.pipeline().addLast(new StringDecoder());
                 channel.pipeline().addLast(new NettyClientHandler());
+                channel.pipeline().addLast(new StringEncoder());
             }
         });
 
