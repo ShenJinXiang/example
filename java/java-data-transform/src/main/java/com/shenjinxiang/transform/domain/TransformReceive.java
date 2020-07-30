@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TransformReceive {
 
     private ConnType type;
-    private String ip;
     private int port;
     private String dataHandler;
 
@@ -20,14 +19,6 @@ public class TransformReceive {
 
     public void setType(ConnType type) {
         this.type = type;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public int getPort() {

@@ -3,7 +3,6 @@
     "enable": true,
     "receive": {
       "type": "UDP",
-      "ip": "127.0.0.1",
       "port": 5001,
       "dataHandler": "com.shenjinxiang.transform.handler.UdpDataHandler"
     },
@@ -24,7 +23,6 @@
     "enable": true,
     "receive": {
       "type": "TCP",
-      "ip": "127.0.0.1",
       "port": 6001,
       "dataHandler": "com.shenjinxiang.transform.handler.TcpDataHandler"
     },
