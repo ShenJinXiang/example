@@ -53,7 +53,14 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    channel.writeAndFlush(str);
+                    while (status == 1) {
+                        channel.writeAndFlush(str);
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }).start();
         } finally {

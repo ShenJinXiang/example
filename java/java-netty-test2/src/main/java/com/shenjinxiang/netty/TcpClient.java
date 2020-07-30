@@ -38,6 +38,7 @@ public class TcpClient {
                 channel.pipeline().addLast(new StringDecoder());
                 channel.pipeline().addLast(new NettyClientHandler());
                 channel.pipeline().addLast(new StringEncoder());
+
             }
         });
 

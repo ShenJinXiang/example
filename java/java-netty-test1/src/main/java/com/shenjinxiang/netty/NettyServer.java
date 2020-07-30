@@ -14,6 +14,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class NettyServer {
                             socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024 * 50));
                             socketChannel.pipeline().addLast(new StringDecoder());
                             socketChannel.pipeline().addLast(new NettyServerHandler());
+                            socketChannel.pipeline().addLast(new StringEncoder());
                         }
                     });
             server.option(ChannelOption.SO_BACKLOG, 128);
