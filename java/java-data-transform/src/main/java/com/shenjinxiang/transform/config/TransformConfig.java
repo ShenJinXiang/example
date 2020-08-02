@@ -76,7 +76,7 @@ public class TransformConfig {
 //            stringBuilder.append("\n\t\t\t ip: ").append(receive.getIp());
             stringBuilder.append("\n\t\t\t port: ").append(receive.getPort());
             stringBuilder.append("\n\t\t\t handler: ").append(receive.getDataHandler());
-            List<TransformSend> send = group.getSend();
+            List<TransformSend> send = group.getSendList();
             stringBuilder.append("\n\t\t send: ");
             for (int jndex = 0; jndex < send.size(); jndex++) {
                 TransformSend s = send.get(jndex);

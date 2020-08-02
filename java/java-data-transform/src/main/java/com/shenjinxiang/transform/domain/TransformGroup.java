@@ -1,5 +1,7 @@
 package com.shenjinxiang.transform.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,8 @@ public class TransformGroup {
 
     private boolean enable;
     private TransformReceive receive;
-    private List<TransformSend> send;
+    @JsonProperty("send")
+    private List<TransformSend> sendList;
 
     public boolean isEnable() {
         return enable;
@@ -28,11 +31,11 @@ public class TransformGroup {
         this.receive = receive;
     }
 
-    public List<TransformSend> getSend() {
-        return send;
+    public List<TransformSend> getSendList() {
+        return sendList;
     }
 
-    public void setSend(List<TransformSend> send) {
-        this.send = send;
+    public void setSendList(List<TransformSend> sendList) {
+        this.sendList = sendList;
     }
 }

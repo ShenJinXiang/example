@@ -1,21 +1,20 @@
 package com.shenjinxiang.transform.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/7/28 9:03
  */
 public class TransformSend {
 
-    private ConnType type;
+    @JsonIgnoreProperties
+    private ConnType type = ConnType.TCP;
     private String ip;
     private int port;
 
     public ConnType getType() {
         return type;
-    }
-
-    public void setType(ConnType type) {
-        this.type = type;
     }
 
     public String getIp() {
