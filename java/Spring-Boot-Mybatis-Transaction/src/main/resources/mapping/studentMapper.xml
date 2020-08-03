@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shenjinxiang.spb.mapper.StudentMapper">
+
+    <resultMap id="baseResult" type="com.shenjinxiang.spb.domain.Student">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryAllStudent" resultMap="baseResult" >
+        SELECT `id`, `name`, `age`, `sex`, `desc`
+        FROM student
+        ORDER BY ID ASC
+    </select>
+
+    <select id="queryById" parameterType="int" resultMap="baseResult" >
+        SELECT `id`, `name`, `age`, `sex`, `desc`
+        FROM student
+        <where>
+            AND id = #{id}
+        </where>
+    </select>
+
+    <insert id="add" parameterType="com.shenjinxiang.spb.domain.Student" >
+        INSERT INTO student
+        (`id`, `name`, `age`, `sex`, `desc` )
+        VALUES
+        (#{id}, #{name}, #{age}, #{sex}, #{desc})
+    </insert>
+
+    <update id="upd" parameterType="com.shenjinxiang.spb.domain.Student">
+        UPDATE student
+        <set>
+            `name` = #{name},
+            `age` = #{age},
+            `sex` = #{sex},
+            `desc` = #{desc},
+        </set>
+        <where>
+            AND `id` = #{id}
+        </where>
+    </update>
+
+    <delete id="delById" parameterType="int">
+        DELETE FROM student
+        <where>
+            AND `id` = #{id}
+        </where>
+    </delete>
+</mapper>
