@@ -25,17 +25,17 @@ public class UdpClient {
     public void run(String ip, int port) throws IOException {
         InetAddress serverAddress = InetAddress.getByName(ip);
         DatagramPacket datagramPacket = null;
-        String str = "0123456789";
+        String str = "中华人民共和国！";
         byte[] bytes = str.getBytes();
         datagramPacket = new DatagramPacket(bytes,
                 bytes.length,
                 serverAddress,
                 port);
         datagramSocket.send(datagramPacket);
-
-        DatagramPacket datagramPacket1 = new DatagramPacket(new byte[1024], 1024);
-        datagramSocket.receive(datagramPacket1);
-        byte[] bytes1 = datagramPacket1.getData();
-        logger.info("content: " + new String(bytes1, 0, datagramPacket1.getLength()));
+        datagramSocket.close();
+//        DatagramPacket datagramPacket1 = new DatagramPacket(new byte[1024], 1024);
+//        datagramSocket.receive(datagramPacket1);
+//        byte[] bytes1 = datagramPacket1.getData();
+//        logger.info("content: " + new String(bytes1, 0, datagramPacket1.getLength()));
     }
 }

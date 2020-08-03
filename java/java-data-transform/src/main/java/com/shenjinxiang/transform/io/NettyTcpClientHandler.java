@@ -1,5 +1,6 @@
-package com.shenjinxiang.netty.kit;
+package com.shenjinxiang.transform.io;
 
+import com.shenjinxiang.transform.domain.TransformSend;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -8,41 +9,24 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @Author: ShenJinXiang
- * @Date: 2020/8/1 22:19
+ * @Date: 2020/8/3 15:00
  */
 public class NettyTcpClientHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyTcpClientHandler.class);
 
-    private NettyTcpClient client;
+    private TransformSend transformSend;
     private Channel channel;
 
-    public NettyTcpClientHandler(NettyTcpClient client) {
-        this.client = client;
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-//        final EventLoop eventLoop = ctx.channel().eventLoop();
-//        eventLoop.schedule(new Runnable() {
-//            @Override
-//            public void run() {
-//                client.createBootstrap(new Bootstrap(), eventLoop);
-//            }
-//        }, 1L, TimeUnit.SECONDS);
-//        super.channelInactive(ctx);
+    public NettyTcpClientHandler(TransformSend transformSend) {
+        this.transformSend = transformSend;
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         channel = ctx.channel();
+        this.transformSend.setChannel(channel);
         logger.info("建立链接，服务器：" + channel.remoteAddress());
-        String str = "中华人民共和国，中央人民政府！\n";
-        for (int i = 0; i < 100; i++) {
-            logger.info("发送消息：" + i);
-            channel.writeAndFlush("123\n");
-            channel.writeAndFlush(str);
-        }
     }
 
     @Override

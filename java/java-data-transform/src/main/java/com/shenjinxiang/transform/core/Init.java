@@ -49,5 +49,6 @@ public class Init {
             init.initCurrentPath();
         }
         TransformConfig.init();
+        NettyServer.init();
     }
 }

@@ -1,6 +1,7 @@
 package com.shenjinxiang.transform.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.shenjinxiang.transform.handler.DataHandler;
 
 import java.util.List;
 

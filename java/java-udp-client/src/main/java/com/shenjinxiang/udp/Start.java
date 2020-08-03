@@ -15,7 +15,7 @@ public class Start {
 
     public static void main(String[] args) throws IOException {
         logger.info("start...");
-        new UdpClient(5006).run("127.0.0.1", 5005);
+        new UdpClient(5006).run("127.0.0.1", 5001);
         logger.info("end...");
     }
 }

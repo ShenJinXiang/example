@@ -1,1 +1,0 @@
-java -jar E:\git_xm\example\java\java-data-transform\target\java-data-transform-1.0-SNAPSHOT.jar

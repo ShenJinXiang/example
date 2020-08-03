@@ -6,4 +6,6 @@ package com.shenjinxiang.transform.handler;
  */
 public interface DataHandler {
 
+    String handle(byte[] data);
+
 }
