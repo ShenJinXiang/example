@@ -1,4 +1,4 @@
-package com.shenjinxiang.data.core;
+package com.shenjinxiang.data.kit;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
