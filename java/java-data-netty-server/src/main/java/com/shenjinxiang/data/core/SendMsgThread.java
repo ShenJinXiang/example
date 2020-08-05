@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: ShenJinXiang
@@ -55,8 +57,11 @@ public class SendMsgThread implements Runnable {
             element.replace(list);
         }
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("wave", list);
 
-        return JsonKit.toJson(list);
+
+        return JsonKit.toJson(map);
     }
 
     private void sleep(long time) {
