@@ -1,17 +1,14 @@
 package com.shenjinxiang.data;
 
 import com.shenjinxiang.data.core.Consts;
+import com.shenjinxiang.data.core.NettyTcpServer;
 import com.shenjinxiang.data.core.SendMsgThread;
-import com.shenjinxiang.data.kit.JsonKit;
 import com.shenjinxiang.data.kit.PathKit;
 import com.shenjinxiang.data.kit.ThreadPool;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -29,7 +26,7 @@ public class Start {
             commandLine(args);
         }
         logInfo();
-//        ThreadPool.getThread().execute(new NettyTcpServer(6001));
+        ThreadPool.getThread().execute(new NettyTcpServer(Consts.PORT));
         ThreadPool.getThread().execute(new SendMsgThread());
     }
 
@@ -93,15 +90,25 @@ public class Start {
 
         String portStr = cl.getOptionValue("port");
         Consts.PORT = Integer.parseInt(portStr);
-        String lenStr = cl.getOptionValue("length");
-        Consts.LENGTH = Integer.parseInt(lenStr);
-        String minValStr = cl.getOptionValue("minval");
-        Consts.MIN_VAL = Integer.parseInt(minValStr);
-        String maxValStr = cl.getOptionValue("maxval");
-        Consts.MAX_VAL = Integer.parseInt(maxValStr);
-        String minPeakValStr = cl.getOptionValue("minPeakVal");
-        Consts.MIN_PEAK_VAL = Integer.parseInt(minPeakValStr);
-        String maxPeakValStr = cl.getOptionValue("maxPeakVal");
-        Consts.MAX_PEAK_VAL = Integer.parseInt(maxPeakValStr);
+        if (cl.hasOption("length") ) {
+            String lenStr = cl.getOptionValue("length");
+            Consts.LENGTH = Integer.parseInt(lenStr);
+        }
+        if (cl.hasOption("minval") ) {
+            String minValStr = cl.getOptionValue("minval");
+            Consts.MIN_VAL = Integer.parseInt(minValStr);
+        }
+        if (cl.hasOption("maxval") ) {
+            String maxValStr = cl.getOptionValue("maxval");
+            Consts.MAX_VAL = Integer.parseInt(maxValStr);
+        }
+        if (cl.hasOption("minPeakVal") ) {
+            String minPeakValStr = cl.getOptionValue("minPeakVal");
+            Consts.MIN_PEAK_VAL = Integer.parseInt(minPeakValStr);
+        }
+        if (cl.hasOption("maxPeakVal") ) {
+            String maxPeakValStr = cl.getOptionValue("maxPeakVal");
+            Consts.MAX_PEAK_VAL = Integer.parseInt(maxPeakValStr);
+        }
     }
 }
