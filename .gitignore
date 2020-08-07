@@ -32,3 +32,6 @@ target/
 .DS_Store
 
 *.iml
+
+#node
+node_modules/
