@@ -1,6 +1,8 @@
 package com.shenjinxiang.client.io;
 
 import com.shenjinxiang.client.core.Config;
+import com.shenjinxiang.client.domain.ControTcpCommand;
+import com.shenjinxiang.client.kit.JsonKit;
 import com.shenjinxiang.client.kit.StrKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 /**
  * @Author: ShenJinXiang
@@ -33,8 +36,13 @@ public class CommandReader implements Runnable {
                 String line = bufferedReader.readLine();
                 if (StrKit.notBlank(line)) {
                     if (line.startsWith(SEND_PREFIX)) {
+                        String command = line.substring(SEND_PREFIX.length());
+                        String token = UUID.randomUUID().toString().replace("-", "");
+                        ControTcpCommand controTcpCommand = new ControTcpCommand();
+                        controTcpCommand.setCommand(command);
+                        controTcpCommand.setToken(token);
                         // 向服务端发送消息
-                        Config.CLIENT_CHANNEL.writeAndFlush(line.substring(SEND_PREFIX.length()) + "\n");
+                        Config.CLIENT_CHANNEL.writeAndFlush(JsonKit.toJson(controTcpCommand) + "\n");
                         continue;
                     }
                     if ("exit".equalsIgnoreCase(line)) {
