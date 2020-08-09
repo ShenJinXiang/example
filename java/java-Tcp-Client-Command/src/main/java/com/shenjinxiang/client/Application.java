@@ -30,7 +30,7 @@ public class Application {
 
     private static void logInfo() {
         StringBuilder stringBuilder = new StringBuilder("初始化信息: ");
-        stringBuilder.append("\n\t Host: ").append(Config.SERVER_PORT)
+        stringBuilder.append("\n\t Host: ").append(Config.SERVER_IP)
                 .append("\n\t Port: ").append(Config.SERVER_PORT)
                 .append("\n");
         logger.info(stringBuilder.toString());
