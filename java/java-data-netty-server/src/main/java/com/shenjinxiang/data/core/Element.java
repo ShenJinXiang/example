@@ -3,7 +3,6 @@ package com.shenjinxiang.data.core;
 import com.shenjinxiang.data.kit.RandomKit;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * @Author: ShenJinXiang
@@ -12,9 +11,10 @@ import java.util.Random;
 public class Element {
 
     private double[] data;
-    private int index = 0;
+    private int index;
 
-    public Element() {
+    public Element(int index) {
+        this.index = index;
         data = new double[5];
         data[0] = RandomKit.randomDouble(Consts.MIN_PEAK_VAL * 0.3, Consts.MAX_PEAK_VAL * 0.3);
         data[1] = RandomKit.randomDouble(Consts.MIN_PEAK_VAL * 0.6, Consts.MAX_PEAK_VAL * 0.6);
@@ -49,5 +49,9 @@ public class Element {
                 list.set(i + this.index, data[i]);
             }
         }
+    }
+
+    public void reset() {
+        this.index = 0;
     }
 }

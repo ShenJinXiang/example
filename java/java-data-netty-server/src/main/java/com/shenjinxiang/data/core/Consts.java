@@ -9,8 +9,8 @@ import io.netty.channel.Channel;
 public class Consts {
 
     public static int PORT;
-    public static int LENGTH = 2048;
-    public static int MIN_VAL = -1;
+    public static int LENGTH = 512;
+    public static int MIN_VAL = 5;
     public static int MAX_VAL = 40;
     public static int MIN_PEAK_VAL = 200;
     public static int MAX_PEAK_VAL = 220;
