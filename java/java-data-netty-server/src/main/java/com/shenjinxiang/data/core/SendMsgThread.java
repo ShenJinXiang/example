@@ -1,12 +1,10 @@
 package com.shenjinxiang.data.core;
 
 import com.shenjinxiang.data.kit.JsonKit;
-import com.shenjinxiang.data.kit.RandomKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +16,19 @@ public class SendMsgThread implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(SendMsgThread.class);
 
-    private List<Element> elements = new ArrayList<>();
 
+    private List<WaveData> waveDatas = new ArrayList<>();
     private int count;
+
+    public SendMsgThread () {
+        count = 0;
+
+        waveDatas.add(new WaveData(0));
+        waveDatas.add(new WaveData(100));
+        waveDatas.add(new WaveData(200));
+        waveDatas.add(new WaveData(380));
+    }
+
 
     @Override
     public void run() {
@@ -28,7 +36,6 @@ public class SendMsgThread implements Runnable {
             if (Consts.ISSENDMSG) {
                 logger.info("发送数据[" + count + "]!");
                 String str = createData();
-//                logger.info(str);
                 Consts.channel.writeAndFlush(str + "\n");
                 count++;
                 sleep(50);
@@ -39,29 +46,13 @@ public class SendMsgThread implements Runnable {
         }
     }
 
+
     private String createData() {
-        List<Double> list = new ArrayList<>();
-        for(int i = 0; i < Consts.LENGTH; i++) {
-            list.add(RandomKit.randomDouble(Consts.MIN_VAL, Consts.MAX_VAL));
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (WaveData waveData: waveDatas) {
+            list.add(waveData.createDate());
         }
-
-        for (Element element : elements) {
-            element.run(1);
-        }
-        double ran = RandomKit.randomDouble(0, 100);
-        if (ran < 1) {
-            elements.add(new Element());
-        }
-
-        for (Element element : elements) {
-            element.replace(list);
-        }
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("wave", list);
-
-
-        return JsonKit.toJson(map);
+        return JsonKit.toJson(list);
     }
 
     private void sleep(long time) {
@@ -71,7 +62,4 @@ public class SendMsgThread implements Runnable {
             logger.error("Sleep出错!", e);
         }
     }
-
-
-
 }

@@ -1,8 +1,6 @@
 package com.shenjinxiang.netty.kit;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
@@ -16,24 +14,6 @@ import org.slf4j.LoggerFactory;
 public class NettyUdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyUdpServerHandler.class);
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
-        Channel channel = ctx.channel();
-        logger.info("建立链接，服务器：" + channel.remoteAddress());
-//        for (int i = 0; i < 100; i++) {
-//            channel.writeAndFlush("123\n");
-//        }
-        String str = "中华人民共和国，中央人民政府！\n";
-        logger.info("发送消息：" + str);
-        channel.writeAndFlush(str);
-//
-//        // 由于数据报的数据是以字符数组传的形式存储的，所以传转数据
-//        byte[] bytes = str.getBytes("UTF-8");
-//        DatagramPacket data = new DatagramPacket(Unpooled.copiedBuffer(bytes), datagramPacket.sender());
-//        ctx.writeAndFlush(data);//向客户端发送消息
-    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket) throws Exception {
