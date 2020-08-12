@@ -33,18 +33,18 @@ public class Start {
 //        NettyTcpServer server = new NettyTcpServer(Integer.parseInt(portStr));
 //        ThreadPool.getThread().execute(server);
 
-//        ThreadPool.getThread().execute(new NettyTcpClient("127.0.0.1", 6001));
-        new NettyUdpClient(3333);
-        String str = "山西太原申锦祥";
-        try {
-            InetSocketAddress address = new InetSocketAddress("127.0.0.1", 5005);
-            byte[] bytes = str.getBytes("UTF-8");
-            for (int i = 0; i < 100; i++) {
-                UdpKit.sendMsg(Consts.CHANNEL, bytes, address);
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        ThreadPool.getThread().execute(new NettyUdpServer(6009));
+//        new NettyUdpClient(3333);
+//        String str = "山西太原申锦祥";
+//        try {
+//            InetSocketAddress address = new InetSocketAddress("127.0.0.1", 5005);
+//            byte[] bytes = str.getBytes("UTF-8");
+//            for (int i = 0; i < 100; i++) {
+//                UdpKit.sendMsg(Consts.CHANNEL, bytes, address);
+//            }
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
         logger.info("end...");
     }
 }

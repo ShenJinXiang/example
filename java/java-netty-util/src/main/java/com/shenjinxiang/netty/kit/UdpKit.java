@@ -13,6 +13,8 @@ import java.net.InetSocketAddress;
  */
 public class UdpKit {
 
+    public static Channel CHANNEL;
+
     public static void sendMsg(Channel channel, byte[] bytes, String host, int port) {
         sendMsg(channel, bytes, new InetSocketAddress(host, port));
     }

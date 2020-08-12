@@ -29,10 +29,10 @@ public class NettyUdpServerHandler extends SimpleChannelInboundHandler<DatagramP
         String content = new String(req);
         logger.info("内容：" + content);
 
-        String json = "hello world!!";
-        // 由于数据报的数据是以字符数组传的形式存储的，所以传转数据
-        byte[] bytes = json.getBytes("UTF-8");
-        DatagramPacket data = new DatagramPacket(Unpooled.copiedBuffer(bytes), datagramPacket.sender());
-        channelHandlerContext.writeAndFlush(data);//向客户端发送消息
+//        String json = "hello world!!";
+//        // 由于数据报的数据是以字符数组传的形式存储的，所以传转数据
+//        byte[] bytes = json.getBytes("UTF-8");
+//        DatagramPacket data = new DatagramPacket(Unpooled.copiedBuffer(bytes), datagramPacket.sender());
+//        channelHandlerContext.writeAndFlush(data);//向客户端发送消息
     }
 }
