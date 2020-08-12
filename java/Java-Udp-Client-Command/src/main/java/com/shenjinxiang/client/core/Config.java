@@ -1,6 +1,5 @@
 package com.shenjinxiang.client.core;
 
-import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ public class Config {
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
 
     public static final String ENCODE = "UTF-8";
-    public static int PORT = 5001;
+    public static int PORT = 5009;
     public static String SERVER_IP = "localhost";
     public static int SERVER_PORT = 5000;
 
