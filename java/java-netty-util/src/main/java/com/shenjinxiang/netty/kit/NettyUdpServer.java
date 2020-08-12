@@ -1,7 +1,6 @@
 package com.shenjinxiang.netty.kit;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -27,7 +26,7 @@ public class NettyUdpServer implements Runnable {
         server.group(group)
                 .channel(NioDatagramChannel.class)
                 .option(ChannelOption.SO_BROADCAST, true)
-                .handler(new UdpHandler());
+                .handler(new NettyUdpServerHandler());
     }
 
     @Override
