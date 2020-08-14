@@ -8,6 +8,7 @@
 
     // const geometry = new THREE.BoxGeometry();
     const geometry = new THREE.CubeGeometry(1, 1, 1);
+    // const geometry = new THREE.SphereGeometry(60, 40, 40);
     const material = new THREE.MeshBasicMaterial({color: '#f00'});
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);

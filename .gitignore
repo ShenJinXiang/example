@@ -32,6 +32,7 @@ target/
 .DS_Store
 
 *.iml
+.idea/
 
 #node
 node_modules/
