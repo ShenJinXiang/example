@@ -26,8 +26,8 @@ public class NettyUdpServerHandler extends SimpleChannelInboundHandler<DatagramP
         byte[] req = new byte[buf.readableBytes()];
         //通过ByteBuf的readBytes方法将缓冲区中的字节数组复制到新建的byte数组中
         buf.readBytes(req);
-        String content = new String(req);
-        logger.info("内容：" + content);
+//        String content = new String(req);
+        logger.info("内容：" + ByteKit.byteArrayToHexStr(req));
 
 //        String json = "hello world!!";
 //        // 由于数据报的数据是以字符数组传的形式存储的，所以传转数据
