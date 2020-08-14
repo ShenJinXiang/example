@@ -1,14 +1,14 @@
 package com.shenjinxiang.client.core;
 
+import com.shenjinxiang.client.kit.ByteKit;
+import com.shenjinxiang.client.kit.PkgKit;
 import com.shenjinxiang.client.kit.StrKit;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.UUID;
 
 /**
  * @Author: ShenJinXiang
@@ -18,7 +18,7 @@ public class CommandReader implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(CommandReader.class);
 
-    private static final String PKG_PREFIX = "pkg";
+    private static final String PKG_PREFIX = "package";
     private static final String SEND_PREFIX = "send";
     private static final String SET_PREFIX = "set";
     private static final String INFO = "info";
@@ -69,7 +69,29 @@ public class CommandReader implements Runnable {
                         continue;
                     }
                     if (PKG_PREFIX.equalsIgnoreCase(words[0])) {
-
+                        if (words.length != 2) {
+                            logger.info("格式错误，请重新输入");
+                            continue;
+                        }
+                        if ("512".equals(words[1])) {
+                            byte[] bytes = PkgKit.package512(1).bytes();
+                            UdpKit.sendMsg(bytes, Config.SERVER_IP, Config.SERVER_PORT);
+                            logger.info("发送数据：" + ByteKit.byteArrayToHexStr(bytes));
+                            continue;
+                        }
+                        if ("513".equals(words[1])) {
+                            byte[] bytes = PkgKit.package513(1).bytes();
+                            UdpKit.sendMsg(bytes, Config.SERVER_IP, Config.SERVER_PORT);
+                            logger.info("发送数据：" + ByteKit.byteArrayToHexStr(bytes));
+                            continue;
+                        }
+                        if ("514".equals(words[1])) {
+                            byte[] bytes = PkgKit.package514(1).bytes();
+                            UdpKit.sendMsg(bytes, Config.SERVER_IP, Config.SERVER_PORT);
+                            logger.info("发送数据：" + ByteKit.byteArrayToHexStr(bytes));
+                            continue;
+                        }
+                        logger.info("没有对应数据包");
                         continue;
                     }
                     if (INFO.equalsIgnoreCase(words[0])) {
