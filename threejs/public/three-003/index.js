@@ -41,6 +41,16 @@
     // 背景色
     renderer.setClearColor(0xb9d3ff, 1);
     document.body.appendChild(renderer.domElement);
-    // 渲染
-    renderer.render(scene, camera);
+    let t0 = new Date().getTime();
+    let animate = () => {
+        let t1 = new Date().getTime(),
+            t = t1 - t0;
+        t0 = t1;
+        // mesh.rotateX(0.001 * t);
+        mesh.rotateY(0.001 * t);
+        // 渲染
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    };
+    animate();
 }
