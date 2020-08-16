@@ -7,7 +7,7 @@ def run() :
     content = '中华人民共和国万岁，世界人民大团结万岁！'
     while True:
         # 清理屏幕上的输出
-        #os.system('cls')  
+        # os.system('cls')
         os.system('clear')
         print(content)
 

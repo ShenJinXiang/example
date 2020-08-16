@@ -11,14 +11,14 @@ char = '*'
 for n in range(1, num):
     print(char * n)
 
-print('-------------------------------')
+print('-' * 40)
 
 for n in range(1, num):
     print(' ' * (num - n), char * n)
 
-print('-------------------------------')
+print('-' * 40)
 
 for n in range(1, num):
     print(' ' * (num - n), char * (2 * n - 1))
 
-print('-------------------------------')
+print('-' * 40)
