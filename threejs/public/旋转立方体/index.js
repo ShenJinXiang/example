@@ -4,6 +4,20 @@
 
     // 创建模型
     const geometry = new THREE.BoxGeometry(100, 100, 100);
+
+    //长方体 参数：长，宽，高
+    // var geometry = new THREE.BoxGeometry(100, 100, 100);
+    // 球体 参数：半径60  经纬度细分数40,40
+    // var geometry = new THREE.SphereGeometry(60, 40, 40);
+    // 圆柱  参数：圆柱面顶部、底部直径50,50   高度100  圆周分段数
+    // var geometry = new THREE.CylinderGeometry( 50, 50, 100, 25 );
+    // 正八面体
+    // var geometry = new THREE.OctahedronGeometry(50);
+    // 正十二面体
+    // var geometry = new THREE.DodecahedronGeometry(50);
+    // 正二十面体
+    // var geometry = new THREE.IcosahedronGeometry(50);
+
     // 材质对象
     const meterial = new THREE.MeshLambertMaterial({
         color: 0x0000FF
@@ -47,7 +61,7 @@
             t = t1 - t0;
         t0 = t1;
         // mesh.rotateX(0.001 * t);
-        mesh.rotateY(0.001 * t);
+        mesh.rotateX(0.001 * t);
         // 渲染
         renderer.render(scene, camera);
         requestAnimationFrame(animate);

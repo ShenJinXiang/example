@@ -17,6 +17,11 @@
     const mesh2 = new THREE.Mesh(geometry2, meterial2);
     mesh1.position.set(-150, 0, 0);
     mesh2.position.set(150, 0, 0);
+
+    // 辅助坐标系  参数250表示坐标系大小，可以根据场景大小去设置
+    // const axisHelper = new THREE.AxisHelper(250);
+    const axisHelper = new THREE.AxesHelper(250);
+    scene.add(axisHelper);
     // 添加到场景
     scene.add(mesh1);
     scene.add(mesh2);
@@ -40,7 +45,7 @@
         s = 200,
         camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
     // 相机位置
-    camera.position.set(0, 400, 400);
+    camera.position.set(100, 400, 400);
     // //设置相机方向(指向的场景对象)
     camera.lookAt(scene.position);
 
@@ -57,7 +62,7 @@
             t = t1 - t0;
         t0 = t1;
         // mesh.rotateX(0.001 * t);
-        mesh1.rotateY(0.001 * t);
+        mesh1.rotateZ(0.001 * t);
         mesh2.rotateZ(-0.002 * t);
         // 渲染
         renderer.render(scene, camera);
