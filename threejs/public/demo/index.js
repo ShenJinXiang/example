@@ -15,23 +15,17 @@
             drawer.initRender();
             drawer.initElements();
             drawer.render();
+            drawer.scene.add(new THREE.AxesHelper(250));
+            //创建控件对象
+            drawer.controls = new THREE.OrbitControls(drawer.camera, drawer.renderer.domElement);
+            drawer.controls.addEventListener('change', drawer.render);//监听鼠标、键盘事件
         },
         initElements() {
             let meterial = new THREE.MeshLambertMaterial({
-                color: 0x0000FF
-            }),
-                sx = -option.width * option.num / 2,
-                sy = -option.width * option.num / 2;
-            // drawer.scene.add(new THREE.Mesh(new THREE.SphereGeometry(60, 40, 40), meterial));
-            // drawer.elements = [];
-            for (let x = 0; x < option.num; x++) {
-                for (let y = 0; y < option.num; y++) {
-                    // drawer.elements.push(new THREE.SphereGeometry(option.radius, 40, 40));
-                    let mesh = new THREE.Mesh(new THREE.SphereGeometry(option.radius, 40, 40), meterial);
-                    mesh.position.set(sx + x * option.width, sy + y * option.width, 0);
-                    drawer.scene.add(mesh);
-                }
-            }
+                color: 0x0000FF,
+                wireframe: true
+            });
+            drawer.scene.add(new THREE.Mesh(new THREE.IcosahedronGeometry(200), meterial));
         },
         initLight() {
             // 点光源
