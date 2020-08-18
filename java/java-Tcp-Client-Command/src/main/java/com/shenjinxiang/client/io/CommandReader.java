@@ -4,6 +4,7 @@ import com.shenjinxiang.client.core.Config;
 import com.shenjinxiang.client.domain.ControTcpCommand;
 import com.shenjinxiang.client.kit.JsonKit;
 import com.shenjinxiang.client.kit.StrKit;
+import com.shenjinxiang.client.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +45,13 @@ public class CommandReader implements Runnable {
                         // 向服务端发送消息
                         Config.CLIENT_CHANNEL.writeAndFlush(JsonKit.toJson(controTcpCommand) + "\n");
                         continue;
+                    }
+                    if ("conn".equalsIgnoreCase(line)) {
+                        ThreadPool.getThread().execute(new NettyTcpClient(Config.SERVER_IP, Config.SERVER_PORT));
+                    }
+                    if ("close".equalsIgnoreCase(line)) {
+                        Config.CLIENT_CONTEXT.close();
+                        logger.info("关闭连接");
                     }
                     if ("exit".equalsIgnoreCase(line)) {
                         logger.info("程序结束！");

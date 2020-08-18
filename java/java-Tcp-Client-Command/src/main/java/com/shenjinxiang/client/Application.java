@@ -2,7 +2,6 @@ package com.shenjinxiang.client;
 
 import com.shenjinxiang.client.core.Config;
 import com.shenjinxiang.client.io.CommandReader;
-import com.shenjinxiang.client.io.NettyTcpClient;
 import com.shenjinxiang.client.kit.PathKit;
 import com.shenjinxiang.client.kit.ThreadPool;
 import org.apache.commons.cli.*;
@@ -24,7 +23,7 @@ public class Application {
             commandLine(args);
         }
         logInfo();
-        ThreadPool.getThread().execute(new NettyTcpClient(Config.SERVER_IP, Config.SERVER_PORT));
+//        ThreadPool.getThread().execute(new NettyTcpClient(Config.SERVER_IP, Config.SERVER_PORT));
         ThreadPool.getThread().execute(new CommandReader());
     }
 
