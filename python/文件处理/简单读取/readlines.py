@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import time
 
+
 def readlines(file_name):
-    try :
+    try:
         with open(file_name, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             return lines
@@ -12,6 +13,7 @@ def readlines(file_name):
         print('指定了未知的编码!')
     except UnicodeDecodeError:
         print('读取文件时解码错误!')
+
 
 def printlines(file_name):
     try:
@@ -26,6 +28,7 @@ def printlines(file_name):
         print('指定了未知的编码!')
     except UnicodeDecodeError:
         print('读取文件时解码错误!')
+
 
 if __name__ == '__main__':
     """
