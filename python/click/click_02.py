@@ -14,5 +14,6 @@ import click
 def run(name, age, height, info):
     print(f'姓名：{name}, 年龄: {age}, 身高: {height}, 介绍: {info}!')
 
+
 if __name__ == '__main__':
     run()
