@@ -25,13 +25,52 @@
                         data.push({
                             name: item.name,
                             value: item.value,
+                            // selected: true,
                             itemStyle: { color: item.color, borderColor: item.color },
+                            label: {
+                                show: true,
+                                position: 'outer',
+                                color: '#444'
+                            },
+                            labelLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#999'
+                                }
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    position: 'outer',
+                                    color: '#444'
+                                },
+                                labelLine: {
+                                    show: true,
+                                    lineStyle: {
+                                        color: '#999'
+                                    }
+                                },
+                            },
+                            tooltip: {
+                                // trigger: 'item',
+                                formatter: '{b} <br/>' + item.khs + ' 户: {c} ({d}%)'
+                            },
                         });
                     } else {
                         data.push({
                             name: item.name,
                             value: item.value,
                             itemStyle: { color: drawer.defaultFillColor, borderColor: drawer.defaultColor },
+                            label: {
+                                show: false,
+                            },
+                            labelLine: {
+                                show: false,
+                            },
+                            tooltip: {
+                                // trigger: 'item',
+                                formatter: '{b}未填写 <br/>{c} 户 ({d}%)'
+                            },
                             emphasis: {
                                 itemStyle: {
                                     color: item.color,
@@ -45,6 +84,15 @@
                 });
 
                 drawer.option = {
+                    title: {
+                        show: true,
+                        text: drawer.title,
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        // formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
                     series : [
                         {
                             name: drawer.title,
@@ -52,18 +100,19 @@
                             radius: '55%',
                             selectedMode: 'single',
                             label: {
-                                show: true,
-                                position: 'outer',
-                                color: '#444'
+                                show: false,
+                            //     position: 'outer',
+                            //     color: '#444'
                             },
                             labelLine: {
-                                lineStyle: {
-                                    color: '#999'
-                                }
+                                show: false
+                            //     lineStyle: {
+                            //         color: '#999'
+                            //     }
                             },
                             emphasis: {
                                 itemStyle: {
-                                    shadowBlur: 50,
+                                    shadowBlur: 10,
                                     shadowColor: 'rgba(40, 40, 40, 0.5)',
                                 }
                             },
