@@ -34,7 +34,7 @@ public class SendMsgThread implements Runnable {
     public void run() {
         while (true) {
             if (Consts.ISSENDMSG) {
-                logger.info("发送数据[" + count + "]!");
+//                logger.info("发送数据[" + count + "]!");
                 String str = createData();
                 Consts.channel.writeAndFlush(str + "\n");
                 count++;
