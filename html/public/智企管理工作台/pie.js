@@ -7,6 +7,8 @@
             start() {
                 drawer.id = setting.id;
                 drawer.title = setting.title;
+                drawer.width = setting.width;
+                drawer.height = setting.height;
                 drawer.data = setting.data;
                 drawer.click = setting.click;
                 drawer.defaultColor = setting.data[0].color;
@@ -97,18 +99,15 @@
                         {
                             name: drawer.title,
                             type: 'pie',
-                            radius: '55%',
+                            width: drawer.width,
+                            height: drawer.height,
+                            radius: '60%',
                             selectedMode: 'single',
                             label: {
                                 show: false,
-                            //     position: 'outer',
-                            //     color: '#444'
                             },
                             labelLine: {
                                 show: false
-                            //     lineStyle: {
-                            //         color: '#999'
-                            //     }
                             },
                             emphasis: {
                                 itemStyle: {

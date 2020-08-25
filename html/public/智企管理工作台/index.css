@@ -22,6 +22,10 @@ canvas {
 .tj-item:hover {
     /*box-shadow: 0px 0px 5px rgba(100, 100, 100, 0.5);*/
 }
+.tj-item .pie-content {
+    width: 100%;
+    height: 300px;
+}
 
 .table-title {
     display: block;
