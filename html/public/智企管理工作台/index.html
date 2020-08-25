@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/plugins/bootstrap/3.3.7/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/plugins/jqgrid/css/ui.jqgrid.css" />
+    <link rel="stylesheet" type="text/css" href="/plugins/jqgrid/css/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" type="text/css"  href="./index.css" />
+    <title>智企管理工作台</title>
+</head>
+<body>
+<div class="main-container">
+    <div class="row">
+        <div class="col-md-8 form-inline">
+            <label >所属期: </label>
+            <input type="text" class="form-control">
+            <span> - </span>
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <span id="gxInfo">工作台数据更新时间：2020-08-21 13:10</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="tj-item">
+                <div id="tbContent">
+<!--                    <canvas id="tbCanvas" class="" ></canvas>-->
+                </div>
+                <div>
+                    <div class="table-title">
+                        <span class="left">未填写印花税申报表，共<a href="javascript:void(0);">6</a>户</span>
+                        <span class="right"><a href="javascript:void(0);">详情</a></span>
+                    </div>
+                    <table id="tbTable"></table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="tj-item">
+                <div id="sbContent">
+<!--                    <canvas id="sbCanvas" class="" ></canvas>-->
+                </div>
+                <div>
+                    <div class="table-title">
+                        <span class="left">未申报印花税申报表，共<a href="javascript:void(0);">45</a>户</span>
+                        <span class="right"><a href="javascript:void(0);">详情</a></span>
+                    </div>
+                    <table id="sbTable"></table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="tj-item">
+                <div id="jkContent">
+<!--                    <canvas id="jkCanvas" class="" ></canvas>-->
+                </div>
+                <div>
+                    <div class="table-title">
+                        <span class="left">未缴款印花税申报表，共<a href="javascript:void(0);">18</a>户</span>
+                        <span class="right"><a href="javascript:void(0);">详情</a></span>
+                    </div>
+                    <table id="jkTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/plugins/jquery.js" ></script>
+<script src="/plugins/bootstrap/3.3.7/bootstrap.min.js" ></script>
+<script src="/plugins/jqgrid/jquery.jqGrid.min.js" ></script>
+<script src="/plugins/jqgrid/grid.locale-cn.js" ></script>
+<script src="./pie.js" ></script>
+<script src="./index.js" ></script>
+</body>
+</html>
