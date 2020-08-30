@@ -45,12 +45,12 @@ def del_one(id):
 
 
 @click.command('ls', help='查看所有人员列表')
-def list():
+def list_person():
     ps.query_all()
 
 
 @click.command('ll', help='查看所有人员详细信息列表')
-def list_all():
+def list_person_info():
     ps.query_all_info()
 
 
@@ -58,8 +58,8 @@ run.add_command(add)
 run.add_command(upd)
 run.add_command(query_one)
 run.add_command(del_one)
-run.add_command(list)
-run.add_command(list_all)
+run.add_command(list_person)
+run.add_command(list_person_info)
 
 if __name__ == '__main__':
     run()
