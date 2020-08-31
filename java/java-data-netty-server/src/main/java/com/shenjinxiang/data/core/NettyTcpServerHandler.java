@@ -1,5 +1,6 @@
 package com.shenjinxiang.data.core;
 
+import com.shenjinxiang.data.kit.StrKit;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -33,6 +34,9 @@ public class NettyTcpServerHandler extends ChannelInboundHandlerAdapter {
         }
         if (Consts.ISSENDMSG && "end".equalsIgnoreCase(content)) {
             Consts.ISSENDMSG = false;
+        }
+        if (StrKit.notBlank(content) && "exit".equalsIgnoreCase(content.trim())) {
+            System.exit(0);
         }
     }
 
