@@ -1,0 +1,9 @@
+# true 值支持热加载
+undertow.devMode=true
+undertow.port=8888
+undertow.host=0.0.0.0
+
+# 绝大部分情况不建议配置 context path
+undertow.contextPath=/abc
+
+undertow.resourcePath = src/main/webapp, classpath:static
