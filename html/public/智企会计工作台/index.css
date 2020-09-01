@@ -1,0 +1,126 @@
+.main-container {
+    display: block;
+    margin: 0px;
+    padding: 15px;
+}
+
+.title-container{
+    margin-left: 15px;
+    font-size: 20px;
+}
+.row-container{
+    display: block;
+    clear: both;
+    min-height: 28px;
+    margin: 10px;
+}
+.table-container{
+    width: 100%;
+    padding: 15px;
+    margin: 10px auto;
+}
+.row-container .bsdh-title {
+    font-size: 20px;
+    color: #66afe9;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.row-container .link-container {
+    width: 100%;
+    padding: 0px 15px;
+    height: 80px;
+}
+.row-container .link-container .sp-item {
+    width: 3%;
+    height: 80px;
+    float: left;
+}
+.row-container .link-container .link-item {
+    display: inline-block;
+    width: 22.75%;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    float: left;
+}
+.row-container .link-container .link-item .icon-item-box {
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    left: 20px;
+    top: 10px;
+    background: hsla(200, 60%, 80%, 0.7);
+    text-align: center;
+}
+.row-container .link-container .link-item i {
+    font-size: 40px;
+    color: #66afe9;
+}
+.row-container .link-container .link-item .text-item-box {
+    display: inline-block;
+    width: calc(100% - 80px);
+    height: 80px;
+    position: absolute;
+    left: 80px;
+    top: 0px;
+    padding: 16px 0;
+}
+.row-container .link-container .link-item .text-item-box span{
+    display: block;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    font-weight: 400;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.zt-box {
+    height: 100%;
+    display: inline-block;
+    width: 90%;
+    position: relative;
+}
+.zt-box .val-span{
+    width: 100%;
+    line-height: 32px;
+    height: 32px;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+.zt-box .iconfont {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.row-container .link-container .link-item:hover {
+    border-color: #66afe9;
+}
+.row-container .link-container .link-item:hover span {
+    color: #1593f7;
+    font-weight: 500;
+}
+
+.zt-box .iconfont:hover {
+    color: #0e8ff3;
+}
+.red{
+    color: #ec0404;
+}
+.green {
+    color: #14e211;
+}
