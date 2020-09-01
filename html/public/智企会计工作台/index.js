@@ -14,14 +14,25 @@ $(() => {
                 {name: 'SHXYDM', index: 'SHXYDM', width: 200, sortable: false},
                 {name: 'WTX', index: 'WTX', width: 100, sortable: false, align: 'center',
                     formatter: function (val, option, row){
-
+                        return '<div class="zt-box">' +
+                            '<span class="val-span">' + val + '</span> ' +
+                            '<i class="iconfont icon-List"></i>'+
+                            '</div>'
                     }},
                 {name: 'WSB', index: 'WSB', width: 100, sortable: false, align: 'center',
                     formatter: function (val, option, row){
+                        return '<div class="zt-box">' +
+                            '<span class="val-span">' + val + '</span> ' +
+                            '<i class="iconfont icon-List"></i>'+
+                            '</div>'
 
                     }},
                 {name: 'WJK', index: 'WJK', width: 100, sortable: false, align: 'center',
                     formatter: function (val, option, row){
+                        return '<div class="zt-box">' +
+                            '<span class="val-span">' + val + '</span> ' +
+                            '<i class="iconfont icon-List"></i>'+
+                            '</div>'
 
                     }},
             ],

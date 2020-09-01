@@ -81,3 +81,27 @@
 .text-right {
     text-align: right;
 }
+
+.zt-box {
+    height: 100%;
+    display: inline-block;
+    width: 90%;
+    position: relative;
+}
+.zt-box .val-span{
+    width: 100%;
+    line-height: 32px;
+    height: 32px;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+.zt-box .iconfont {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    /*background: #ccc;*/
+    font-size: 18px;
+    cursor: pointer;
+}

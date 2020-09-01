@@ -1,10 +1,52 @@
 {
-  "id": "",
-  "name": "",
+  "id": "2039533",
+  "name": "z'q",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "577409",
+      "name": "list",
+      "font_class": "weibiao45127",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "737948",
+      "name": "list",
+      "font_class": "list",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "1393688",
+      "name": "list",
+      "font_class": "list1",
+      "unicode": "e701",
+      "unicode_decimal": 59137
+    },
+    {
+      "icon_id": "5127402",
+      "name": "list",
+      "font_class": "list2",
+      "unicode": "e7c2",
+      "unicode_decimal": 59330
+    },
+    {
+      "icon_id": "7215711",
+      "name": "List",
+      "font_class": "List",
+      "unicode": "e6e8",
+      "unicode_decimal": 59112
+    },
+    {
+      "icon_id": "8327014",
+      "name": "List",
+      "font_class": "List1",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
     {
       "icon_id": "1315166",
       "name": "支付",
