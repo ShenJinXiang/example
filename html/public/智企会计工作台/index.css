@@ -76,6 +76,8 @@
     line-height: 24px;
     text-align: center;
     font-size: 15px;
+    color: #555;
+    font-weight: 400;
 }
 
 .text-right {
@@ -101,7 +103,24 @@
     position: absolute;
     right: 0px;
     top: 3px;
-    /*background: #ccc;*/
     font-size: 18px;
     cursor: pointer;
+}
+
+.row-container .link-container .link-item:hover {
+    border-color: #66afe9;
+}
+.row-container .link-container .link-item:hover span {
+    color: #1593f7;
+    font-weight: 500;
+}
+
+.zt-box .iconfont:hover {
+    color: #0e8ff3;
+}
+.red{
+    color: #ec0404;
+}
+.green {
+    color: #14e211;
 }
