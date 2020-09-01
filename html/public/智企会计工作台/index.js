@@ -4,8 +4,8 @@ $(() => {
     function initGrid() {
         let data =getData();
         $("#tableGrid").jqGrid({
-            height:200,
-            width: $("#tableGrid").parent().width() * 0.99,
+            height: 200,
+            width: $("#tableGrid").parent().width(),
             // width: 800,
             datatype: 'local',
             colNames: ['客户名称', '社会信用代码', '已填表', '已申报', '已缴款'],
