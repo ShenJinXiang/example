@@ -156,23 +156,43 @@ public class ByteArrayConveter {
 
 
     public static void main(String[] args) {
-        float f = 11.9f;
-        byte[] byteArray = getByteArray(f);
-        float aFloat = getFloat(byteArray, 0);
-        System.out.println(aFloat);
+        double d1 = 15.3;
+        byte[] bytes = getByteArray(d1);
+        String hex = ByteKit.byteArrayToHexStr(bytes);
+        System.out.println(hex);
+        byte[] bytes2 = ByteKit.hexStrToByteArray(hex);
+        double d2 = getDouble(bytes2, 0);
+        System.out.println(d2);
 
-        byte[] bytes1 = new byte[]{(byte) 0x80};
-        byte[] bytes2 = getByteArray((short) 18486);
-        byte[] bytes3 = getByteArray(1234);
-        byte[] bytes4 = getByteArray(1234);
-        byte[] bytes5 = getByteArray(1234);
-        byte[] bytes6 = getByteArray(1234);
-        byte[] bytes7 = new byte[]{(byte)0xf1};
-        byte[] bytes8 = getByteArray(1234);
-        byte[] bytes9 = getByteArray((short) 20);
-        byte[] bytes10 = getByteArray(1234);
-        byte[] bytes11 = getByteArray((short) 20);
-        byte[] head = ByteKit.asBytes(bytes1, bytes2, bytes3, bytes4, bytes5, bytes6, bytes7, bytes8, bytes9, bytes10, bytes11);
+        float f1 = -75.5f;
+        byte[] bytes3 = getByteArray(f1);
+        String hex3 = ByteKit.byteArrayToHexStr(bytes3);
+        System.out.println(hex3);
+        byte[] bytes4 = ByteKit.hexStrToByteArray(hex3);
+        double f2 = getFloat(bytes4, 0);
+        System.out.println(f2);
+
+
+
+//        float f = 11.9f;
+//        byte[] byteArray = getByteArray(f);
+//        float aFloat = getFloat(byteArray, 0);
+//        System.out.println(aFloat);
+//
+//        byte[] bytes1 = new byte[]{(byte) 0x80};
+//        byte[] bytes2 = getByteArray((short) 18486);
+//        byte[] bytes3 = getByteArray(1234);
+//        byte[] bytes4 = getByteArray(1234);
+//        byte[] bytes5 = getByteArray(1234);
+//        byte[] bytes6 = getByteArray(1234);
+//        byte[] bytes7 = new byte[]{(byte)0xf1};
+//        byte[] bytes8 = getByteArray(1234);
+//        byte[] bytes9 = getByteArray((short) 20);
+//        byte[] bytes10 = getByteArray(1234);
+//        byte[] bytes11 = getByteArray((short) 20);
+//        byte[] head = ByteKit.asBytes(bytes1, bytes2, bytes3, bytes4, bytes5, bytes6, bytes7, bytes8, bytes9, bytes10, bytes11);
+
+
 
     }
 }
