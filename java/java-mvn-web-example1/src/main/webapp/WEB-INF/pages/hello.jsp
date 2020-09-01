@@ -12,6 +12,5 @@
 </head>
 <body>
 123456
-WEB-INF/pages/hello.js
 </body>
 </html>
