@@ -6,6 +6,8 @@ import com.jfinal.ext.plugin.shiro.ShiroPlugin3;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
+import com.shenjinxiang.mvn.rapid.actions.BaseCommonAction;
+import com.shenjinxiang.mvn.rapid.actions.MainAction;
 import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
 import com.shenjinxiang.mvn.rapid.handler.xss.XssHandler;
 import com.shenjinxiang.mvn.rapid.interceptors.DbSourceInterceptor;
@@ -23,7 +25,7 @@ public abstract class RapidConfig extends JFinalConfig {
 
     @Override
     public void configConstant(Constants constants) {
-        constants.setReportAfterInvocation(true);
+        constants.setReportAfterInvocation(false);
         constants.setError401View("/WEB-INF/pages/common/401.html");
         constants.setError403View("/WEB-INF/pages/common/403.html");
         constants.setError404View("/WEB-INF/pages/common/404.html");
@@ -35,6 +37,9 @@ public abstract class RapidConfig extends JFinalConfig {
         RapidConsts.IS_DEV_MODE = getPropertyToBoolean("devMode");
         constants.setDevMode(RapidConsts.IS_DEV_MODE);
         constants.setViewType(ViewType.JSP);
+
+        constants.setInjectDependency(true);
+        constants.setInjectSuperClass(true);
         // 全局错误提示
         RapidConsts.setErrorMsg(configErrorMsg());
     }
@@ -43,6 +48,8 @@ public abstract class RapidConfig extends JFinalConfig {
     @Override
     public void configRoute(Routes routes) {
         this.routes = routes;
+        routes.add("/", MainAction.class);
+        routes.add("/common", BaseCommonAction.class);
         configAction(this.routes);
     }
 

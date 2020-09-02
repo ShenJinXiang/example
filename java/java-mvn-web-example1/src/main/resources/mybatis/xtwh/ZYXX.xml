@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shenjinxiang.mvn.mapper.xtwh.ZyglMapper">
+
+    <select id="Dynasearch_zyxx_count" parameterType="map" resultType="int" >
+        select count(1) from xtwh_zyxx t
+        <choose>
+            <when test="nodeid==null or nodeid == '' ">
+                where (t.sjzyid = '' or t.sjzyid is null)
+            </when>
+            <otherwise>
+                where t.sjzyid = #{nodeid}
+            </otherwise>
+        </choose>
+        <if test="s_zymclj!=null and s_zymclj!=''">
+            and (t.zymc like '%${s_zymclj}%' or t.zylj like '%${s_zymclj}%')
+        </if>
+    </select>
+    <select id="Dynasearch_zyxx_getData" parameterType="map" resultType="map">
+        select
+        t.zyid as id,
+        t.zymc,
+        t.sjzyid,
+        (select zymc from xtwh_zyxx where zyid = t.sjzyid) as sjzymc,
+        t.zylj,
+        t.zytb,
+        t.zyms,
+        t.zylx,
+        t.zypx,
+        convert(length(t.zyid)/2-1,signed) as level,
+        (case when (select count(1) from xtwh_zyxx where sjzyid = t.zyid)>0 then 'false' else 'true' end) as leaf,
+        'false' as expanded
+        from xtwh_zyxx t
+        <choose>
+            <when test="nodeid==null or nodeid == '' ">
+                where (t.sjzyid = '' or t.sjzyid is null)
+            </when>
+            <otherwise>
+                where t.sjzyid = #{nodeid}
+            </otherwise>
+        </choose>
+        <if test="s_zymclj!=null and s_zymclj!=''">
+            and (t.zymc like '%${s_zymclj}%' or t.zylj like '%${s_zymclj}%')
+        </if>
+        order by zypx asc limit ${start}, ${limit}
+    </select>
+
+    <select id="queryAllZyList" resultType="bean" >
+        select * from xtwh_zyxx
+    </select>
+
+    <!-- 资源id生成 -->
+    <select id="queryZyid" parameterType="string" resultType="string">
+	select (concat(#{_parameter},
+	               lpad((select ifnull(max(right(zyid,2)+0),0) + 1
+	                      from xtwh_zyxx
+	                     where sjzyid = #{_parameter}),
+	                    2,
+	                    0))) as zyid
+	</select>
+
+    <insert id="saveZyxx" parameterType="map">
+        insert into xtwh_zyxx
+        (
+        `zyid`, `zymc`, `sjzyid`, `zylj`, `zytb`, `zyms`, `zylx`, `sfxs`, `zypx`
+        )
+        values
+        (
+        #{zyid, jdbcType=VARCHAR},
+        #{zymc, jdbcType=VARCHAR},
+        #{sjzyid, jdbcType=VARCHAR},
+        #{zylj, jdbcType=VARCHAR},
+        #{zytb, jdbcType=VARCHAR},
+        #{zyms, jdbcType=VARCHAR},
+        #{zylx, jdbcType=INTEGER},
+        1,
+        #{zypx, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <!-- 资源信息查询 -->
+    <select id="selectZyxx" parameterType="string" resultType="bean">
+	select t.zyid,
+	       t.zymc,
+	       t.sjzyid,
+	       (select zymc from xtwh_zyxx where zyid = t.sjzyid) as sjzymc,
+	       t.zylj,
+	       t.zytb,
+	       t.zyms,
+	       t.zylx,
+	       t.zypx
+	  from xtwh_zyxx t
+	 where zyid = #{_parameter}
+	</select>
+
+    <select id="countByZySjjyid" parameterType="string" resultType="int">
+        select count(0)
+        from xtwh_zyxx
+        <where>
+            and sjzyid = #{sjzyid, jdbcType=VARCHAR}
+        </where>
+    </select>
+
+    <delete id="deleteByZyid" parameterType="String">
+        delete from xtwh_zyxx
+        <where>
+            and zyid = #{zyid, jdbcType=VARCHAR}
+        </where>
+    </delete>
+
+    <update id="updateByZyid" parameterType="map">
+        update xtwh_zyxx
+        <set>
+            zymc = #{zymc, jdbcType=VARCHAR},
+            zylj = #{zylj, jdbcType=VARCHAR},
+            zytb = #{zytb, jdbcType=VARCHAR},
+            zyms = #{zyms, jdbcType=VARCHAR},
+            zylx = #{zylx, jdbcType=INTEGER},
+            zypx = #{zypx, jdbcType=INTEGER},
+        </set>
+        <where>
+            and zyid = #{zyid, jdbcType=VARCHAR}
+        </where>
+    </update>
+
+    <!-- 树形资源信息查询 -->
+    <select id="zyxx_selectForTree" resultType="bean">
+		select zyid id,
+	       zymc name,
+	       sjzyid pId,
+	       zylx,
+	       (select if(count(0) > 0, true, false)
+	          from xtwh_zyxx c
+	         where c.sjzyid = t.zyid) open,
+	       false as checked
+		 from xtwh_zyxx t
+		 order by zypx asc
+	</select>
+</mapper>

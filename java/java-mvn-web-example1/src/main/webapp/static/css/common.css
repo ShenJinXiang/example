@@ -1,0 +1,184 @@
+/**通用css by：liugong*/
+
+/**郭晓蓉增加通用样式 huangwei 2015.11.25*/
+body,html,div,span,p,dl,dd,dt,article,aside,section,table,tr,th,td,p{margin:0;padding:0;font-size:100%;}
+body{
+	margin: 0px 5px 0px 5px;
+}
+/**通用查询*/
+.search_div{width:auto;margin:15px 5px 14px 5px;overflow:hidden;z-index:99;}
+.search_font{float:left;font-size:12px;color:#3D3D3D;margin-left:20px;line-height:25px;}
+.search_select{float:left;line-height:25px;height:25px;width:150px;border:1px solid #CBD5DE;margin-left:10px;}
+.search_input{float:left;line-height:20px;height:20px;width:150px;border:1px solid #CBD5DE;margin-left:10px;}
+
+/**通用按钮*/
+button._btn:hover {
+    background-image: linear-gradient(#cbcbcb, #bfbfbf);
+    background-size: 100% auto;
+}
+button._btn {
+    background-image: linear-gradient(#d8d8d8, #cbcbcb);
+    background-size: 100% auto;
+    border-bottom: 1px solid #0071ff;
+    color: white;
+    cursor: pointer;
+	margin-left:10px;
+    border: medium none;
+    color: #595959;
+    font-size: 13px;
+    height: 25px;
+    letter-spacing: 0.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:0px 20px 0px 20px;
+    width: auto;
+}
+
+button._searchbtn:hover {
+    background-image: linear-gradient(#4d9cff, #338eff);
+    background-size: 100% auto;
+}
+button._searchbtn {
+    background-image: linear-gradient(#66aaff, #4d9cff);
+    background-size: 100% auto;
+    border-bottom: 1px solid #0071ff;
+    color: white;
+    cursor: pointer;
+	margin-left:10px;
+    border: medium none;
+    color: #fff;
+    font-size: 13px;
+    height: 25px;
+    letter-spacing: 0.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:0px 20px 0px 20px;
+    width: auto;
+}
+
+button._masterbtn:hover {
+    background-image: linear-gradient(#4d9cff, #338eff);
+    background-size: 100% auto;
+}
+button._masterbtn {
+    background-image: linear-gradient(#66aaff, #4d9cff);
+    background-size: 100% auto;
+    border-bottom: 1px solid #0071ff;
+    color: white;
+    cursor: pointer;
+	margin-left:10px;
+    border: medium none;
+    color: #fff;
+    font-size: 13px;
+    height: 25px;
+    letter-spacing: 0.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding:0px 20px 0px 20px;
+    width: auto;
+}
+
+.fl_r{float:right}
+
+/**表格内操作*/
+.tdcz{display: none;}
+.ui-state-hover .tdcz{
+	cursor:pointer;
+	display: inline-block;
+}
+.ui-state-hover .tdcz a{
+	margin-left: 10px;
+}
+
+.td_btn{float:left;font-size:12px;color:#3D3D3D;line-height:16px; cursor:pointer;text-decoration: none;}
+.td_btn:hover{color:#E35850;text-decoration: underline;}
+.td_btn.td_btn_auto{float:left;background:url(../images/auto.png) no-repeat;height:16px;padding-left:20px;margin-left:5px;text-decoration: none;}
+.td_btn.td_btn_auto:hover{background:url(../images/auto2.png) no-repeat;text-decoration: underline;}
+.td_btn.td_btn_change{float:left;background:url(../images/change.png) no-repeat;height:16px;padding-left:20px;margin-left:5px;text-decoration: none;}
+.td_btn.td_btn_change:hover{background:url(../images/change2.png) no-repeat;text-decoration: underline;}
+.td_btn.td_btn_delete{float:left;background:url(../images/delete.png) no-repeat;height:16px;padding-left:20px;margin-left:5px;text-decoration: none;}
+.td_btn.td_btn_delete:hover{background:url(../images/delete2.png) no-repeat;text-decoration: underline;}
+.td_btn.td_btn_password{float:left;background:url(../images/password.png) no-repeat;height:16px;padding-left:20px;margin-left:5px;text-decoration: none;}
+.td_btn.td_btn_password:hover{background:url(../images/password2.png) no-repeat;text-decoration: underline;}
+.td_btn.td_btn_add{float:left;background:url(../images/add.png) no-repeat;height:16px;padding-left:20px;margin-left:5px;text-decoration: none;}
+.td_btn.td_btn_add:hover{background:url(../images/add2.png) no-repeat;text-decoration: underline;}
+
+.megbox{width:100%;margin:0 auto;overflow:hidden;}
+.megbox_form{width:auto;margin:20px 20px 20px 0px;}
+.megbox_dl{width:auto; position:relative;overflow:hidden;}/*增加overflow：hidden 在新增form页面中 每一个 megbox_dl 是强制一行 huangwei 2015.11.25*/
+.megbox_dl dd{float:left;margin:4px 0px 4px 20px;}
+.megbox_dl dd label{float:left;width:80px;font-size:12px;font-family:"宋体";color:#3D3D3D; text-align:right;line-height:30px;overflow:hidden;}
+.megbox_dl .megbox_span{float:left;margin-left:5px;}
+.megbox_dl .megbox_span.notes{width:487px;font-size:12px;font-family:"宋体";line-height:20px;margin-top:6px;}
+.megbox_dl .megbox_input{padding-left:4px;border:1px solid #CBD5DE;height:25px; line-height:25px;width:180px;font-size:12px;font-family:"宋体";}
+.megbox_dl .megbox_select{border:1px solid #CBD5DE;height:28px; line-height:28px;width:186px;font-size:12px;font-family:"宋体";color:#3D3D3D;}
+.inp_readonly{color:#999999;}
+.megbox_btn{min-width:60px;height:25px;line-height:22px; text-align:center;border:1px solid  #CBD5DE;background-color:#EAEDF1;font-size:12px;font-family:"宋体";color:#3D3D3D; cursor:pointer;margin-left:10px;float:left;margin-top:10px;}
+.megbox_btn:hover{border:1px solid #029CD7;color:#ffffff;background-color:#029CD7;}
+.megbox_btn.on{border:1px solid #029CD7;color:#ffffff;background-color:#029CD7;}
+
+
+.left {float:left;width:220px; height:200px; border: 1px solid #CBD5DE;}
+.right {margin-left:230px;}
+
+.dl_bot{float:left;overflow:hidden;}
+.dl_bot dt{
+	float: left;
+    font-size: 15px;
+    font-family: "微软雅黑";
+    line-height: 20px;
+    padding:0px 10px 5px 10px;
+    margin: 0 5px;
+	cursor:pointer;
+	position:relative;
+	}
+.dl_bot dt.active{
+    border-bottom: 2px solid #FF6600;
+	}	
+.dl_bot dt .font{color:#CC0000;padding-left:5px;}	
+.dl_bot dt:hover{color:#FF6600;}
+.dl_bot dd{
+	float:left;
+	font-size:16px;
+	color:#BFBFBF;
+	font-family:"宋体";
+	margin-left: 10px;
+	}
+.search_icon{float:left;width:24px;height:24px;}	
+
+/**标签状态*/
+.label {
+	background:#78cd51;
+  	font-size: 13px;
+  	padding: 4px 8px;
+  	border: 0;
+  	text-shadow: none;
+  	border-radius: 2px;
+}
+.labelH {
+	background:#FF9135;
+  	font-size: 13px;
+  	padding: 4px 8px;
+  	border: 0;
+  	text-shadow: none;
+  	border-radius: 2px;
+  	color: white;
+}
+.labelM {
+	background:#61DC61;
+  	font-size: 13px;
+  	padding: 4px 8px;
+  	border: 0;
+  	text-shadow: none;
+  	border-radius: 2px;
+  	color: white;
+}
+.labelL {
+	background:#87CEE9;
+  	font-size: 13px;
+  	padding: 4px 8px;
+  	border: 0;
+  	text-shadow: none;
+  	border-radius: 2px;
+  	color: white;
+}

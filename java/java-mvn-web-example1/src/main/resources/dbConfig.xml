@@ -11,14 +11,4 @@
         <dbMaxActive>150</dbMaxActive>
         <dbInitSize>5</dbInitSize>
     </dbSource>
-    <dbSource>
-        <key>sbgl</key>
-        <dbType>oracle</dbType>
-        <driver>oracle.jdbc.driver.OracleDriver</driver>
-        <jdbcUrl>jdbc:oracle:thin:@172.26.128.49:1521:orcl</jdbcUrl>
-        <user>SXTS_DLSB</user>
-        <password>dzswjdb2018qwe</password>
-        <dbMaxActive>150</dbMaxActive>
-        <dbInitSize>5</dbInitSize>
-    </dbSource>
 </dbConfig>

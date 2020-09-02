@@ -7,5 +7,6 @@
 	</typeAliases>
     <mappers>
         <mapper resource="mybatis/TEST.xml"/>
+        <mapper resource="mybatis/xtwh/ZYXX.xml"/>
     </mappers>
 </configuration>
