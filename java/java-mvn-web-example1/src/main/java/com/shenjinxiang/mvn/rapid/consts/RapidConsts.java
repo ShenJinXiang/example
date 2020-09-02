@@ -22,6 +22,17 @@ public final class RapidConsts {
 
     private static String ERROR_MSG = "操作失败，请联系管理员！";
 
+    private static String DEFAULT_DBSOURCE_KEY;
+
+    public static void setDEFAULT_DBSOURCE_KEY(String default_dbsource_key) {
+        DEFAULT_DBSOURCE_KEY = default_dbsource_key;
+    }
+
+    public static String getDEFAULT_DBSOURCE_KEY() {
+        return DEFAULT_DBSOURCE_KEY;
+    }
+
+
     public static String getErrorMsg() {
         return ERROR_MSG;
     }

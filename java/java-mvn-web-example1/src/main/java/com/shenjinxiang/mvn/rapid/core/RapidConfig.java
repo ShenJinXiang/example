@@ -1,11 +1,15 @@
 package com.shenjinxiang.mvn.rapid.core;
 
 import com.jfinal.config.*;
+import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
 import com.shenjinxiang.mvn.rapid.handler.xss.XssHandler;
 import com.shenjinxiang.mvn.rapid.plugin.druid.DruidStatViewHandler;
+import com.shenjinxiang.mvn.rapid.plugin.mybatis.DbSourcePlugin;
+
+import java.net.URL;
 
 public abstract class RapidConfig extends JFinalConfig {
 
@@ -45,7 +49,9 @@ public abstract class RapidConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins plugins) {
-
+        URL url = getClass().getResource("ehcache.xml");
+        plugins.add(new EhCachePlugin(url));
+        DbSourcePlugin.configPlugin(plugins);
     }
 
     @Override

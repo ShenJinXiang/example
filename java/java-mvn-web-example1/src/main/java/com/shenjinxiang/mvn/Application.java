@@ -1,11 +1,10 @@
 package com.shenjinxiang.mvn;
 
-import com.jfinal.config.*;
+import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
-import com.jfinal.render.ViewType;
-import com.jfinal.template.Engine;
 import com.shenjinxiang.mvn.actions.HelloAction;
 import com.shenjinxiang.mvn.rapid.core.RapidConfig;
+import com.shenjinxiang.mvn.rapid.kits.PathKit;
 
 /**
  * @Author: ShenJinXiang
@@ -23,7 +22,11 @@ public class Application extends RapidConfig {
         routes.add("/hello", HelloAction.class);
     }
 
-    public static void main(String[] args) {
-        JFinal.start("E:/shenjinxiang/git_xm/example/java/java-mvn-web-example1/src/main/webapp", 8888, "/", 5);
+    public static void main(String[] args) throws IllegalAccessException {
+        System.out.println(PathKit.getCurrentPath());
+        System.out.println(PathKit.getCrrentFilePath());
+//        String rootDir = "E:/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
+        String rootDir = "/Users/shenjinxiang/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
+        JFinal.start(rootDir + "src/main/webapp", 8888, "/", 5);
     }
 }
