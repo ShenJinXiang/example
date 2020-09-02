@@ -36,3 +36,4 @@ target/
 
 #node
 node_modules/
+session_data/

@@ -1,6 +1,8 @@
 package com.shenjinxiang.mvn.actions;
 
 import com.jfinal.core.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @Author: ShenJinXiang
@@ -8,11 +10,15 @@ import com.jfinal.core.Controller;
  */
 public class HelloAction extends Controller {
 
+    private static final Logger logger = LoggerFactory.getLogger(HelloAction.class);
+
     public void index() {
+        logger.info("index");
         renderText("hello mvn-web");
     }
 
     public void page() {
+        logger.info("page");
         renderJsp("/WEB-INF/pages/hello.jsp");
     }
 }
