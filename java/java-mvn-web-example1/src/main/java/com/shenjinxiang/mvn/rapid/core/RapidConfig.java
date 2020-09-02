@@ -1,6 +1,5 @@
 package com.shenjinxiang.mvn.rapid.core;
 
-import cn.dreampie.shiro.core.ShiroInterceptor;
 import com.jfinal.config.*;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
@@ -9,6 +8,7 @@ import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
 import com.shenjinxiang.mvn.rapid.handler.xss.XssHandler;
 import com.shenjinxiang.mvn.rapid.plugin.druid.DruidStatViewHandler;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.DbSourcePlugin;
+import com.shenjinxiang.mvn.rapid.shiro.RapidShiroInterceptor;
 
 import java.net.URL;
 
@@ -58,7 +58,7 @@ public abstract class RapidConfig extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors interceptors) {
-//        interceptors.add(new ShiroInterceptor());
+        interceptors.add(new RapidShiroInterceptor());
     }
 
     @Override

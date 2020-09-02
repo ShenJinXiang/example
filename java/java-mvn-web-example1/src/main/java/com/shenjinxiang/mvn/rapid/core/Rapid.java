@@ -2,6 +2,7 @@ package com.shenjinxiang.mvn.rapid.core;
 
 import com.jfinal.core.JFinal;
 import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
+import com.shenjinxiang.mvn.rapid.kits.PathKit;
 
 public class Rapid {
 
@@ -30,7 +31,10 @@ public class Rapid {
      * @param context 上下文
      * @param scanIntervalSeconds 代码刷新时间
      */
-    public void start(String webAppDir, int port, String context, int scanIntervalSeconds){
-        JFinal.start(webAppDir, port, context, scanIntervalSeconds);
+    public void start(int port, String context) throws IllegalAccessException {
+        String targetPath = PathKit.getCurrentPath();
+        String contextDir = targetPath.substring(0, targetPath.lastIndexOf("target"));
+        String webAppDir = contextDir + "src/main/webapp";
+        JFinal.start(webAppDir, port, context, 5);
     }
 }
