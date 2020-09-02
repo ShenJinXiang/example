@@ -25,8 +25,8 @@ public class Application extends RapidConfig {
     public static void main(String[] args) throws IllegalAccessException {
         System.out.println(PathKit.getCurrentPath());
         System.out.println(PathKit.getCrrentFilePath());
-//        String rootDir = "E:/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
-        String rootDir = "/Users/shenjinxiang/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
+        String rootDir = "E:/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
+//        String rootDir = "/Users/shenjinxiang/shenjinxiang/git_xm/example/java/java-mvn-web-example1/";
         JFinal.start(rootDir + "src/main/webapp", 8888, "/", 5);
     }
 }
