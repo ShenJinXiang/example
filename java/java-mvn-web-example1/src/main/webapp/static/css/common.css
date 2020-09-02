@@ -107,7 +107,7 @@ button._masterbtn {
 .megbox_form{width:auto;margin:20px 20px 20px 0px;}
 .megbox_dl{width:auto; position:relative;overflow:hidden;}/*增加overflow：hidden 在新增form页面中 每一个 megbox_dl 是强制一行 huangwei 2015.11.25*/
 .megbox_dl dd{float:left;margin:4px 0px 4px 20px;}
-.megbox_dl dd label{float:left;width:80px;font-size:12px;font-family:"宋体";color:#3D3D3D; text-align:right;line-height:30px;overflow:hidden;}
+.megbox_dl dd label{float:left;width:100px;font-size:12px;font-family:"宋体";color:#3D3D3D; text-align:right;line-height:30px;overflow:hidden;}
 .megbox_dl .megbox_span{float:left;margin-left:5px;}
 .megbox_dl .megbox_span.notes{width:487px;font-size:12px;font-family:"宋体";line-height:20px;margin-top:6px;}
 .megbox_dl .megbox_input{padding-left:4px;border:1px solid #CBD5DE;height:25px; line-height:25px;width:180px;font-size:12px;font-family:"宋体";}
@@ -117,6 +117,8 @@ button._masterbtn {
 .megbox_btn:hover{border:1px solid #029CD7;color:#ffffff;background-color:#029CD7;}
 .megbox_btn.on{border:1px solid #029CD7;color:#ffffff;background-color:#029CD7;}
 
+.megbox_dl .megbox_input.lange{padding-left:4px;border:1px solid #CBD5DE;height:25px; line-height:25px;width:493px;font-size:12px;font-family:"宋体";}
+.megbox_dl textarea.megbox_input{padding-left:4px;border:1px solid #CBD5DE;height:60px;resize:none; line-height:25px;width:493px;font-size:12px;font-family:"宋体";}
 
 .left {float:left;width:220px; height:200px; border: 1px solid #CBD5DE;}
 .right {margin-left:230px;}
