@@ -4,6 +4,8 @@ import com.jfinal.config.*;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
+import com.shenjinxiang.mvn.rapid.handler.xss.XssHandler;
+import com.shenjinxiang.mvn.rapid.plugin.druid.DruidStatViewHandler;
 
 public abstract class RapidConfig extends JFinalConfig {
 
@@ -17,10 +19,14 @@ public abstract class RapidConfig extends JFinalConfig {
         constants.setError403View("/WEB-INF/pages/common/403.html");
         constants.setError404View("/WEB-INF/pages/common/404.html");
         constants.setError500View("/WEB-INF/pages/common/500.html");
-        constants.setMaxPostSize(50 * 1024 * 1024);
-
+        constants.setMaxPostSize(RapidConsts.MAX_POST_SIZE);
+        // 读取rapid配置
+        loadPropertyFile("rapid.properties");
+        RapidConsts.setIsAllScr(getPropertyToBoolean("isAllScr"));
+        RapidConsts.IS_DEV_MODE = getPropertyToBoolean("devMode");
         constants.setDevMode(RapidConsts.IS_DEV_MODE);
         constants.setViewType(ViewType.JSP);
+        // 全局错误提示
         RapidConsts.setErrorMsg(configErrorMsg());
     }
 
@@ -49,6 +55,9 @@ public abstract class RapidConfig extends JFinalConfig {
 
     @Override
     public void configHandler(Handlers handlers) {
-
+        //druid监控
+        DruidStatViewHandler dvh =  new DruidStatViewHandler("/druid");
+        handlers.add(dvh);
+        handlers.add(new XssHandler());
     }
 }
