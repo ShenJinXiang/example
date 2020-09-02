@@ -10,6 +10,8 @@ public final class RapidConsts {
 
     public final static String RAPID_VERSION = "1.0";
 
+    public static final int MAX_EXCEL_ROWS = 4000;
+
     public static String LOGIN_URI = "login";
 
     public static boolean IS_DEV_MODE = false;

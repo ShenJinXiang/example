@@ -1,11 +1,14 @@
 package com.shenjinxiang.mvn.rapid.core;
 
 import com.jfinal.config.*;
+import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.ext.plugin.shiro.ShiroPlugin3;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.shenjinxiang.mvn.rapid.consts.RapidConsts;
 import com.shenjinxiang.mvn.rapid.handler.xss.XssHandler;
+import com.shenjinxiang.mvn.rapid.interceptors.DbSourceInterceptor;
 import com.shenjinxiang.mvn.rapid.plugin.druid.DruidStatViewHandler;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.DbSourcePlugin;
 import com.shenjinxiang.mvn.rapid.shiro.RapidShiroInterceptor;
@@ -53,12 +56,15 @@ public abstract class RapidConfig extends JFinalConfig {
     public void configPlugin(Plugins plugins) {
         URL url = getClass().getResource("ehcache.xml");
         plugins.add(new EhCachePlugin(url));
+        plugins.add(new ShiroPlugin3(this.routes));
         DbSourcePlugin.configPlugin(plugins);
     }
 
     @Override
     public void configInterceptor(Interceptors interceptors) {
         interceptors.add(new RapidShiroInterceptor());
+        interceptors.add(new SessionInViewInterceptor());
+        interceptors.addGlobalServiceInterceptor(new DbSourceInterceptor());
     }
 
     @Override
