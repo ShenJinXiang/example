@@ -63,8 +63,14 @@ public class MulticastClient implements Runnable {
                         }
                     });
 
-            ChannelFuture channelFuture = bootstrap.bind().sync();
-            channelFuture.channel().closeFuture().sync();
+//            ChannelFuture channelFuture = bootstrap.bind().sync();
+//            channelFuture.channel().closeFuture().sync();
+            NioDatagramChannel ch = (NioDatagramChannel)bootstrap.bind(groupAddress.getPort()).sync().channel();
+            ch.joinGroup(groupAddress, networkInterface).sync();
+            System.out.println("client");
+            ch.closeFuture().await();
+//            Channel channel = bootstrap.bind().sync().channel();
+//            channel.close().awaitUninterruptibly();
         } catch (Exception e) {
             logger.error("发生错误", e);
         } finally {
@@ -73,7 +79,7 @@ public class MulticastClient implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        InetSocketAddress groupAddress = new InetSocketAddress("239.255.27.1", 1234);
+        InetSocketAddress groupAddress = new InetSocketAddress("224.255.10.0", 9999);
         new MulticastClient(groupAddress).run();
     }
 }

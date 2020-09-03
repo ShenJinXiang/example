@@ -39,6 +39,7 @@ public class MulticastServer implements Runnable {
             }
 
             Bootstrap bootstrap = new Bootstrap();
+            ServerMulticastHandler handler = new ServerMulticastHandler(this.groupAddress);
             bootstrap.group(group)
                     .channelFactory(new ChannelFactory<NioDatagramChannel>() {
                         public NioDatagramChannel newChannel() {
@@ -51,7 +52,7 @@ public class MulticastServer implements Runnable {
                     .handler(new ChannelInitializer<NioDatagramChannel>() {
                         @Override
                         public void initChannel(NioDatagramChannel ch) throws Exception {
-                            ch.pipeline().addLast(new ServerMulticastHandler());
+                            ch.pipeline().addLast(handler);
                         }
                     });
 
@@ -64,5 +65,10 @@ public class MulticastServer implements Runnable {
         } finally {
             group.shutdownGracefully();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        InetSocketAddress groupAddress = new InetSocketAddress("224.255.10.0", 9999);
+        new MulticastServer(groupAddress).run();
     }
 }

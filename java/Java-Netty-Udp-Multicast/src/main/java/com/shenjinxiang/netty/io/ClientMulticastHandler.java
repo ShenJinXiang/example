@@ -1,6 +1,7 @@
 package com.shenjinxiang.netty.io;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
@@ -18,9 +19,22 @@ public class ClientMulticastHandler extends SimpleChannelInboundHandler<Datagram
         this.groupAddress = groupAddress;
     }
 
+    private int count = 0;
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info("建立连接: " + ctx.channel().remoteAddress());
+        while (this.count < 10) {
+            try {
+                String str = "Client 端 正在发送数据，次数: " + this.count;
+                logger.info("client发送数据" + this.count);
+                ctx.channel().writeAndFlush(new DatagramPacket(Unpooled.copiedBuffer(str.getBytes("UTF-8")), this.groupAddress));
+                this.count++;
+                Thread.sleep(5000);
+            }catch (Exception e) {
+                logger.error("eeerror");
+            }
+        }
     }
 
     @Override
@@ -29,7 +43,7 @@ public class ClientMulticastHandler extends SimpleChannelInboundHandler<Datagram
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String content = new String(req);
-        logger.info("接收到内容：" + content);
+        logger.info("client接收到内容：" + content);
     }
 
     @Override
