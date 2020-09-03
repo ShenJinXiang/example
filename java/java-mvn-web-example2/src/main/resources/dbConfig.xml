@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dbConfig>
+    <defaultKey>sbgl</defaultKey>
+    <dbSource>
+        <key>jiekou</key>
+        <dbType>mysql</dbType>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <jdbcUrl>jdbc:mysql://218.26.181.94:3306/dlsb_jigou?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbcUrl>
+        <user>dlsb</user>
+        <password>dlsb</password>
+        <dbMaxActive>150</dbMaxActive>
+        <dbInitSize>5</dbInitSize>
+    </dbSource>
+</dbConfig>
