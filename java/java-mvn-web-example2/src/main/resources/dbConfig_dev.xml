@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dbConfig>
+    <defaultKey>default</defaultKey>
+    <dbSource>
+        <key>default</key>
+        <dbType>mysql</dbType>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <jdbcUrl>jdbc:mysql://127.0.0.1:3306/xlzx?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbcUrl>
+        <user>root</user>
+        <password>123456</password>
+        <dbMaxActive>150</dbMaxActive>
+        <dbInitSize>5</dbInitSize>
+    </dbSource>
+
+</dbConfig>
