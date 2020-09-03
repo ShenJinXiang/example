@@ -20,9 +20,6 @@ public class Application {
         logger.info("Start...");
         commandLine(args);
         logger.info("当前程序编号为：" + Config.INDEX);
-        InetSocketAddress groupAddress = new InetSocketAddress(Config.HOST, Config.PORT);
-        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress));
-        Thread.sleep(3000);
         ThreadPool.getThread().execute(new CommandReader());
     }
 

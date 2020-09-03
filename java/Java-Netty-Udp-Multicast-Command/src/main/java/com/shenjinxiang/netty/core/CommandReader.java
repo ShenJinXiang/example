@@ -1,6 +1,7 @@
 package com.shenjinxiang.netty.core;
 
 import com.shenjinxiang.netty.kit.StrKit;
+import com.shenjinxiang.netty.kit.ThreadPool;
 import io.netty.channel.socket.DatagramPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.InetSocketAddress;
 
 /**
  * @Author: ShenJinXiang
@@ -19,6 +21,8 @@ public class CommandReader implements Runnable {
 
     private static final String SEND_PREFIX = "send";
     private static final String EXIT = "exit";
+    private static final String CLOSE = "close";
+    private static final String CONN = "conn";
 
     private BufferedReader bufferedReader;
 
@@ -49,6 +53,14 @@ public class CommandReader implements Runnable {
                         logger.info("程序结束！");
 //                        UdpKit.CHANNEL.close();
                         System.exit(0);
+                    }
+                    if (CONN.equalsIgnoreCase(words[0])) {
+                        InetSocketAddress groupAddress = new InetSocketAddress(Config.HOST, Config.PORT);
+                        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress));
+                        Thread.sleep(3000);
+                    }
+                    if (CLOSE.equalsIgnoreCase(words[0])) {
+                        Config.HANDLER.close();
                     }
                     logger.info("没有任务!");
                 }
