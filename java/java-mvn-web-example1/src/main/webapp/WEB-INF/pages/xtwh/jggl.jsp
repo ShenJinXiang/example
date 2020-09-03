@@ -62,27 +62,6 @@
 					</span>
 				</dd>
 			</dl>
-<%--			<dl class="megbox_dl">--%>
-<%--				<dd>--%>
-<%--					<label>机构类型：</label>--%>
-<%--					<span class="megbox_span">--%>
-<%--						<select id="jglx" name="jglx" class=" megbox_select">--%>
-<%--							<option value="1">生产</option>--%>
-<%--							<option value="2">销售</option>--%>
-<%--							<option value="3">生产+销售</option>--%>
-<%--						</select>--%>
-<%--					</span>--%>
-<%--				</dd>--%>
-<%--				<dd>--%>
-<%--					<label>机构级别：</label>--%>
-<%--					<span class="megbox_span">--%>
-<%--						<select id="jgjb" name="jgjb" class=" megbox_select">--%>
-<%--							<option value="1">公司</option>--%>
-<%--							<option value="2">部门</option>--%>
-<%--						</select>--%>
-<%--					</span>--%>
-<%--				</dd>--%>
-<%--			</dl>--%>
 			<dl class="megbox_dl">
 				<dd>
 					<label>上级部门：</label>
@@ -91,12 +70,6 @@
 						<input id="sjjgid" name="sjjgid" type="hidden">
 					</span>
 				</dd>
-<%--				<dd>--%>
-<%--					<label>电话：</label>--%>
-<%--					<span class="megbox_span">--%>
-<%--						<input id="dh" name="dh" class="megbox_input" type="text">--%>
-<%--					</span>--%>
-<%--				</dd>--%>
 			</dl>
 			<dl class="megbox_dl">
 				<dd>
@@ -121,7 +94,7 @@
 				</dd>
 			</dl>
 			<dl class="megbox_dl">
-				<dd style="width:564px;">
+				<dd style="width:605px;">
 					<p class="fl_r">
 						<button type="button" class="_masterbtn" onclick="saveJGXX();">保存</button>
 					</p>
