@@ -56,8 +56,8 @@
       <groupId>com.jfinal</groupId>
       <artifactId>jetty-server</artifactId>
       <version>2019.3</version>
-      <!--      <scope>provided</scope>-->
-      <scope>compile</scope>
+      <scope>provided</scope>
+<!--      <scope>compile</scope>-->
     </dependency>
 
     <dependency>
