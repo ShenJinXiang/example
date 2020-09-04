@@ -8,9 +8,84 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 <body>
-123456
+<div class="container">
+    <h2>接口测试工具</h2>
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="url" class="col-sm-2 control-label">访问地址：</label>
+                <div class="col-sm-10">
+                    <input type="url" class="form-control" id="url" placeholder="访问地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">请求参数：</label>
+                <div class="col-sm-10">
+                    <table class="table table-hover table-bordered table-condensed ">
+                        <thead>
+                        <tr>
+                            <th width="10%"></th>
+                            <th width="25%">参数名称</th>
+                            <th width="50%">参数值</th>
+                            <th width="15%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="param-tr">
+                            <td class="check-td"><input type="checkbox" class="param-checkbox"></td>
+                            <td><input type="text" class="form-control param-input param-name-input"></td>
+                            <td><input type="text" class="form-control param-input param-value-input"></td>
+                            <td class="cz-td">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="jmBtn" checked> params加密
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <a class="btn btn-default btn-info btn-block" href="javascript:void(0);" id="tjBtn" role="button">提交数据</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="paramStr" class="col-sm-2 control-label">params参数：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="paramStr" rows="5" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group jm-data-container">
+                <label for="param" class="col-sm-2 control-label">加密后params参数：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="param" rows="5" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resultStr" class="col-sm-2 control-label">返回结果：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="resultStr" rows="5" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group jm-data-container">
+                <label for="result" class="col-sm-2 control-label">解密后返回结果：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="result" rows="5" readonly></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-<script type="text/javascript" th:src="@{/webjars/jquery/3.5.0/jquery.min.js}" ></script>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/1.10.1/jquery.min.js}" ></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/js/index.js}" ></script>
 </body>
