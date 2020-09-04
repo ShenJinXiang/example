@@ -1,0 +1,19 @@
+.table tr th {
+    text-align: center;
+}
+.table tr td.check-td {
+    text-align: center;
+    line-height: 34px;
+}
+.table tr td.cz-td {
+    text-align: center;
+    line-height: 34px;
+}
+.table tr td.cz-td a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #aaa;
+}
+.table tr td.cz-td a:hover {
+    color: #444;
+}
