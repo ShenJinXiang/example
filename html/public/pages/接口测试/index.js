@@ -18,7 +18,7 @@ function bindEvent() {
             $cztd.append($('<a class="del-tr-btn">删行</ac>'));
         }
         if ($next.size() <= 0) {
-            let _html = ' <tr>\n' +
+            let _html = ' <tr class="param-tr">\n' +
                 '                                <td class="check-td"><input type="checkbox" class="param-checkbox"></td>\n' +
                 '                                <td><input type="text" class="form-control param-input param-name-input"></td>\n' +
                 '                                <td><input type="text" class="form-control param-input param-value-input"></td>\n' +
@@ -35,5 +35,48 @@ function bindEvent() {
         if (trSize > 1) {
             $tr.remove();
         }
+    });
+
+    $("#jmBtn").click(function () {
+        if ($(this).prop('checked')) {
+            $(".jm-data-container").show();
+        } else {
+            $(".jm-data-container").hide();
+        }
+    });
+
+    $("#tjBtn").click(() => {
+        let url = $("#url").val();
+        if ($(url) === '') {
+            alert('缺少url');
+            return;
+        }
+        params = {};
+        $(".param-tr").each((index, item) => {
+            let check = $(item).find('.param-checkbox').prop("checked"),
+                name = $.trim($(item).find('.param-name-input').val()),
+                value = $.trim($(item).find('.param-value-input').val());
+            if (check && name !== '') {
+                params[name] = value;
+            }
+        });
+        let check = $("#jmBtn").prop('checked') ? 1 : 0;
+        // $.ajax({
+        //     url: '/tjData',
+        //     data: {
+        //         "url": url,
+        //         "check": check,
+        //         "params": JSON.stringify(params)
+        //     },
+        //     type: 'POST',
+        //     success: function (json) {
+        //         console.log(json);
+        //     },
+        //     error: function (json) {
+        //         console.log(json);
+        //     }
+        //
+        // });
+        alert('tijiao')
     });
 }

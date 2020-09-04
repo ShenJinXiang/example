@@ -17,3 +17,7 @@
 .table tr td.cz-td a:hover {
     color: #444;
 }
+
+textarea {
+    resize: none;
+}
