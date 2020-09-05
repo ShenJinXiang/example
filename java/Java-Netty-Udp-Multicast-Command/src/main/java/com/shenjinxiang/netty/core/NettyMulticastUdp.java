@@ -28,15 +28,40 @@ public class NettyMulticastUdp implements Runnable {
     public void run() {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
-            NetworkInterface networkInterface = NetUtil.LOOPBACK_IF;
-            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             InetAddress localAddress = null;
-            while (addresses.hasMoreElements()) {
-                InetAddress address = addresses.nextElement();
-                if (address instanceof Inet4Address){
-                    localAddress = address;
+//            NetworkInterface networkInterface = NetUtil.LOOPBACK_IF;
+//            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
+//            while (addresses.hasMoreElements()) {
+//                InetAddress address = addresses.nextElement();
+//                if (address instanceof Inet4Address){
+//                    System.out.println("网卡接口地址：" + address.getHostAddress());
+//                    System.out.println();
+//                    localAddress = address;
+//                }
+//            }
+
+
+            NetworkInterface networkInterface = NetUtil.LOOPBACK_IF;
+            Enumeration<NetworkInterface> nifs = null;
+            nifs = NetworkInterface.getNetworkInterfaces();
+            while (nifs.hasMoreElements()) {
+                NetworkInterface ni = nifs.nextElement();
+                if ("wlan1".equalsIgnoreCase(ni.getName())) {
+                    networkInterface = ni;
+                    Enumeration<InetAddress> address = ni.getInetAddresses();
+                    while (address.hasMoreElements()) {
+                        InetAddress addr = address.nextElement();
+                        if (addr instanceof Inet4Address) {
+                            System.out.println("网络接口名称为：" + ni.getName());
+                            System.out.println("网卡接口地址：" + addr.getHostAddress());
+                            System.out.println();
+                            localAddress = addr;
+                        }
+                    }
+
                 }
             }
+
 
             Bootstrap bootstrap = new Bootstrap();
             Config.HANDLER = new NettyMulticastHandler(this.groupAddress);
