@@ -86,15 +86,15 @@ public abstract class RapidAction extends Controller {
 		if (null == currentRyxx) {
 			return;
 		}
-		bean.set("currentRyxx_rydm", currentRyxx.getRydm());
+		bean.set("currentRyxx_ryid", currentRyxx.getRyid());
+		bean.set("currentRyxx_rybh", currentRyxx.getRybh());
+		bean.set("currentRyxx_ryzh", currentRyxx.getRyzh());
 		bean.set("currentRyxx_rymc", currentRyxx.getRymc());
-		bean.set("currentRyxx_dh", currentRyxx.getDh());
-		bean.set("currentRyxx_ssjgid", currentRyxx.getSsjgid());
-		bean.set("currentRyxx_ssjgmc", currentRyxx.getSsjgmc());
-		bean.set("currentRyxx_ssgsid", currentRyxx.getSsgsid());
-		bean.set("currentRyxx_ssgsmc", currentRyxx.getSsgsmc());
-		bean.set("currentRyxx_scsjqx", currentRyxx.getScsjqx());
-		bean.set("currentRyxx_xssjqx", currentRyxx.getXssjqx());
+		bean.set("currentRyxx_lxdh", currentRyxx.getLxdh());
+		bean.set("currentRyxx_ssbmid", currentRyxx.getSsbmid());
+		bean.set("currentRyxx_ssbmmc", currentRyxx.getSsbmmc());
+		bean.set("currentRyxx_sfmr", currentRyxx.getSfmr());
+		bean.set("currentRyxx_bz", currentRyxx.getBz());
 	}
 	
 
@@ -107,14 +107,14 @@ public abstract class RapidAction extends Controller {
 		if (null == currentRyxx) {
 			return;
 		}
-		parameters.put("currentRyxx_rydm", currentRyxx.getRydm());
+		parameters.put("currentRyxx_ryid", currentRyxx.getRyid());
+		parameters.put("currentRyxx_rybh", currentRyxx.getRybh());
+		parameters.put("currentRyxx_ryzh", currentRyxx.getRyzh());
 		parameters.put("currentRyxx_rymc", currentRyxx.getRymc());
-		parameters.put("currentRyxx_dh", currentRyxx.getDh());
-		parameters.put("currentRyxx_ssjgid", currentRyxx.getSsjgid());
-		parameters.put("currentRyxx_ssjgmc", currentRyxx.getSsjgmc());
-		parameters.put("currentRyxx_ssgsid", currentRyxx.getSsgsid());
-		parameters.put("currentRyxx_ssgsmc", currentRyxx.getSsgsmc());
-		parameters.put("currentRyxx_scsjqx", currentRyxx.getScsjqx());
-		parameters.put("currentRyxx_xssjqx", currentRyxx.getXssjqx());
+		parameters.put("currentRyxx_lxdh", currentRyxx.getLxdh());
+		parameters.put("currentRyxx_ssbmid", currentRyxx.getSsbmid());
+		parameters.put("currentRyxx_ssbmmc", currentRyxx.getSsbmmc());
+		parameters.put("currentRyxx_sfmr", currentRyxx.getSfmr());
+		parameters.put("currentRyxx_bz", currentRyxx.getBz());
 	}
 }

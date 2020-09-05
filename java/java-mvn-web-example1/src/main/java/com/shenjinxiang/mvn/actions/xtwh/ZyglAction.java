@@ -8,7 +8,7 @@ import com.shenjinxiang.mvn.rapid.actions.RapidAction;
 import com.shenjinxiang.mvn.rapid.domain.Bean;
 import com.shenjinxiang.mvn.rapid.interceptors.JsonResultInterceptor;
 import com.shenjinxiang.mvn.rapid.shiro.RapidShiroInterceptor;
-import com.shenjinxiang.mvn.services.ZyglService;
+import com.shenjinxiang.mvn.services.xtwh.ZyglService;
 
 /**
  * @Author: ShenJinXiang

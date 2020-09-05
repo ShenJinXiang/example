@@ -379,4 +379,23 @@ $.fn.getFormJson = function()
        }  
    });  
    return o;  
-}; 
+};
+
+
+var timeKit = {
+	getDateTimeStr: function (date) {
+		var year = date.getFullYear(),
+			month = date.getMonth() + 1,
+			d = date.getDate(),
+			hour = date.getHours(),
+			minite = date.getMinutes(),
+			second = date.getSeconds();
+		monthStr = (month > 9) ? ('' + month) : ('0' + month);
+		dStr = (d > 9) ? ('' + d) : ('0' + d);
+		hourStr = (hour > 9) ? ('' + hour) : ('0' + hour);
+		miniteStr = (minite > 9) ? ('' + minite) : ('0' + minite);
+		secondStr = (second > 9) ? ('' + second) : ('0' + second);
+		return year + "-" + month + "-" + d + " " + hour + ":" + minite + ":" + second;
+	}
+
+};

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shenjinxiang.mvn.mapper.xtwh.BmglMapper">
+
+    <!-- 机构分页查询 -->
+    <select id="Dynasearch_xtwh_bmxx_count" parameterType="map" resultType="int">
+        select count(1) from xtwh_bmxx t
+        <where>
+            <choose>
+                <when test="nodeid==null||nodeid==''">
+                    and t.sjbmid = 0
+                </when>
+                <otherwise>
+                    and t.sjbmid = #{nodeid}
+                </otherwise>
+            </choose>
+            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+                and (t.bmbh like concat('%', #{s_bmmcdm}, '%') or t.bmmc like concat('%', #{s_bmmcdm}, '%'))
+            </if>
+        </where>
+
+    </select>
+    <select id="Dynasearch_xtwh_bmxx_getData" parameterType="map" resultType="map">
+        select
+            t.bmid as id,
+            t.bmid,
+            t.bmbh,
+            t.bmmc,
+            t.sjbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.sjbmid) as sjbmmc,
+            t.bmms,
+            t.lrrq,
+            t.lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc,
+            convert(length(t.bmid)/4-1,signed) as level,
+            (case when (select count(1) from xtwh_bmxx where sjbmid = t.bmid)>0 then 'false' else 'true' end) as leaf,
+            'false' as expanded
+        from xtwh_bmxx t
+        <where>
+            <choose>
+                <when test="nodeid==null||nodeid==''">
+                    and t.sjbmid = 0
+                </when>
+                <otherwise>
+                    and t.sjbmid = #{nodeid}
+                </otherwise>
+            </choose>
+            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+                and (t.bmbh like concat('%', #{s_bmmcdm}, '%') or t.bmmc like concat('%', #{s_bmmcdm}, '%'))
+            </if>
+        </where>
+        order by bmid asc limit ${start}, ${limit}
+    </select>
+
+    <select id="queryBmbh" resultType="string">
+        select lpad(ifnull(max(bmbh) + 1, 1), 8, 0) as bmbh
+        from xtwh_bmxx
+    </select>
+
+    <select id="queryBmid" parameterType="string" resultType="string">
+        select (concat(#{_parameter},
+	               lpad((select ifnull(max(right(bmid,4)+0),0) + 1
+	                      from xtwh_bmxx
+	                     where sjbmid = #{_parameter}),
+	                    4,
+	                    0))) as bmid
+    </select>
+
+    <insert id="insertBmxx" parameterType="map" >
+        insert into xtwh_bmxx
+        ( `bmid`, `bmbh`, `bmmc`, `sjbmid`, `bmms`, `lrrq`, `lrrid` )
+        values
+        (
+            #{bmid, jdbcType=VARCHAR},
+            #{bmbh, jdbcType=VARCHAR},
+            #{bmmc, jdbcType=VARCHAR},
+            #{sjbmid, jdbcType=VARCHAR},
+            #{bmms, jdbcType=VARCHAR},
+            now(),
+            #{lrrid, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <select id="queryBmxx" parameterType="string" resultType="bean">
+        select
+            t.bmid as id,
+            t.bmid,
+            t.bmbh,
+            t.bmmc,
+            t.sjbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.sjbmid) as sjbmmc,
+            t.bmms,
+            t.lrrq,
+            t.lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc
+        from xtwh_bmxx t
+        <where>
+            and t.bmid = #{bmid, jdbcType=VARCHAR}
+        </where>
+    </select>
+
+    <update id="updateBmxx" parameterType="map">
+        update xtwh_bmxx
+        <set>
+            bmmc = #{bmmc, jdbcType=VARCHAR},
+            bmms = #{bmms, jdbcType=VARCHAR},
+        </set>
+        <where>
+            and bmid = #{bmid, jdbcType=VARCHAR}
+        </where>
+    </update>
+    <select id="countBySjbmid" parameterType="string" resultType="int">
+        select count(0)
+        from xtwh_bmxx
+        <where>
+            and sjbmid = #{sjbmid, jdbcType=VARCHAR}
+        </where>
+    </select>
+    <delete id="deleteByBmid" parameterType="string">
+        delete from xtwh_bmxx
+        <where>
+            and bmid = #{bmid, jdbcType=VARCHAR}
+        </where>
+    </delete>
+</mapper>

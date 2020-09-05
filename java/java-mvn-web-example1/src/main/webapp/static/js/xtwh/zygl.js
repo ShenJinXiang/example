@@ -25,10 +25,16 @@ function init(){
 			{name : "zyms",index : "zyms",width : 100,sortable:false},
 			{name : "cz",index : "cz",width : 60,sortable:false,align:"center",title:false,formatter:function(value,options,row){
 				return "<span class='tdcz'>"+
-				"<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildJgxx('"+row.id+"','"+row.zymc+"');></a>"+
-				"<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.id+"');></a>"+
-				"<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteZYXX('"+row.id+"');></a>"+
+				"<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildJgxx('"+row.id+"','"+row.zymc+"');>新增</a>"+
+				"<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.id+"');>修改</a>"+
+				"<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteZYXX('"+row.id+"');>删除</a>"+
 				"</span>";
+                    // return "<span class='grid-cz-td'>" +
+					// 	"" +
+					// 	"<a title='新增下级' class='' href=javascript:addChildJgxx('"+row.id+"','"+row.zymc+"');>新增</a>"+
+					// 	"<a title='修改' class='' href=javascript:openModify('"+row.id+"');>修改</a>"+
+					// 	"<a title='删除' class='' href=javascript:deleteZYXX('"+row.id+"');>删除</a>"+
+					// 	"</span>"
 			}},
 			{name : "id",index : "id",hidden:true},
 			{name : "zytb",index : "zytb",hidden:true},

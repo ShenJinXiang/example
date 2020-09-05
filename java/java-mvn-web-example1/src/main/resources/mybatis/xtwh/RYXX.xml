@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shenjinxiang.mvn.mapper.xtwh.RyglMapper">
+
+    <select id="countBySsbmid" parameterType="string" resultType="int">
+        select count(0)
+        from xtwh_ryxx
+        <where>
+            and ssbmid = #{ssbmid, jdbcType=VARCHAR}
+        </where>
+    </select>
+
+</mapper>

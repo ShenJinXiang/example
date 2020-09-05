@@ -1,4 +1,4 @@
-package com.shenjinxiang.mvn.services;
+package com.shenjinxiang.mvn.services.xtwh;
 
 import com.shenjinxiang.mvn.mapper.xtwh.ZyglMapper;
 import com.shenjinxiang.mvn.rapid.annotations.MyBatisDbConn;

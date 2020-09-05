@@ -4,7 +4,7 @@
     <dbSource>
         <key>default</key>
         <dbType>mysql</dbType>
-        <driver>com.mysql.jdbc.Driver</driver>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
         <jdbcUrl>jdbc:mysql://127.0.0.1:3306/xlzx?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbcUrl>
         <user>root</user>
         <password>123456</password>

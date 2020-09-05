@@ -4,7 +4,7 @@
     <dbSource>
         <key>jiekou</key>
         <dbType>mysql</dbType>
-        <driver>com.mysql.jdbc.Driver</driver>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
         <jdbcUrl>jdbc:mysql://218.26.181.94:3306/dlsb_jigou?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbcUrl>
         <user>dlsb</user>
         <password>dlsb</password>

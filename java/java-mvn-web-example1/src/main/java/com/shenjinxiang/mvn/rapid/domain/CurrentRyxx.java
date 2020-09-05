@@ -9,40 +9,40 @@ public class CurrentRyxx extends Bean{
 
 	private static final long serialVersionUID = 2254392222660598447L;
 
-	public String getRydm() {
-		return this.getStr("rydm");
+	public int getRyid() {
+		return this.getInt("ryid");
+	}
+
+	public String getRybh() {
+		return this.getStr("rybh");
+	}
+
+	public String getRyzh() {
+		return this.getStr("ryzh");
 	}
 
 	public String getRymc() {
 		return this.getStr("rymc");
 	}
-	
-	public String getDh() {
-		return this.getStr("dh");
+
+	public String getLxdh() {
+		return this.getStr("lxdh");
 	}
 
-	public String getSsjgid() {
-		return this.getStr("ssjgid");
-	}
-	
-	public String getSsjgmc(){
-		return this.getStr("ssjgmc");
-	}
-	
-	public String getSsgsid() {
-		return this.getStr("ssgsid");
-	}
-	
-	public String getSsgsmc(){
-		return this.getStr("ssgsmc");
+	public int getSsbmid() {
+		return this.getInt("ssbmid");
 	}
 
-	public String getScsjqx() {
-		return this.getStr("scsjqx");
+	public int getSsbmmc() {
+		return this.getInt("ssbmmc");
 	}
 
-	public String getXssjqx() {
-		return this.getStr("xssjqx");
+	public boolean getSfmr() {
+		return this.getBoolean("sfmr");
+	}
+
+	public String getBz() {
+		return this.getStr("bz");
 	}
 
 }

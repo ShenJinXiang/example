@@ -8,6 +8,7 @@
     <mappers>
         <mapper resource="mybatis/TEST.xml"/>
         <mapper resource="mybatis/xtwh/ZYXX.xml"/>
-        <mapper resource="mybatis/xtwh/JGXX.xml"/>
+        <mapper resource="mybatis/xtwh/BMXX.xml"/>
+        <mapper resource="mybatis/xtwh/RYXX.xml"/>
     </mappers>
 </configuration>

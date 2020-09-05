@@ -59,7 +59,7 @@
 </dl>
 <dl class="megbox_dl">
 <dd><label>资源描述：</label><span class="megbox_span">
-<input id="zyms" name="zyms" class="megbox_input" type="text" style="width:491px;">
+<input id="zyms" name="zyms" class="megbox_input lange" type="text" >
 </span></dd>
 </dl>
 <dl class="megbox_dl">
