@@ -32,7 +32,8 @@ public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramP
         try {
             byte[] data = ("编号[" + Config.INDEX + "]发送数据，内容：" + msg).getBytes(Config.ENCODE);
             DatagramPacket datagramPacket = new DatagramPacket(Unpooled.copiedBuffer(data), this.groupAddress);
-            context.channel().writeAndFlush(datagramPacket);
+//            context.channel().writeAndFlush(datagramPacket);
+            context.writeAndFlush(datagramPacket);
         } catch (Exception e) {
             logger.error("发送数据发生错误", e);
         }
