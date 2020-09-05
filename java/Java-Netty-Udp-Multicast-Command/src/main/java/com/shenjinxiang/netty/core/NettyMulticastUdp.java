@@ -8,7 +8,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.InternetProtocolFamily;
 import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.netty.util.NetUtil;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -19,9 +18,11 @@ import java.util.Enumeration;
 public class NettyMulticastUdp implements Runnable {
 
     private InetSocketAddress groupAddress;
+    private String networkInterfaceName;
 
-    public NettyMulticastUdp(InetSocketAddress groupAddress) {
+    public NettyMulticastUdp(InetSocketAddress groupAddress, String networkInterfaceName ) {
         this.groupAddress = groupAddress;
+        this.networkInterfaceName = networkInterfaceName;
     }
 
     @Override
@@ -30,22 +31,10 @@ public class NettyMulticastUdp implements Runnable {
         try {
             InetAddress localAddress = null;
             NetworkInterface networkInterface = null;
-            NetworkInterface loopBackNetworkInterface = NetUtil.LOOPBACK_IF;
-//            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-//            while (addresses.hasMoreElements()) {
-//                InetAddress address = addresses.nextElement();
-//                if (address instanceof Inet4Address){
-//                    System.out.println("网卡接口地址：" + address.getHostAddress());
-//                    System.out.println();
-//                    localAddress = address;
-//                }
-//            }
-
-
             Enumeration<NetworkInterface> nifs = NetworkInterface.getNetworkInterfaces();
             while (nifs.hasMoreElements()) {
                 NetworkInterface ni = nifs.nextElement();
-                if (!loopBackNetworkInterface.getName().equalsIgnoreCase(ni.getName())) {
+                if (this.networkInterfaceName.equalsIgnoreCase(ni.getName())) {
                     Enumeration<InetAddress> address = ni.getInetAddresses();
                     while (address.hasMoreElements()) {
                         InetAddress addr = address.nextElement();
@@ -92,7 +81,7 @@ public class NettyMulticastUdp implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        InetSocketAddress groupAddress = new InetSocketAddress("224.255.10.0", 9999);
-        new NettyMulticastUdp(groupAddress).run();
+//        InetSocketAddress groupAddress = new InetSocketAddress("224.255.10.0", 9999);
+//        new NettyMulticastUdp(groupAddress).run();
     }
 }

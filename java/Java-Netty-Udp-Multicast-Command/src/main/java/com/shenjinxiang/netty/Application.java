@@ -3,20 +3,15 @@ package com.shenjinxiang.netty;
 
 import com.shenjinxiang.netty.core.CommandReader;
 import com.shenjinxiang.netty.core.Config;
-import com.shenjinxiang.netty.core.NettyMulticastUdp;
 import com.shenjinxiang.netty.kit.ThreadPool;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-
-import static java.awt.SystemColor.info;
 
 public class Application {
 

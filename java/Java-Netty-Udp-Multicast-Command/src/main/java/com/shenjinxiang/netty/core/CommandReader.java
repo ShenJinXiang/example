@@ -2,14 +2,17 @@ package com.shenjinxiang.netty.core;
 
 import com.shenjinxiang.netty.kit.StrKit;
 import com.shenjinxiang.netty.kit.ThreadPool;
-import io.netty.channel.socket.DatagramPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 
 /**
  * @Author: ShenJinXiang
@@ -55,8 +58,14 @@ public class CommandReader implements Runnable {
                         System.exit(0);
                     }
                     if (CONN.equalsIgnoreCase(words[0])) {
+                        if (words.length < 2 || StrKit.isBlank(words[1])) {
+                            logger.info("请指定网卡名称:");
+                            info();
+                            continue;
+                        }
+                        String networkInterfaceName = words[1];
                         InetSocketAddress groupAddress = new InetSocketAddress(Config.HOST, Config.PORT);
-                        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress));
+                        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress, networkInterfaceName));
                         Thread.sleep(3000);
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
@@ -68,6 +77,23 @@ public class CommandReader implements Runnable {
                 logger.error("处理任务出错", e);
             }
 
+        }
+    }
+
+    private static void info() throws Exception {
+        Enumeration<NetworkInterface> nifs = null;
+        nifs = NetworkInterface.getNetworkInterfaces();
+        while (nifs.hasMoreElements()) {
+            NetworkInterface ni = nifs.nextElement();
+            Enumeration<InetAddress> address = ni.getInetAddresses();
+            while (address.hasMoreElements()) {
+                InetAddress addr = address.nextElement();
+                if (addr instanceof Inet4Address) {
+                    System.out.println("网络接口名称为：" + ni.getName());
+                    System.out.println("网卡接口地址：" + addr.getHostAddress());
+                    System.out.println();
+                }
+            }
         }
     }
 
