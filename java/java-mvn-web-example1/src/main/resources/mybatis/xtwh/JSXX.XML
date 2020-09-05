@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shenjinxiang.mvn.mapper.xtwh.JsglMapper">
+
+    <!-- 角色分页查询 -->
+    <select id="Dynasearch_xtwh_jsxx_count" parameterType="map" resultType="int">
+        select count(1) from xtwh_jsxx t
+        <where>
+            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+                and t.jsmc like concat('%', #{s_jsmc}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="Dynasearch_xtwh_jsxx_getData" parameterType="map" resultType="map">
+        select
+            jsid,
+            jsbh,
+            jsmc,
+            jsms,
+            lrrq,
+            lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc
+        from xtwh_jsxx t
+        <where>
+            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+                and t.jsmc like concat('%', #{s_jsmc}, '%')
+            </if>
+        </where>
+        order by jsid asc limit ${start}, ${limit}
+    </select>
+
+    <select id="queryJsbh" resultType="String">
+        select lpad(ifnull(max(jsbh) + 1, 1), 8, 0) as jsbh
+        from xtwh_jsxx
+    </select>
+
+    <select id="countByJsmc" parameterType="map" resultType="int">
+        select count(0)
+        from xtwh_jsxx
+        <where>
+            and jsmc = #{jsmc, jdbcType=VARCHAR}
+            <if test="jsid != '' and jsid != null" >
+                and jsid != #{jsid, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertJsxx" parameterType="map">
+        insert into xtwh_jsxx
+        ( `jsbh`, `jsmc`, `jsms`, `lrrq`, `lrrid` )
+        values
+        (
+            #{jsbh, jdbcType=VARCHAR},
+            #{jsmc, jdbcType=VARCHAR},
+            #{jsms, jdbcType=VARCHAR},
+            now(),
+            #{lrrid, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateJsxx" parameterType="map">
+        update xtwh_jsxx
+        <set>
+            jsmc = #{jsmc, jdbcType=VARCHAR},
+            jsms = #{jsms, jdbcType=VARCHAR},
+        </set>
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <select id="queryJsxx" parameterType="int" resultType="bean">
+        select
+            jsid,
+            jsbh,
+            jsmc,
+            jsms,
+            lrrq,
+            lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc
+        from xtwh_jsxx t
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </select>
+    <select id="countRyJsByJsid" parameterType="int" resultType="int">
+        select count(0)
+        from xtwh_ry_jsxx
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </select>
+    <delete id="deleteJsxx" parameterType="int">
+        delete from xtwh_jsxx
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </delete>
+    <delete id="deleteJsqx" parameterType="int">
+        delete from xtwh_jsqx
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </delete>
+</mapper>

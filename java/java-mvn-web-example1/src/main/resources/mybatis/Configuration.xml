@@ -10,5 +10,6 @@
         <mapper resource="mybatis/xtwh/ZYXX.xml"/>
         <mapper resource="mybatis/xtwh/BMXX.xml"/>
         <mapper resource="mybatis/xtwh/RYXX.xml"/>
+        <mapper resource="mybatis/xtwh/JSXX.xml"/>
     </mappers>
 </configuration>
