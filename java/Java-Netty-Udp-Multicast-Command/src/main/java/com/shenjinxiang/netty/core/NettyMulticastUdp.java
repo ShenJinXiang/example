@@ -29,7 +29,8 @@ public class NettyMulticastUdp implements Runnable {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             InetAddress localAddress = null;
-//            NetworkInterface networkInterface = NetUtil.LOOPBACK_IF;
+            NetworkInterface networkInterface = null;
+            NetworkInterface loopBackNetworkInterface = NetUtil.LOOPBACK_IF;
 //            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
 //            while (addresses.hasMoreElements()) {
 //                InetAddress address = addresses.nextElement();
@@ -41,17 +42,15 @@ public class NettyMulticastUdp implements Runnable {
 //            }
 
 
-            NetworkInterface networkInterface = NetUtil.LOOPBACK_IF;
-            Enumeration<NetworkInterface> nifs = null;
-            nifs = NetworkInterface.getNetworkInterfaces();
+            Enumeration<NetworkInterface> nifs = NetworkInterface.getNetworkInterfaces();
             while (nifs.hasMoreElements()) {
                 NetworkInterface ni = nifs.nextElement();
-                if ("wlan1".equalsIgnoreCase(ni.getName())) {
-                    networkInterface = ni;
+                if (!loopBackNetworkInterface.getName().equalsIgnoreCase(ni.getName())) {
                     Enumeration<InetAddress> address = ni.getInetAddresses();
                     while (address.hasMoreElements()) {
                         InetAddress addr = address.nextElement();
                         if (addr instanceof Inet4Address) {
+                            networkInterface = ni;
                             System.out.println("网络接口名称为：" + ni.getName());
                             System.out.println("网卡接口地址：" + addr.getHostAddress());
                             System.out.println();
