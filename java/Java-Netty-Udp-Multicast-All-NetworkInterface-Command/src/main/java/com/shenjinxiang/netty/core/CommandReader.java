@@ -59,7 +59,7 @@ public class CommandReader implements Runnable {
                         for (LocalAddress localAddress: Config.LOCAL_ADDRESS_LIST) {
                             ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress, localAddress));
                         }
-                        Thread.sleep(3000);
+                        Thread.sleep(5000);
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
                         for (NettyMulticastHandler handler: Config.HANDLER_LIST) {
