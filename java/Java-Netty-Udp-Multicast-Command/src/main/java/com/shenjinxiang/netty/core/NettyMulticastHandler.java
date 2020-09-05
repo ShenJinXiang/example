@@ -8,7 +8,9 @@ import io.netty.channel.socket.DatagramPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
@@ -45,11 +47,17 @@ public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramP
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket) throws Exception {
+//        SocketAddress address = channelHandlerContext.channel().remoteAddress();
+        InetAddress address = datagramPacket.sender().getAddress();
+        String hostAddress = address.getHostAddress();
+        String hostName = address.getHostName();
+        String canonicalHostName = address.getCanonicalHostName();
         ByteBuf buf = datagramPacket.copy().content();
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String content = new String(req, Config.ENCODE);
-        logger.info("接收到内容：" + content);
+        String info = "address: " + address + "\t hostAddress: " + hostAddress + "\t hostName: " + hostName + "\t canonicalHostName: "  + canonicalHostName;
+        logger.info("接收到内容[" + info + "]：" + content);
     }
 
     public void close() {
