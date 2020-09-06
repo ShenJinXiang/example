@@ -10,6 +10,8 @@ import com.shenjinxiang.mvn.rapid.interceptors.JsonResultInterceptor;
 import com.shenjinxiang.mvn.rapid.shiro.RapidShiroInterceptor;
 import com.shenjinxiang.mvn.services.xtwh.ZyglService;
 
+import java.util.List;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/2 21:37
@@ -50,5 +52,16 @@ public class ZyglAction extends RapidAction {
         zyglService.updateZyxx(zyxx);
         RapidShiroInterceptor.resetUrl();
         CacheKit.removeAll("permissions");
+    }
+
+    public void queryZyxxForTree() throws Exception {
+        List<Bean> zyxxList = zyglService.queryZyxxForTree();
+        this.setJson(zyxxList);
+    }
+
+    public void queryJsZy() throws Exception {
+        int jsid = getParaToInt("jsid");
+        List<Bean> list = zyglService.queryJsZy(jsid);
+        setJson(list);
     }
 }

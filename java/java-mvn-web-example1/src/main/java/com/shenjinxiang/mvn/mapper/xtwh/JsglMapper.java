@@ -23,4 +23,6 @@ public interface JsglMapper {
     void deleteJsqx(int jsid);
 
     int countRyJsByJsid(int jsid);
+
+    void insertJsqx(Bean params);
 }

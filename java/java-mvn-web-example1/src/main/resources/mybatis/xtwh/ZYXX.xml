@@ -127,16 +127,25 @@
     </update>
 
     <!-- 树形资源信息查询 -->
-    <select id="zyxx_selectForTree" resultType="bean">
-		select zyid id,
-	       zymc name,
-	       sjzyid pId,
-	       zylx,
-	       (select if(count(0) > 0, true, false)
-	          from xtwh_zyxx c
-	         where c.sjzyid = t.zyid) open,
-	       false as checked
+    <select id="queryZyxxForTree" resultType="bean">
+		select zyid `id`,
+	       t.zymc `name`,
+	       t.sjzyid `pId`,
+	       t.zylx,
+	       (
+	        select if(count(0) > 0, true, false)
+	        from xtwh_zyxx c
+	        where c.sjzyid = t.zyid
+	       ) as open
 		 from xtwh_zyxx t
 		 order by zypx asc
 	</select>
+
+    <select id="queryJsZy" parameterType="int" resultType="bean">
+        select jsid, zyid
+        from xtwh_jsqx
+        <where>
+            and jsid = #{jsid, jdbcType=INTEGER}
+        </where>
+    </select>
 </mapper>

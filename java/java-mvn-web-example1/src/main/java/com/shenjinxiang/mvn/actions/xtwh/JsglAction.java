@@ -2,6 +2,8 @@ package com.shenjinxiang.mvn.actions.xtwh;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
+import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.ehcache.CacheKit;
 import com.shenjinxiang.mvn.rapid.actions.RapidAction;
 import com.shenjinxiang.mvn.rapid.domain.Bean;
 import com.shenjinxiang.mvn.rapid.domain.CurrentRyxx;
@@ -70,5 +72,18 @@ public class JsglAction extends RapidAction {
     public void deleteJsxx() throws Exception {
         int jsid = getParaToInt("jsid");
         jsglService.deleteJsxx(jsid);
+    }
+
+    @Before(JsonResultInterceptor.class)
+    public void saveJsZy() throws Exception {
+        int jsid = getParaToInt("jsid");
+        String zyids = getPara("zyids");
+        if (StrKit.notBlank(zyids)) {
+            String[] zyidArr = zyids.split(",");
+            jsglService.saveJsZy(jsid, zyidArr);
+        } else {
+            jsglService.saveJsZy(jsid, null);
+        }
+        CacheKit.removeAll("permissions");
     }
 }

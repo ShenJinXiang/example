@@ -7,6 +7,8 @@ import com.shenjinxiang.mvn.rapid.domain.Bean;
 import com.shenjinxiang.mvn.rapid.exceptions.BizException;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.MyBatisSessionManager;
 
+import java.util.List;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/2 23:21
@@ -48,5 +50,19 @@ public class ZyglService {
         ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
         zyxx.remove("sjzyid");
         zyglMapper.updateByZyid(zyxx);
+    }
+
+    @MyBatisDbConn
+    public List<Bean> queryZyxxForTree() {
+        ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
+        List<Bean> list = zyglMapper.queryZyxxForTree();
+        return list;
+    }
+
+    @MyBatisDbConn
+    public List<Bean> queryJsZy(int jsid) {
+        ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
+        List<Bean> list = zyglMapper.queryJsZy(jsid);
+        return list;
     }
 }

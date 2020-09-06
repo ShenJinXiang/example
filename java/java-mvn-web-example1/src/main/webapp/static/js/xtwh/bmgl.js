@@ -23,8 +23,8 @@ function initGrid() {
             colNames : ['部门编号', '部门名称', '上级部门', '描述', '录入人', '操作','id', 'bmid', 'sjbmid'],
             colModel : [
                 {name : "bmbh",index : "bmbh",width : 55,sortable:false},
-                {name : "bmmc",index : "bmmc",width : 120,sortable:false},
-                {name : "sjbmmc",index : "sjbmmc",width : 120,sortable:false, formatter:function (value, options, row) {
+                {name : "bmmc",index : "bmmc",width : 100,sortable:false},
+                {name : "sjbmmc",index : "sjbmmc",width : 100,sortable:false, formatter:function (value, options, row) {
                     if (!row.sjbmid) {
                         return gsmc;
                     }
@@ -32,11 +32,11 @@ function initGrid() {
                     }},
                 {name : "bmms",index : "bmms",width : 150,sortable:false},
                 {name : "lrrmc",index : "lrrmc",width : 30,sortable:false},
-                {name : "cz",index : "jgmc",width : 40,sortable:false,align:"center",title:false,formatter:function(value,options,row){
+                {name : "cz",index : "jgmc",width : 100,sortable:false,align:"center",title:false,formatter:function(value,options,row){
                         return "<span class='tdcz'>"+
-                            "<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildBmxx('"+row.bmid+"','"+row.bmmc+"');></a>" +
-                            "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.bmid+"');></a>" +
-                            "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteBmxx('"+row.bmid+"');></a>" +
+                            "<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildBmxx('"+row.bmid+"','"+row.bmmc+"');>新增下级</a>" +
+                            "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.bmid+"');>修改</a>" +
+                            "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteBmxx('"+row.bmid+"');>删除</a>" +
                             // (addPer?"<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildBmxx('"+row.bmid+"','"+row.jgmc+"');></a>":"")+
                             // (modifyPer?"<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.bmid+"');></a>":"")+
                             // (deletePer?"<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteBmxx('"+row.bmid+"');></a>":"")+

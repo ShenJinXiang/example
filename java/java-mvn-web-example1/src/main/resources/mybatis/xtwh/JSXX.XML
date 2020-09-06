@@ -9,7 +9,7 @@
     <select id="Dynasearch_xtwh_jsxx_count" parameterType="map" resultType="int">
         select count(1) from xtwh_jsxx t
         <where>
-            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+            <if test="s_jsmc!=null and s_jsmc!=''">
                 and t.jsmc like concat('%', #{s_jsmc}, '%')
             </if>
         </where>
@@ -26,7 +26,7 @@
             (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc
         from xtwh_jsxx t
         <where>
-            <if test="s_bmmcdm!=null and s_bmmcdm!=''">
+            <if test="s_jsmc!=null and s_jsmc!=''">
                 and t.jsmc like concat('%', #{s_jsmc}, '%')
             </if>
         </where>
@@ -106,4 +106,14 @@
             and jsid = #{jsid, jdbcType=INTEGER}
         </where>
     </delete>
+    <insert id="insertJsqx" parameterType="map" >
+        insert into xtwh_jsqx
+        (jsid, zyid)
+        <foreach collection="zyids" item="item" index="index" separator="union all">
+            select
+                #{jsid, jdbcType=INTEGER},
+                #{item, jdbcType=VARCHAR}
+            from dual
+        </foreach>
+    </insert>
 </mapper>

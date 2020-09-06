@@ -59,4 +59,16 @@ public class JsglService {
         jsglMapper.deleteJsxx(jsid);
         jsglMapper.deleteJsqx(jsid);
     }
+
+    @MyBatisDbConnTx
+    public void saveJsZy(int jsid, String[] zyidArr) {
+        JsglMapper jsglMapper = MyBatisSessionManager.getMapper(JsglMapper.class);
+        jsglMapper.deleteJsqx(jsid);
+        if (null != zyidArr && zyidArr.length > 0) {
+            Bean params = new Bean();
+            params.set("jsid", jsid);
+            params.set("zyids", zyidArr);
+            jsglMapper.insertJsqx(params);
+        }
+    }
 }
