@@ -395,7 +395,7 @@ var timeKit = {
 		hourStr = (hour > 9) ? ('' + hour) : ('0' + hour);
 		miniteStr = (minite > 9) ? ('' + minite) : ('0' + minite);
 		secondStr = (second > 9) ? ('' + second) : ('0' + second);
-		return year + "-" + month + "-" + d + " " + hour + ":" + minite + ":" + second;
+		return year + "-" + monthStr + "-" + dStr + " " + hourStr + ":" + miniteStr + ":" + secondStr;
 	}
 
 };

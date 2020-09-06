@@ -2,6 +2,8 @@ package com.shenjinxiang.mvn.mapper.xtwh;
 
 import com.shenjinxiang.mvn.rapid.domain.Bean;
 
+import java.util.List;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/3 06:52
@@ -21,4 +23,6 @@ public interface BmglMapper {
     int countBySjbmid(String sjbmid);
 
     void deleteByBmid(String bmid);
+
+    List<Bean> queryBmxxForTree();
 }

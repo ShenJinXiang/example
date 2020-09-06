@@ -18,7 +18,7 @@ public class Application extends RapidConfig {
 
     @Override
     protected void configAction(Routes routes) {
-        routes.add("/xtwh/jggl", JgglAction.class);
+        // 系统维护
         routes.add("/xtwh/bmgl", BmglAction.class);
         routes.add("/xtwh/jsgl", JsglAction.class);
         routes.add("/xtwh/rygl", RyglAction.class);

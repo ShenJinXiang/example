@@ -8,6 +8,8 @@ import com.shenjinxiang.mvn.rapid.domain.CurrentRyxx;
 import com.shenjinxiang.mvn.rapid.interceptors.JsonResultInterceptor;
 import com.shenjinxiang.mvn.services.xtwh.BmglService;
 
+import java.util.List;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/5 21:28
@@ -66,5 +68,11 @@ public class BmglAction extends RapidAction {
     public void deleteBmxx() throws Exception {
         String bmid = getPara("bmid");
         bmglService.deleteBmxx(bmid);
+    }
+
+    @Before(JsonResultInterceptor.class)
+    public void queryBmxxForTree() throws Exception {
+        List<Bean> list = bmglService.queryBmxxForTree();
+        setJson(list);
     }
 }

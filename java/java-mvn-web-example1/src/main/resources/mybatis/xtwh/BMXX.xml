@@ -5,7 +5,7 @@
 
 <mapper namespace="com.shenjinxiang.mvn.mapper.xtwh.BmglMapper">
 
-    <!-- 机构分页查询 -->
+    <!-- 部门分页查询 -->
     <select id="Dynasearch_xtwh_bmxx_count" parameterType="map" resultType="int">
         select count(1) from xtwh_bmxx t
         <where>
@@ -125,4 +125,14 @@
             and bmid = #{bmid, jdbcType=VARCHAR}
         </where>
     </delete>
+    <select id="queryBmxxForTree" resultType="bean">
+        select
+            bmid as id,
+            bmid,
+            bmbh,
+            bmmc as name,
+            bmmc,
+            sjbmid as pId
+        from xtwh_bmxx
+    </select>
 </mapper>

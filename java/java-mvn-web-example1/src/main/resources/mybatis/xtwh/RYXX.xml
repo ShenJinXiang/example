@@ -13,4 +13,173 @@
         </where>
     </select>
 
+    <select id="Dynasearch_xtwh_ryxx_count" parameterType="map" resultType="int">
+        select count(0)
+        from xtwh_ryxx t
+        <where>
+            and t.ssbmid like concat(#{s_ssbmid, jdbcType=VARCHAR}, '%')
+            <if test="s_rymc != '' and s_rymc != null ">
+                and (
+                    t.rymc like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%') or
+                    t.rybh like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%') or
+                    t.ryzh like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%')
+                )
+            </if>
+        </where>
+
+    </select>
+
+    <select id="Dynasearch_xtwh_ryxx_getData" parameterType="map" resultType="map">
+        select
+            t.ryid,
+            t.rybh,
+            t.ryzh,
+            t.rymc,
+            t.lxdh,
+            t.ssbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.ssbmid) as ssbmmc,
+            (
+                select group_concat(c2.jsmc)
+                from xtwh_ry_jsxx c1,xtwh_jsxx c2
+                where c1.jsid=c2.jsid and c1.ryid = t.ryid
+            ) as jsxx,
+            t.sfmr,
+            t.bz,
+            t.lrrq,
+            t.lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc,
+        t.yxbz
+        from xtwh_ryxx t
+        <where>
+            and t.ssbmid like concat(#{s_ssbmid, jdbcType=VARCHAR}, '%')
+            <if test="s_rymc != '' and s_rymc != null ">
+                and (
+                t.rymc like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%') or
+                t.rybh like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%') or
+                t.ryzh like concat('%', #{s_rymc, jdbcType=VARCHAR}, '%')
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="queryRybh" resultType="string">
+        select lpad(ifnull(max(rybh) + 1, 1), 8, 0) as rybh
+        from xtwh_ryxx
+    </select>
+
+    <select id="queryRyxx" parameterType="int" resultType="bean">
+        select
+            t.ryid,
+            t.rybh,
+            t.ryzh,
+            t.rymc,
+            t.lxdh,
+            t.ssbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.ssbmid) as ssbmmc,
+            t.sfmr,
+            t.bz,
+            t.lrrq,
+            t.lrrid,
+            (select rymc from xtwh_ryxx where ryid = t.lrrid) as lrrmc
+        from xtwh_ryxx t
+        <where>
+            and t.ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="countByRyzh" parameterType="map" resultType="int">
+        select count(0)
+        from xtwh_ryxx
+        <where>
+            and ryzh = #{ryzh, jdbcType=VARCHAR}
+            <if test="ryid != null and ryid != '' ">
+                and ryid != #{ryid, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveRyxx" parameterType="map">
+        insert into xtwh_ryxx
+        (
+         `rybh`, `ryzh`, `mm`, `rymc`, `lxdh`, `ssbmid`, `sfmr`, `bz`, `lrrid`, `lrrq`, `yxbz`
+        )
+        values
+        (
+            #{rybh, jdbcType=VARCHAR},
+            #{ryzh, jdbcType=VARCHAR},
+            #{mm, jdbcType=VARCHAR},
+            #{rymc, jdbcType=VARCHAR},
+            #{lxdh, jdbcType=VARCHAR},
+            #{ssbmid, jdbcType=VARCHAR},
+            0,
+            #{bz, jdbcType=VARCHAR},
+            #{lrrid, jdbcType=INTEGER},
+            now(),
+            1
+        )
+    </insert>
+
+    <update id="updateRyxx" parameterType="map">
+        update xtwh_ryxx
+        <set>
+            ryzh = #{ryzh, jdbcType=VARCHAR},
+            rymc = #{rymc, jdbcType=VARCHAR},
+            lxdh = #{lxdh, jdbcType=VARCHAR},
+            bz = #{bz, jdbcType=VARCHAR},
+        </set>
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <delete id="deleteRyJsxx" parameterType="int">
+        delete from xtwh_ry_jsxx
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </delete>
+
+    <delete id="deleteRyxx" parameterType="int">
+        delete from xtwh_ryxx
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </delete>
+
+    <update id="resetPwd" parameterType="map">
+        update xtwh_ryxx
+        <set>
+            mm = #{mm, jdbcType=VARCHAR},
+        </set>
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <insert id="insertRyjs" parameterType="map" >
+        insert into xtwh_ry_jsxx
+        (ryid, jsid)
+        <foreach collection="jsids" item="item" index="index" separator="union all">
+            select
+            #{ryid, jdbcType=INTEGER},
+            #{item, jdbcType=VARCHAR}
+            from dual
+        </foreach>
+    </insert>
+
+    <select id="queryJsForTree" parameterType="int" resultType="bean">
+        select
+            t.jsid id,
+            t.jsmc name,
+            null as pId,
+            (
+                select if(count(0) > 0, true, false)
+                from xtwh_ry_jsxx c
+                <where>
+                    and c.jsid = t.jsid
+                    and c.ryid = #{ryid, jdbcType=INTEGER}
+                </where>
+            ) checked
+        from xtwh_jsxx t
+    </select>
 </mapper>

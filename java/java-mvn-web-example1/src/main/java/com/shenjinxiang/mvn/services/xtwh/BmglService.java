@@ -8,6 +8,8 @@ import com.shenjinxiang.mvn.rapid.domain.Bean;
 import com.shenjinxiang.mvn.rapid.exceptions.BizException;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.MyBatisSessionManager;
 
+import java.util.List;
+
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/5 22:09
@@ -71,5 +73,12 @@ public class BmglService {
             }
             bmglMapper.deleteByBmid(bmid);
         }
+    }
+
+    @MyBatisDbConn
+    public List<Bean> queryBmxxForTree() {
+        BmglMapper bmglMapper = MyBatisSessionManager.getMapper(BmglMapper.class);
+        List<Bean>list = bmglMapper.queryBmxxForTree();
+        return list;
     }
 }

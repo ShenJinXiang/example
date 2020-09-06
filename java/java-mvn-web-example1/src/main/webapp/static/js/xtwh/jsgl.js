@@ -87,8 +87,8 @@ function saveJsxx() {
         qyConfirm("确定执行保存操作吗？",function(value){
             if(value){
                 var url = ctx+"/xtwh/jsgl/saveJsxx";
-                if ($("#jsid").val()!="") {
-                    var url = ctx+"/xtwh/jsgl/updateJsxx";
+                if ($("#jsid").val()) {
+                    url = ctx+"/xtwh/jsgl/updateJsxx";
                 }
                 var result = doFormService(url,"jsxxForm");
                 if(result){
