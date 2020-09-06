@@ -1,4 +1,5 @@
 <%@ page import="com.shenjinxiang.mvn.rapid.kits.RenderHelper" %>
+<%@ page import="com.jfinal.ext.plugin.shiro.ShiroMethod" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>  
@@ -11,6 +12,11 @@
 %>
 <script type="text/javascript">
 	var ctx = "<%=ctx%>";
+	var currentRyxxJsonStr = '${currentRyxxJson}';
+	var currentRyxx = JSON.parse(currentRyxxJsonStr);
+	var addPer = <%=ShiroMethod.hasPermission("/xtwh/zygl/addZy")%>;
+	var updPer = <%=ShiroMethod.hasPermission("/xtwh/zygl/updZy")%>;
+	var delPer = <%=ShiroMethod.hasPermission("/xtwh/zygl/delZy")%>;
 </script>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/ui.jqgrid.css") %>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/jquery-ui.theme.min.css") %>
@@ -27,7 +33,9 @@
 <button type="button" class="_searchbtn" onclick="refreshZYXX();">查询</button>
 <button type="button" class="_btn" onclick="formReset('searchForm');">重置</button>
 <span class="fl_r">
-<button type="button" class="_masterbtn" onclick="openAddZyxx();">新增</button>
+    <shiro:hasPermission name="/xtwh/zygl/addZy">
+		<button type="button" class="_masterbtn" onclick="openAddZyxx();">新增</button>
+	</shiro:hasPermission>
 <button type="button" class="_btn" onclick="refreshZYXX();">刷新</button>
 </span>
 </form>

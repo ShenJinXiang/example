@@ -4,9 +4,11 @@ import com.shenjinxiang.mvn.mapper.xtwh.ZyglMapper;
 import com.shenjinxiang.mvn.rapid.annotations.MyBatisDbConn;
 import com.shenjinxiang.mvn.rapid.annotations.MyBatisDbConnTx;
 import com.shenjinxiang.mvn.rapid.domain.Bean;
+import com.shenjinxiang.mvn.rapid.domain.CurrentRyxx;
 import com.shenjinxiang.mvn.rapid.exceptions.BizException;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.MyBatisSessionManager;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -63,6 +65,38 @@ public class ZyglService {
     public List<Bean> queryJsZy(int jsid) {
         ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
         List<Bean> list = zyglMapper.queryJsZy(jsid);
+        return list;
+    }
+
+    @MyBatisDbConn
+    public List<Bean> queryZyljForMain(CurrentRyxx currentRyxx) {
+        ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
+        Bean params = new Bean();
+        params.set("ryid", currentRyxx.getRyid());
+        params.set("sfmr", currentRyxx.getSfmr());
+        List<Bean> yjZylist = zyglMapper.queryZyListBySjzy(params);
+        Iterator<Bean> iterator = yjZylist.iterator();
+        while (iterator.hasNext()) {
+            Bean yjzy = iterator.next();
+            params.set("sjzyid", yjzy.getStr("zyid"));
+            List<Bean> ejzyList = zyglMapper.queryZyListBySjzy(params);
+            yjzy.set("ejzySize", ejzyList.size());
+            yjzy.set("ejzyList", ejzyList);
+        }
+        return yjZylist;
+    }
+
+    @MyBatisDbConn
+    public List<String> queryZyljByRyid(Bean ryxx) {
+        ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
+        List<String> list = zyglMapper.queryZyljByRyid(ryxx);
+        return list;
+    }
+
+    @MyBatisDbConn
+    public List<String> queryAllZylj() {
+        ZyglMapper zyglMapper = MyBatisSessionManager.getMapper(ZyglMapper.class);
+        List<String> list = zyglMapper.queryAllZylj();
         return list;
     }
 }

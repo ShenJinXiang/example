@@ -42,23 +42,32 @@ function initGrid() {
                 {name: 'ssbmmc', index: 'ssbmmc', width: 50, sortable: false},
                 {name: 'lxdh', index: 'lxdh', width: 50, sortable: false},
                 {name: 'jsxx', index: 'jsxx', width: 60, sortable: false},
-                {name: 'yxbz', index: 'yxbz', width: 60, sortable: false, align:'center', formatter: function (value, options, row) {
+                {name: 'yxbz', index: 'yxbz', width: 40, sortable: false, align:'center', formatter: function (value, options, row) {
                     if (value) {
                         return '<span class="green">正常</span>';
                     }
                     return "<span class='red'>冻结</span>"
                     }},
-                {name: 'cz', index: 'jgmc', width: 80, sortable: false, align: "center", title: false, formatter: function (value, options, row) {
+                {name: 'cz', index: 'jgmc', width: 120, sortable: false, align: "center", title: false, formatter: function (value, options, row) {
+                    if (row.yxbz) {
                         return "<span class='tdcz'>" +
-                            "<a title='授权' class='td_btn td_btn_auto' href=javascript:openGrant('" + row.ryid + "','" + row.rymc + "');>授权</a>" +
-                            "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('" + row.ryid + "');>修改</a>" +
-                            "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteRyxx('" + row.ryid + "');>删除</a>" +
-                            "<a title='密码初始化' class='td_btn td_btn_password' href=javascript:resetPwd('" + row.ryid + "');>重置密码</a>" +
-                            // (grantPer?"<a title='授权' class='td_btn td_btn_auto' href=javascript:openGrant('" + row.rydm + "','" + row.rymc + "','"+row.ssjglx+"');></a>":"") +
-                            // (modifyPer?"<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('" + row.rydm + "');></a>":"") +
-                            // (deletePer?"<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteRYXX('" + row.rydm + "');></a>":"") +
-                            // (resetPwdPer?"<a title='密码初始化' class='td_btn td_btn_password' href=javascript:resetPwd('" + row.rydm + "');></a>":"") +
+                            (grantPer ? "<a title='授权' class='td_btn ' href=javascript:openGrant('" + row.ryid + "','" + row.rymc + "');>授权</a>" : "") +
+                            (modifyPer ? "<a title='修改' class='td_btn ' href=javascript:openModify('" + row.ryid + "');>修改</a>" : "") +
+                            (deletePer ? "<a title='删除' class='td_btn ' href=javascript:deleteRyxx('" + row.ryid + "');>删除</a>" : "") +
+                            (resetPwdPer ? "<a title='密码初始化' class='td_btn ' href=javascript:resetPwd('" + row.ryid + "');>重置密码</a>" : "") +
+                            (jyryPer ? "<a title='停用' class='td_btn ' href=javascript:jyry('" + row.ryid + "');>停用</a>" : "") +
+                            // (grantPer ? "<a title='授权' class='td_btn td_btn_auto' href=javascript:openGrant('" + row.ryid + "','" + row.rymc + "');>授权</a>" : "") +
+                            // (modifyPer ? "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('" + row.ryid + "');>修改</a>" : "") +
+                            // (deletePer ? "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteRyxx('" + row.ryid + "');>删除</a>" : "") +
+                            // (resetPwdPer ? "<a title='密码初始化' class='td_btn td_btn_password' href=javascript:resetPwd('" + row.ryid + "');>重置密码</a>" : "") +
+                            // (jyryPer ? "<a title='停用' class='td_btn ' href=javascript:jyry('" + row.ryid + "');>停用</a>" : "") +
+                        "</span>";
+                    } else {
+                        return "<span class='tdcz'>" +
+                            (qyryPer ? "<a title='启用' class='td_btn ' href=javascript:qyry('" + row.ryid + "');>启用</a>" : "") +
                             "</span>";
+
+                    }
                     }},
                 {name: 'ryid', index: 'ryid', hidden: true},
                 {name: 'ssbmid', index: 'ssbmid', hidden: true}
@@ -129,8 +138,7 @@ function openAddRyxx() {
     if (rybh) {
         $("#rybh").val(rybh);
     }
-    // todo 设置录入人为当前登录用户
-
+    $("#lrrmc").val(currentRyxx.rymc);
     $("#lrrq").val(timeKit.getDateTimeStr(new Date));
     openRyxx("新增用户");
 }
@@ -243,4 +251,30 @@ function saveGrant(){
             }
         });
     }
+}
+
+function jyry(ryid) {
+    qyConfirm("确定执行该操作吗？", function (value) {
+        if (value) {
+            var result = doService(ctx + "/xtwh/rygl/jyry", 'ryid', ryid);
+            if (result) {
+                qyAlert("停用成功！", function () {
+                    refreshGrid();
+                });
+            }
+        }
+    });
+}
+
+function qyry(ryid) {
+    qyConfirm("确定执行该操作吗？", function (value) {
+        if (value) {
+            var result = doService(ctx + "/xtwh/rygl/qyry", 'ryid', ryid);
+            if (result) {
+                qyAlert("启用成功！", function () {
+                    refreshGrid();
+                });
+            }
+        }
+    });
 }

@@ -148,4 +148,65 @@
             and jsid = #{jsid, jdbcType=INTEGER}
         </where>
     </select>
+    <select id="queryZyljByRyid" parameterType="map" resultType="string">
+        <choose>
+            <when test="sfmr != 1">
+                select distinct(c.zylj)
+                from xtwh_ry_jsxx a, xtwh_jsqx b, xtwh_zyxx c
+                <where>
+                    and a.jsid = b.jsid
+                    and b.zyid = c.zyid
+                    and a.ryid = #{ryid, jdbcType=INTEGER}
+                </where>
+            </when>
+            <otherwise>
+                select t.zylj
+                from xtwh_zyxx t
+            </otherwise>
+        </choose>
+    </select>
+    <select id="queryZyListBySjzy" parameterType="map" resultType="bean">
+        <choose>
+            <when test="sfmr != 1">
+                select distinct c.zyid,c.zymc,c.zylj,c.zytb
+                from xtwh_ry_jsxx a, xtwh_jsqx b, xtwh_zyxx c
+                <where>
+                    and c.zylx = 0
+                    and c.sfxs = 1
+                    and a.jsid = b.jsid
+                    and b.zyid = c.zyid
+                    and a.ryid = #{ryid, jdbcType=INTEGER}
+                    <choose>
+                        <when test="sjzyid != '' and sjzyid != null">
+                            and c.sjzyid = #{sjzyid, jdbcType=VARCHAR}
+                        </when>
+                        <otherwise>
+                            and (c.sjzyid is null or c.sjzyid = '')
+                        </otherwise>
+                    </choose>
+                </where>
+            </when>
+            <otherwise>
+                select distinct t.zyid,t.zymc,t.zylj,t.zytb
+                from xtwh_zyxx t
+                <where>
+                    and t.zylx = 0
+                    and t.sfxs = 1
+                    <choose>
+                        <when test="sjzyid != '' and sjzyid != null">
+                            and t.sjzyid = #{sjzyid, jdbcType=VARCHAR}
+                        </when>
+                        <otherwise>
+                            and (t.sjzyid is null or t.sjzyid = '')
+                        </otherwise>
+                    </choose>
+                </where>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="queryAllZylj" resultType="bean">
+        select zylj
+        from xtwh_zyxx
+    </select>
 </mapper>

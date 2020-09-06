@@ -25,6 +25,7 @@ public class RyglAction extends RapidAction {
 
     @Clear(JsonResultInterceptor.class)
     public void index() {
+        bindCurrentRyxxToPage();
         renderJsp("/WEB-INF/pages/xtwh/rygl.jsp");
     }
 
@@ -88,5 +89,15 @@ public class RyglAction extends RapidAction {
         int ryid = getParaToInt("ryid");
         List<Bean> list = ryglService.queryJsForTree(ryid);
         setJson(list);
+    }
+
+    public void jyry() throws Exception {
+        int ryid = getParaToInt("ryid");
+        ryglService.jyry(ryid);
+    }
+
+    public void qyry() throws Exception {
+        int ryid = getParaToInt("ryid");
+        ryglService.qyry(ryid);
     }
 }

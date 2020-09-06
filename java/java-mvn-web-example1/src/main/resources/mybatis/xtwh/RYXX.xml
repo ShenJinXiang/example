@@ -182,4 +182,61 @@
             ) checked
         from xtwh_jsxx t
     </select>
+
+    <select id="queryCurrnetRyxxByRyzh" parameterType="string" resultType="com.shenjinxiang.mvn.rapid.domain.CurrentRyxx" >
+        select
+            t.ryid,
+            t.rybh,
+            t.ryzh,
+            t.rymc,
+            t.lxdh,
+            t.ssbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.ssbmid) as ssbmmc,
+            t.sfmr,
+            t.bz
+        from xtwh_ryxx t
+        <where>
+            and t.ryzh = #{ryzh, jdbcType=VARCHAR}
+            and t.yxbz = 1
+        </where>
+    </select>
+
+    <select id="queryRyZhxx" parameterType="string" resultType="bean">
+        select
+            t.ryid,
+            t.rybh,
+            t.ryzh,
+            t.mm,
+            t.rymc,
+            t.lxdh,
+            t.ssbmid,
+            (select bmmc from xtwh_bmxx where bmid = t.ssbmid) as ssbmmc,
+            t.sfmr,
+            t.bz
+        from xtwh_ryxx t
+        <where>
+            and t.ryzh = #{ryzh, jdbcType=VARCHAR}
+            and t.yxbz = 1
+        </where>
+    </select>
+
+    <update id="jyry" parameterType="string">
+        update xtwh_ryxx
+        <set>
+            yxbz = 0,
+        </set>
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </update>
+
+    <update id="qyry" parameterType="string">
+        update xtwh_ryxx
+        <set>
+            yxbz = 1,
+        </set>
+        <where>
+            and ryid = #{ryid, jdbcType=INTEGER}
+        </where>
+    </update>
 </mapper>

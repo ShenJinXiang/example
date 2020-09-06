@@ -75,6 +75,7 @@ public abstract class RapidAction extends Controller {
 	 */
 	protected void bindCurrentRyxxToPage() {
 		setAttr("currentRyxx", getCurrentRyxx());
+		setAttr("currentRyxxJson", getSessionAttr("currentRyxxJson"));
 	}
 	
 	/**

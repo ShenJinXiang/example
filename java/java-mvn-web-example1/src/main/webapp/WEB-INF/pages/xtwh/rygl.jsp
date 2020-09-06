@@ -12,12 +12,16 @@
 %>
 <script type="text/javascript">
 	var ctx = "<%=ctx%>";
-	<%--var ssjgid = "${currentRyxx.ssjgid}";--%>
-	<%--var ssjgmc = "${currentRyxx.ssjgmc}";--%>
-	<%--var grantPer = <%=ShiroMethod.hasPermission("/yygl/rygl/saveRyJs")%>;--%>
-	<%--var modifyPer = <%=ShiroMethod.hasPermission("/yygl/rygl/updateRYXX")%>;--%>
-	<%--var deletePer = <%=ShiroMethod.hasPermission("/yygl/rygl/delete")%>;--%>
-	<%--var resetPwdPer = <%=ShiroMethod.hasPermission("/yygl/rygl/resetPwd")%>;--%>
+	var currentRyxxJsonStr = '${currentRyxxJson}';
+	var currentRyxx = JSON.parse(currentRyxxJsonStr);
+
+	var addPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/addRyxx")%>;
+	var modifyPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/updRyxx")%>;
+	var deletePer = <%=ShiroMethod.hasPermission("/xtwh/rygl/delRyxx")%>;
+	var grantPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/sqRyxx")%>;
+	var resetPwdPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/resetPwd")%>;
+	var jyryPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/jyRy")%>;
+	var qyryPer = <%=ShiroMethod.hasPermission("/xtwh/rygl/qyRy")%>;
 </script>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/ui.jqgrid.css") %>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/jquery-ui.theme.min.css") %>
@@ -35,9 +39,9 @@
 		<button type="button" class="_searchbtn" onclick="refreshGrid();">查询</button>
 		<button type="button" class="_btn" onclick="formReset('searchForm');">重置</button>
 		<span class="fl_r">
-<%--			<shiro:hasPermission name="/yygl/rygl/saveRYXX">--%>
+			<shiro:hasPermission name="/xtwh/rygl/addRyxx">
 			<button type="button" class="_masterbtn" onclick="openAddRyxx();">新增</button>
-<%--			</shiro:hasPermission>--%>
+			</shiro:hasPermission>
 			<button type="button" class="_btn" onclick="refreshGrid();">刷新</button>
 		</span>
 	</form>

@@ -18,9 +18,12 @@ function initGrid() {
                 {name : "jsms",index : "jsms",width : 80,sortable:false},
                 {name : "cz",index : "jsmc",width : 50,sortable:false,align:"center",title:false,formatter:function(value,options,row){
                         return "<span class='tdcz'>"+
-                            "<a title='授权' class='td_btn td_btn_auto' href=javascript:openGrant('"+row.jsid+"','"+row.jsmc+"');>授权</a>"+
-                            "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.jsid+"');>修改</a>"+
-                            "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteJsxx('"+row.jsid+"');>删除</a>"+
+                            (sqPer ? "<a title='授权' class='td_btn' href=javascript:openGrant('"+row.jsid+"','"+row.jsmc+"');>授权</a>" : "") +
+                            (modifyPer ? "<a title='修改' class='td_btn' href=javascript:openModify('"+row.jsid+"');>修改</a>" : "" ) +
+                            (deletePer ? "<a title='删除' class='td_btn' href=javascript:deleteJsxx('"+row.jsid+"');>删除</a>" : "" ) +
+                            // (sqPer ? "<a title='授权' class='td_btn td_btn_auto' href=javascript:openGrant('"+row.jsid+"','"+row.jsmc+"');>授权</a>" : "") +
+                            // (modifyPer ? "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.jsid+"');>修改</a>" : "" ) +
+                            // (deletePer ? "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteJsxx('"+row.jsid+"');>删除</a>" : "" ) +
                             "</span>";
                     }},
                 {name : "jsid",index : "jsid",hidden:true}
@@ -63,8 +66,7 @@ function openAddJsxx() {
     if (jsbh) {
         $("#jsbh").val(jsbh);
     }
-    // todo 设置录入人为当前登录用户
-
+    $("#lrrmc").val(currentRyxx.rymc);
     $("#lrrq").val(timeKit.getDateTimeStr(new Date));
     openJsxx("新增角色");
 }

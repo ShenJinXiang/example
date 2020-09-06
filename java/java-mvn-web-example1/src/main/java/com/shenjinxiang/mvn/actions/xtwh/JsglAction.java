@@ -20,6 +20,7 @@ public class JsglAction extends RapidAction {
     private JsglService jsglService;
 
     public void index() {
+        bindCurrentRyxxToPage();
         renderJsp("/WEB-INF/pages/xtwh/jsgl.jsp");
     }
 

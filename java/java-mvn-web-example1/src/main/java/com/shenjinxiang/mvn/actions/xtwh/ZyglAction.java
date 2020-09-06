@@ -24,6 +24,7 @@ public class ZyglAction extends RapidAction {
 
     @Clear(JsonResultInterceptor.class)
     public void index() {
+        bindCurrentRyxxToPage();
         renderJsp("/WEB-INF/pages/xtwh/zygl.jsp");
     }
 

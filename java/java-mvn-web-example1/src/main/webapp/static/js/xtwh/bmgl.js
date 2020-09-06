@@ -34,12 +34,9 @@ function initGrid() {
                 {name : "lrrmc",index : "lrrmc",width : 30,sortable:false},
                 {name : "cz",index : "jgmc",width : 100,sortable:false,align:"center",title:false,formatter:function(value,options,row){
                         return "<span class='tdcz'>"+
-                            "<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildBmxx('"+row.bmid+"','"+row.bmmc+"');>新增下级</a>" +
-                            "<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.bmid+"');>修改</a>" +
-                            "<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteBmxx('"+row.bmid+"');>删除</a>" +
-                            // (addPer?"<a title='新增下级' class='td_btn td_btn_add' href=javascript:addChildBmxx('"+row.bmid+"','"+row.jgmc+"');></a>":"")+
-                            // (modifyPer?"<a title='修改' class='td_btn td_btn_change' href=javascript:openModify('"+row.bmid+"');></a>":"")+
-                            // (deletePer?"<a title='删除' class='td_btn td_btn_delete' href=javascript:deleteBmxx('"+row.bmid+"');></a>":"")+
+                            (addPer ? "<a title='新增下级' class='td_btn' href=javascript:addChildBmxx('"+row.bmid+"','"+row.bmmc+"');>新增下级</a>" : "") +
+                            (modifyPer ? "<a title='修改' class='td_btn' href=javascript:openModify('"+row.bmid+"');>修改</a>" : "") +
+                            (deletePer ? "<a title='删除' class='td_btn' href=javascript:deleteBmxx('"+row.bmid+"');>删除</a>" : "") +
                             "</span>";
                     }},
                 {name : "id",index : "id",hidden:true},
@@ -92,8 +89,7 @@ function openAddBmxx() {
     }
     $("#sjbmid").val("");
     $("#sjbmmc").val(gsmc);
-    // todo 设置录入人为当前登录用户
-
+    $("#lrrmc").val(currentRyxx.rymc);
     $("#lrrq").val(timeKit.getDateTimeStr(new Date));
     openBMXX("新增部门");
 }
@@ -111,8 +107,7 @@ function addChildBmxx(bmid, bmmc) {
     }
     $("#sjbmid").val(bmid);
     $("#sjbmmc").val(bmmc);
-    // todo 设置录入人为当前登录用户
-
+    $("#lrrmc").val(currentRyxx.rymc);
     $("#lrrq").val(timeKit.getDateTimeStr(new Date));
     openBMXX("新增部门");
 

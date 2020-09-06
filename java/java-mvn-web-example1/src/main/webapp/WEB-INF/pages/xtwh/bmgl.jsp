@@ -12,11 +12,11 @@
 %>
 <script type="text/javascript">
 	var ctx = "<%=ctx%>";
-	<%--var ssjgid = "${currentRyxx.ssjgid}";--%>
-	<%--var ssjgmc = "${currentRyxx.ssjgmc}";--%>
-	<%--var addPer = <%=ShiroMethod.hasPermission("/yygl/jggl/saveJGXX")%>;--%>
-	<%--var modifyPer = <%=ShiroMethod.hasPermission("/yygl/jggl/updateJGXX")%>;--%>
-	<%--var deletePer = <%=ShiroMethod.hasPermission("/yygl/jggl/delete")%>;--%>
+	var currentRyxxJsonStr = '${currentRyxxJson}';
+	var currentRyxx = JSON.parse(currentRyxxJsonStr);
+	var addPer = <%=ShiroMethod.hasPermission("/xtwh/bmgl/addBm")%>;
+	var modifyPer = <%=ShiroMethod.hasPermission("/xtwh/bmgl/updBm")%>;
+	var deletePer = <%=ShiroMethod.hasPermission("/xtwh/bmgl/delBm")%>;
 </script>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/ui.jqgrid.css") %>
 <%=RenderHelper.includedStyle(request, "/static/plugin/jqgrid/css/jquery-ui.theme.min.css") %>
@@ -33,9 +33,9 @@
 		<button type="button" class="_searchbtn" onclick="refreshGrid();">查询</button>
 		<button type="button" class="_btn" onclick="formReset('searchForm');">重置</button>
 		<span class="fl_r">
-			<%--<shiro:hasPermission name="/yygl/jggl/saveJGXX">--%>
-			<button type="button" class="_masterbtn" onclick="openAddBmxx();">新增</button>
-			<%--</shiro:hasPermission>--%>
+			<shiro:hasPermission name="/xtwh/bmgl/addBm">
+				<button type="button" class="_masterbtn" onclick="openAddBmxx();">新增</button>
+			</shiro:hasPermission>
 			<button type="button" class="_btn" onclick="refreshGrid();">刷新</button>
 		</span>
 	</form>

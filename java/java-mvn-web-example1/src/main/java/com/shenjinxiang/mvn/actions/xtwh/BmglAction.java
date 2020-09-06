@@ -20,6 +20,7 @@ public class BmglAction extends RapidAction {
     private BmglService bmglService;
 
     public void index() {
+        bindCurrentRyxxToPage();
         renderJsp("/WEB-INF/pages/xtwh/bmgl.jsp");
     }
 

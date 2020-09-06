@@ -1,6 +1,7 @@
 package com.shenjinxiang.mvn.mapper.xtwh;
 
 import com.shenjinxiang.mvn.rapid.domain.Bean;
+import com.shenjinxiang.mvn.rapid.domain.CurrentRyxx;
 
 import java.util.List;
 
@@ -31,4 +32,12 @@ public interface RyglMapper {
     void insertRyjs(Bean params);
 
     List<Bean> queryJsForTree(int ryid);
+
+    CurrentRyxx queryCurrnetRyxxByRyzh(String ryzh);
+
+    Bean queryRyZhxx(String ryzh);
+
+    void jyry(int ryid);
+
+    void qyry(int ryid);
 }

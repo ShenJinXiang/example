@@ -4,6 +4,7 @@ import com.shenjinxiang.mvn.mapper.xtwh.RyglMapper;
 import com.shenjinxiang.mvn.rapid.annotations.MyBatisDbConn;
 import com.shenjinxiang.mvn.rapid.annotations.MyBatisDbConnTx;
 import com.shenjinxiang.mvn.rapid.domain.Bean;
+import com.shenjinxiang.mvn.rapid.domain.CurrentRyxx;
 import com.shenjinxiang.mvn.rapid.exceptions.BizException;
 import com.shenjinxiang.mvn.rapid.kits.StringUtil;
 import com.shenjinxiang.mvn.rapid.plugin.mybatis.MyBatisSessionManager;
@@ -88,5 +89,31 @@ public class RyglService {
         RyglMapper ryglMapper = MyBatisSessionManager.getMapper(RyglMapper.class);
         List<Bean> list = ryglMapper.queryJsForTree(ryid);
         return list;
+    }
+
+    @MyBatisDbConn
+    public CurrentRyxx queryCurrnetRyxxByRyzh(String ryzh) {
+        RyglMapper ryglMapper = MyBatisSessionManager.getMapper(RyglMapper.class);
+        CurrentRyxx currentRyxx = ryglMapper.queryCurrnetRyxxByRyzh(ryzh);
+        return currentRyxx;
+    }
+
+    @MyBatisDbConn
+    public Bean queryRyZhxx(String ryzh) {
+        RyglMapper ryglMapper = MyBatisSessionManager.getMapper(RyglMapper.class);
+        Bean ryxx = ryglMapper.queryRyZhxx(ryzh);
+        return ryxx;
+    }
+
+    @MyBatisDbConnTx
+    public void jyry(int ryid) {
+        RyglMapper ryglMapper = MyBatisSessionManager.getMapper(RyglMapper.class);
+        ryglMapper.jyry(ryid);
+    }
+
+    @MyBatisDbConnTx
+    public void qyry(int ryid) {
+        RyglMapper ryglMapper = MyBatisSessionManager.getMapper(RyglMapper.class);
+        ryglMapper.qyry(ryid);
     }
 }

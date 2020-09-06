@@ -381,6 +381,57 @@ $.fn.getFormJson = function()
    return o;  
 };
 
+//打开新页签
+function loadPage(_zyid, _text, _url,isRefresh) {
+	var tabs = window.parent.parent.parent.$("#tabs");
+	var header = tabs.children(".tabs_div").children(".tabs_header");
+	var container = tabs.children(".tabs_container");
+	if (!tabs.find(".tabs_header span[zyid='" + _zyid + "']").length) {
+		var _header = "<span zyid='" + _zyid + "' class='active'>" + _text + "<i></i></span>";
+		var _container = "<iframe zyid='" + _zyid + "' src='" + _url + "'></iframe>";
+		$(header).children().removeClass('active').end().append(_header);
+		$(container).children().hide().end().append(_container);
+		bindContextMenu(_zyid);
+	} else {
+		tabs.find(".tabs_header span[zyid='" + _zyid + "']:eq(0)").trigger("click");
+		if(isRefresh){
+			tabs.find(".tabs_header span[zyid='" + _zyid + "']:eq(0)").trigger("click");
+			tabs.find(".tabs_container iframe[zyid='" + _zyid + "']").attr("src",_url);
+		}
+	}
+}
+
+function bindContextMenu(zyid) {
+	var tabs = window.parent.parent.parent.$("#tabs");
+	tabs.find(".tabs_header span[zyid='" + zyid + "']:eq(0)").contextMenu('myMenu1', {
+		menuStyle: {
+		},
+		itemStyle: {
+			'border': '0px',
+			'font': "12px/20px '微软雅黑'"
+		},
+		itemHoverStyle: {
+			'border': '0px',
+			'font': "12px/20px '微软雅黑'"
+		},
+		bindings: {
+			'closeCurrent': function (t) {
+				tabs.find(".tabs_header span[zyid='" + zyid + "'] i:eq(0)").trigger('click');
+			},
+			'closeOther': function (t) {
+				tabs.find(".tabs_header span[zyid!='" + zyid + "'] i").trigger('click');
+			},
+			'closeAll': function (t) {
+				tabs.find(".tabs_header span[zyid!='00'] i").trigger('click');
+			},
+			'refreshCurrent': function (t) {
+				tabs.find(".tabs_container iframe[zyid='" + zyid + "']").get(0).contentWindow.location.reload(true);
+			}
+		}
+	});
+}
+
+
 
 var timeKit = {
 	getDateTimeStr: function (date) {
