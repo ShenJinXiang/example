@@ -13,7 +13,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * @Author: ShenJinXiang
@@ -34,6 +36,18 @@ public class CommandReader implements Runnable {
 
     public CommandReader() throws UnsupportedEncodingException {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in, Config.ENCODE));
+        try {
+            System.out.println("输入设备udp监听端口，逗号分隔");
+            String line = bufferedReader.readLine();
+            String[] ps = line.split(",");
+            for(String p: ps) {
+                int port = Integer.parseInt(p.trim());
+                Config.ADDRESS_LIST.add(new InetSocketAddress("127.0.0.1", port));
+            }
+            Config.INIT_PORTS = true;
+        } catch (Exception e) {
+            logger.error("命令行启动出错", e);
+        }
     }
 
     @Override
@@ -70,17 +84,17 @@ public class CommandReader implements Runnable {
                         Config.UDP_HANDLER.close();
                         Config.MULTICAST_HANDLER.close();
                     }
-//                    if (START.equalsIgnoreCase(words[0])) {
-//                        if (!Config.UDP_HANDLER.isConn()) {
-//                            logger.info("未建立链接，不能开始");
-//                            continue;
-//                        }
-//                        Config.SENDER.start();
-//                        continue;
-//                    }
-//                    if (END.equalsIgnoreCase(words[0])) {
-//                        Config.SENDER.end();
-//                    }
+                    if (START.equalsIgnoreCase(words[0])) {
+                        if (!Config.UDP_HANDLER.isConn()) {
+                            logger.info("未建立链接，不能开始");
+                            continue;
+                        }
+                        Config.SENDER.start();
+                        continue;
+                    }
+                    if (END.equalsIgnoreCase(words[0])) {
+                        Config.SENDER.end();
+                    }
                     if (EXIT.equalsIgnoreCase(words[0])) {
                         logger.info("程序结束！");
                         System.exit(0);

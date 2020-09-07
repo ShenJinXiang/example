@@ -46,13 +46,13 @@ public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramP
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket) throws Exception {
-//        InetAddress address = datagramPacket.sender().getAddress();
-//        ByteBuf buf = datagramPacket.copy().content();
-//        byte[] req = new byte[buf.readableBytes()];
-//        buf.readBytes(req);
-//        String content = ByteKit.byteArrayToHexStr(req);
-//        String info = "address: " + address;
-//        logger.info("接收到[" + info + "]发送的内容：" + content);
+        InetAddress address = datagramPacket.sender().getAddress();
+        ByteBuf buf = datagramPacket.copy().content();
+        byte[] req = new byte[buf.readableBytes()];
+        buf.readBytes(req);
+        String content = ByteKit.byteArrayToHexStr(req);
+        String info = "address: " + address;
+        logger.info("接收到[" + info + "]发送的内容：" + content);
     }
 
     public void close() {

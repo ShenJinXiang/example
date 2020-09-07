@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.shenjinxiang</groupId>
-    <artifactId>Java-Netty-Udp-Interaction-Point</artifactId>
+    <artifactId>Java-Netty-Udp-Interaction-Center</artifactId>
     <version>1.0</version>
 
     <properties>
