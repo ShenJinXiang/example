@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.shenjinxiang</groupId>
-  <artifactId>java-netty-util</artifactId>
+  <artifactId>Java-Netty-Udp-Multicast-All-NetworkInterface-Command</artifactId>
   <version>1.0</version>
   <build>
     <plugins>
@@ -26,7 +26,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.shenjinxiang.netty.Start</mainClass>
+                  <mainClass>com.shenjinxiang.netty.Application</mainClass>
                 </transformer>
               </transformers>
             </configuration>

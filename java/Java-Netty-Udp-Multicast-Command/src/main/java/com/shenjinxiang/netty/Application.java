@@ -3,24 +3,48 @@ package com.shenjinxiang.netty;
 
 import com.shenjinxiang.netty.core.CommandReader;
 import com.shenjinxiang.netty.core.Config;
-import com.shenjinxiang.netty.core.NettyMulticastUdp;
 import com.shenjinxiang.netty.kit.ThreadPool;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
-import java.net.InetSocketAddress;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) throws ParseException, UnsupportedEncodingException, InterruptedException {
+    public static void main(String[] args) throws Exception {
         logger.info("Start...");
         commandLine(args);
         logger.info("当前程序编号为：" + Config.INDEX);
         ThreadPool.getThread().execute(new CommandReader());
+
+//        info();
+
+
+
+
+    }
+
+    private static void info() throws Exception {
+        Enumeration<NetworkInterface> nifs = null;
+        nifs = NetworkInterface.getNetworkInterfaces();
+        while (nifs.hasMoreElements()) {
+            NetworkInterface ni = nifs.nextElement();
+            Enumeration<InetAddress> address = ni.getInetAddresses();
+            while (address.hasMoreElements()) {
+                InetAddress addr = address.nextElement();
+                if (addr instanceof Inet4Address) {
+                    System.out.println("网络接口名称为：" + ni.getName());
+                    System.out.println("网卡接口地址：" + addr.getHostAddress());
+                    System.out.println();
+                }
+            }
+        }
     }
 
     private static void commandLine(String[] args) throws ParseException {

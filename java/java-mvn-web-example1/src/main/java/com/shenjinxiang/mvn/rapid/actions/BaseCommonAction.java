@@ -23,7 +23,7 @@ public class BaseCommonAction extends RapidAction {
      * 注入参数处理
      * @param parameters
      */
-    public void handlerPar(Map<String, Object> parameters) throws Exception {
+    protected void handlerPar(Map<String, Object> parameters) throws Exception {
 
     }
 

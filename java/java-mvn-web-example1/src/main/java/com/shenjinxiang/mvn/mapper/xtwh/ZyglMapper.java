@@ -23,4 +23,14 @@ public interface ZyglMapper {
     void deleteByZyid(String zyid);
 
     void updateByZyid(Bean zyxx);
+
+    List<Bean> queryZyxxForTree();
+
+    List<Bean> queryJsZy(int jsid);
+
+    List<String> queryZyljByRyid(Bean ryxx);
+
+    List<Bean> queryZyListBySjzy(Bean params);
+
+    List<String> queryAllZylj();
 }

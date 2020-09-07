@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
@@ -32,7 +31,8 @@ public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramP
         try {
             byte[] data = ("编号[" + Config.INDEX + "]发送数据，内容：" + msg).getBytes(Config.ENCODE);
             DatagramPacket datagramPacket = new DatagramPacket(Unpooled.copiedBuffer(data), this.groupAddress);
-            context.channel().writeAndFlush(datagramPacket);
+//            context.channel().writeAndFlush(datagramPacket);
+            context.writeAndFlush(datagramPacket);
         } catch (Exception e) {
             logger.error("发送数据发生错误", e);
         }
@@ -49,14 +49,14 @@ public class NettyMulticastHandler extends SimpleChannelInboundHandler<DatagramP
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket) throws Exception {
 //        SocketAddress address = channelHandlerContext.channel().remoteAddress();
         InetAddress address = datagramPacket.sender().getAddress();
-        String hostAddress = address.getHostAddress();
-        String hostName = address.getHostName();
-        String canonicalHostName = address.getCanonicalHostName();
+//        String hostAddress = address.getHostAddress();
+//        String hostName = address.getHostName();
+//        String canonicalHostName = address.getCanonicalHostName();
         ByteBuf buf = datagramPacket.copy().content();
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String content = new String(req, Config.ENCODE);
-        String info = "address: " + address + "\t hostAddress: " + hostAddress + "\t hostName: " + hostName + "\t canonicalHostName: "  + canonicalHostName;
+        String info = "address: " + address;
         logger.info("接收到内容[" + info + "]：" + content);
     }
 
