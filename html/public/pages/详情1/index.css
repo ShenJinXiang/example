@@ -1,0 +1,38 @@
+/*.dzswj-container {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    box-sizing: border-box;*/
+/*    padding: 20px 10px;*/
+/*}*/
+/*.dzswj-container h1 {*/
+/*    margin: 20px 0;*/
+/*    font-size: 16px;*/
+/*    text-align: center;*/
+/*    color: #333;*/
+/*    box-sizing: border-box;*/
+/*    display: block;*/
+/*    font-weight: bold;*/
+/*}*/
+/**/
+
+h1 {
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+    box-sizing: border-box;
+    display: block;
+    font-weight: bold;
+}
+.center-block.right {
+    text-align: right;
+}
+.center-block.center {
+    text-align: center;
+}
+.form-group label.control-label {
+    font-weight: 400;
+}
+.form-horizontal {
+    margin: 20px 0px;
+}
