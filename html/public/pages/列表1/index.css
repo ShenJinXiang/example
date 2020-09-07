@@ -1,0 +1,33 @@
+.menu-container {
+    padding: 20px;
+}
+.menu-container .menu-item-title {
+    display: block;
+    height: 32px;
+    line-height:32px;
+    font-size: 16px;
+}
+.menu-container .menu-item-group {
+    margin: 20px 0px;
+    display: block;
+}
+.menu-container .menu-item-group .menu-item{
+    display: inline-block;
+    list-style: none;
+    /*height: 28px;*/
+    /*line-height: 28px;*/
+    width: 30%;
+    text-indent: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 5px 10px;
+}
+.menu-container .menu-item-group .menu-item a{
+    font-size: 14px;
+    text-decoration: none;
+    color: #479aed;
+}
+.menu-container .menu-item-group .menu-item a:hover{
+    text-decoration: underline;
+}
