@@ -5,6 +5,7 @@ import com.shenjinxiang.netty.entity.CenterConfig;
 import com.shenjinxiang.netty.entity.Target;
 import com.shenjinxiang.netty.io.CommandReader;
 import com.shenjinxiang.netty.io.NettyUdp;
+import com.shenjinxiang.netty.kit.FileLineReader;
 import com.shenjinxiang.netty.kit.JsonKit;
 import com.shenjinxiang.netty.kit.PathKit;
 import com.shenjinxiang.netty.kit.ThreadPool;
@@ -23,6 +24,11 @@ public class Application {
         logger.info("start...");
         initConfig();
         Config.CENTER_CONFIG.log();
+        Config.DDSJ_FILE = new File(Config.CENTER_CONFIG.getDdFilePath());
+        if (!Config.DDSJ_FILE.exists() || !Config.DDSJ_FILE.isFile()) {
+            logger.error("弹道数据文件配置错误");
+            return;
+        }
         ThreadPool.getThread().execute(Config.SENDER);
         ThreadPool.getThread().execute(new CommandReader());
     }

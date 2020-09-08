@@ -13,6 +13,7 @@ public class CenterConfig {
     private String multicastUdpIP;
     private int multicastUdpPort;
     private int udpListenPort;
+    private String ddFilePath;
     private List<Target> targets;
     private int sendInterval;
 
@@ -64,6 +65,13 @@ public class CenterConfig {
         this.sendInterval = sendInterval;
     }
 
+    public String getDdFilePath() {
+        return ddFilePath;
+    }
+
+    public void setDdFilePath(String ddFilePath) {
+        this.ddFilePath = ddFilePath;
+    }
 
     public void log() {
         StringBuffer stringBuffer = new StringBuffer();

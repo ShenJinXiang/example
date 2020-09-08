@@ -1,6 +1,7 @@
 package com.shenjinxiang.netty.io;
 
 import com.shenjinxiang.netty.core.Config;
+import com.shenjinxiang.netty.kit.FileLineReader;
 import com.shenjinxiang.netty.kit.StrKit;
 import com.shenjinxiang.netty.kit.ThreadPool;
 import org.slf4j.Logger;
@@ -75,6 +76,11 @@ public class CommandReader implements Runnable {
                             logger.info("未建立链接，不能开始");
                             continue;
                         }
+                        if (null != Config.FILE_LINE_READER) {
+                            Config.FILE_LINE_READER.close();
+                        }
+                        Config.FILE_LINE_READER = new FileLineReader(Config.DDSJ_FILE);
+                        ThreadPool.getThread().execute(Config.FILE_LINE_READER);
                         Config.SENDER.start();
                         continue;
                     }

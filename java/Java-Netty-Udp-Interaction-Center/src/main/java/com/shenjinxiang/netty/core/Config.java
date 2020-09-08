@@ -3,7 +3,9 @@ package com.shenjinxiang.netty.core;
 import com.shenjinxiang.netty.entity.CenterConfig;
 import com.shenjinxiang.netty.io.NettyMulticastHandler;
 import com.shenjinxiang.netty.io.UdpHandler;
+import com.shenjinxiang.netty.kit.FileLineReader;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,8 @@ public class Config {
 
     public static Sender SENDER = new Sender();
 
-//    public static boolean INIT_PORTS = false;
-//    public static final List<InetSocketAddress> ADDRESS_LIST = new ArrayList<>();
+    public static File DDSJ_FILE;
+    public static FileLineReader FILE_LINE_READER;
+
     public static CenterConfig CENTER_CONFIG;
 }

@@ -4,6 +4,7 @@
   "multicastUdpPort": 7788,
   "udpListenPort": 6000,
   "sendInterval": 3000,
+  "ddFilePath": "D:\\temp\\20200909\\0f85e9f9-bda0-4d5b-9b9f-fc1aa4ab12a5.csv",
   "targets": [
     { "udpHost":  "127.0.0.1", "udpPort":  "6001", "sblx": "LXB" },
     { "udpHost":  "127.0.0.1", "udpPort":  "6002", "sblx": "DMC" },
