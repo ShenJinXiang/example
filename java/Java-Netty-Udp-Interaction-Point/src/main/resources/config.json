@@ -1,0 +1,6 @@
+{
+  "multicastUdpNetwokInterface": "lo",
+  "multicastUdpIP": "224.255.10.0",
+  "multicastUdpPort": 7788,
+  "udpListenPort": 6001
+}

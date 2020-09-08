@@ -39,7 +39,7 @@ public class NettyUdp implements Runnable {
             logger.info("启动UDP服务，监听端口: " + this.port);
             channel.closeFuture().await();
         } catch (Exception e) {
-            logger.info("启动UDP服务，监听端口: [" + this.port + "] 出错", e);
+            logger.info("正在启动UDP服务，监听端口: [" + this.port + "] 出错", e);
         } finally {
             if (null != group) {
                 group.shutdownGracefully();

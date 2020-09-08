@@ -23,9 +23,6 @@ public class CommandReader implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(CommandReader.class);
 
-    private static final String SEND_PREFIX = "send";
-    private static final String START = "start";
-    private static final String END = "end";
     private static final String EXIT = "exit";
     private static final String CLOSE = "close";
     private static final String CONN = "conn";
@@ -46,41 +43,23 @@ public class CommandReader implements Runnable {
                     logger.info("录入内容：" + line);
                     String[] words = line.trim().split("\\s+");
                     if (CONN.equalsIgnoreCase(words[0])) {
-                        if (words.length < 2 || StrKit.isBlank(words[1])) {
-                            logger.info("请指定网卡名称:");
-                            info();
-                            continue;
-                        }
-                        // 加入组播
                         if (null != Config.MULTICAST_HANDLER && Config.MULTICAST_HANDLER.isConn()) {
                             Config.MULTICAST_HANDLER.close();
                         }
-                        String networkInterfaceName = words[1];
-                        InetSocketAddress groupAddress = new InetSocketAddress(Config.MULTICAST_HOST, Config.MULTICAST_PORT);
-                        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress, networkInterfaceName));
+                        InetSocketAddress groupAddress = new InetSocketAddress(Config.POINT_CONFIG.getMulticastUdpIP(), Config.POINT_CONFIG.getMulticastUdpPort());
+                        ThreadPool.getThread().execute(new NettyMulticastUdp(groupAddress, Config.POINT_CONFIG.getMulticastUdpNetwokInterface()));
 
                         // 启动udp
                         if (null != Config.UDP_HANDLER && Config.UDP_HANDLER.isConn()) {
                             Config.UDP_HANDLER.close();
                         }
-                        ThreadPool.getThread().execute(new NettyUdp(Config.UDP_PORT));
+                        ThreadPool.getThread().execute(new NettyUdp(Config.POINT_CONFIG.getUdpListenPort()));
                         Thread.sleep(3000);
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
                         Config.UDP_HANDLER.close();
                         Config.MULTICAST_HANDLER.close();
                     }
-//                    if (START.equalsIgnoreCase(words[0])) {
-//                        if (!Config.UDP_HANDLER.isConn()) {
-//                            logger.info("未建立链接，不能开始");
-//                            continue;
-//                        }
-//                        Config.SENDER.start();
-//                        continue;
-//                    }
-//                    if (END.equalsIgnoreCase(words[0])) {
-//                        Config.SENDER.end();
-//                    }
                     if (EXIT.equalsIgnoreCase(words[0])) {
                         logger.info("程序结束！");
                         System.exit(0);
