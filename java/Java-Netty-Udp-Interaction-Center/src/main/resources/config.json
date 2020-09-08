@@ -1,0 +1,12 @@
+{
+  "multicastUdpNetwokInterface": "lo",
+  "multicastUdpIP": "224.255.10.0",
+  "multicastUdpPort": 7788,
+  "udpListenPort": 6000,
+  "sendInterval": 3000,
+  "targets": [
+    { "udpHost":  "127.0.0.1", "udpPort":  "6001", "sblx": "LXB" },
+    { "udpHost":  "127.0.0.1", "udpPort":  "6002", "sblx": "DMC" },
+    { "udpHost":  "127.0.0.1", "udpPort":  "6003", "sblx": "YC" }
+  ]
+}

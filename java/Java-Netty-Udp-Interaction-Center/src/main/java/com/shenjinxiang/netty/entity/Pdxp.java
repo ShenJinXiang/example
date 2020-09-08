@@ -22,6 +22,11 @@ public class Pdxp {
         this.verData = (byte)0x80;
     }
 
+    public Pdxp(int noData) {
+        this.verData = (byte)0x80;
+        this.noData = noData;
+    }
+
     public Pdxp(int noData, short dataLen) {
         this.verData = (byte)0x80;
         this.noData = noData;

@@ -36,7 +36,7 @@ public class NettyUdp implements Runnable {
                     .option(ChannelOption.SO_BROADCAST, true)
                     .handler(Config.UDP_HANDLER);
             Channel channel = client.bind(port).sync().channel();
-            logger.info("启动UDP服务，监听端口: " + this.port);
+            logger.info("正在启动UDP服务，监听端口: " + this.port);
             channel.closeFuture().await();
         } catch (Exception e) {
             logger.info("启动UDP服务，监听端口: [" + this.port + "] 出错", e);

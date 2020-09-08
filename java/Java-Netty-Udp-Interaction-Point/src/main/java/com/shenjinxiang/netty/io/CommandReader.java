@@ -57,8 +57,12 @@ public class CommandReader implements Runnable {
                         Thread.sleep(3000);
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
-                        Config.UDP_HANDLER.close();
-                        Config.MULTICAST_HANDLER.close();
+                        if (null != Config.UDP_HANDLER) {
+                            Config.UDP_HANDLER.close();
+                        }
+                        if (null != Config.MULTICAST_HANDLER) {
+                            Config.MULTICAST_HANDLER.close();
+                        }
                     }
                     if (EXIT.equalsIgnoreCase(words[0])) {
                         logger.info("程序结束！");

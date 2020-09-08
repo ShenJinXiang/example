@@ -39,7 +39,7 @@ public class UdpHandler extends SimpleChannelInboundHandler<DatagramPacket> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         context = ctx;
-        logger.info("UDP服务启动，监听端口: " + Config.UDP_PORT);
+        logger.info("UDP服务启动成功，监听端口: " + Config.CENTER_CONFIG.getUdpListenPort());
         conn = true;
     }
 

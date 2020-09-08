@@ -3,32 +3,18 @@ package com.shenjinxiang.netty.entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PointConfig {
+import java.util.List;
 
-    private static final Logger logger = LoggerFactory.getLogger(PointConfig.class);
+public class CenterConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(CenterConfig.class);
 
     private String multicastUdpNetwokInterface;
     private String multicastUdpIP;
     private int multicastUdpPort;
     private int udpListenPort;
+    private List<Target> targets;
     private int sendInterval;
-    private Sblx sblx;
-
-    public Sblx getSblx() {
-        return sblx;
-    }
-
-    public void setSblx(Sblx sblx) {
-        this.sblx = sblx;
-    }
-
-    public int getSendInterval() {
-        return sendInterval;
-    }
-
-    public void setSendInterval(int sendInterval) {
-        this.sendInterval = sendInterval;
-    }
 
     public String getMulticastUdpNetwokInterface() {
         return multicastUdpNetwokInterface;
@@ -62,6 +48,23 @@ public class PointConfig {
         this.udpListenPort = udpListenPort;
     }
 
+    public List<Target> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(List<Target> targets) {
+        this.targets = targets;
+    }
+
+    public int getSendInterval() {
+        return sendInterval;
+    }
+
+    public void setSendInterval(int sendInterval) {
+        this.sendInterval = sendInterval;
+    }
+
+
     public void log() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("配置信息：")
@@ -69,9 +72,12 @@ public class PointConfig {
                 .append("\n\tmulticastUdpIP: ").append(multicastUdpIP)
                 .append("\n\tmulticastUdpPort: ").append(multicastUdpPort)
                 .append("\n\tudpListenPort: ").append(udpListenPort)
-                .append("\n\tsblx: ").append(sblx)
                 .append("\n\tsendInterval: ").append(sendInterval)
-                .append("\n");
+                .append("\n\ttargets: ");
+        for (Target target: targets) {
+            stringBuffer.append("\n\t\t").append(target.toString());
+        }
+        stringBuffer.append("\n");
         logger.info(stringBuffer.toString());
     }
 }
