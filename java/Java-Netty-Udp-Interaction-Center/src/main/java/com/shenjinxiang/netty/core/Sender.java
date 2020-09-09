@@ -1,6 +1,7 @@
 package com.shenjinxiang.netty.core;
 
 import com.shenjinxiang.netty.entity.*;
+import com.shenjinxiang.netty.kit.ByteKit;
 import com.shenjinxiang.netty.kit.StrKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,14 +59,15 @@ public class Sender implements Runnable {
     private Ddsj createDdsj() {
         String[] ds = getDdLine();
         if (null != ds) {
-            int t = Integer.parseInt(ds[0].trim());
-            float x = Float.parseFloat(ds[1].trim());
-            float y = Float.parseFloat(ds[2].trim());
-            float z = Float.parseFloat(ds[3].trim());
-            float vx = Float.parseFloat(ds[4].trim());
-            float vy = Float.parseFloat(ds[5].trim());
-            float vz = Float.parseFloat(ds[6].trim());
-            return  new Ddsj(new Pdxp(this.count), t, x, y, z, vx, vy, vz);
+            int c = Integer.parseInt(ds[0].trim());
+            int t = Integer.parseInt(ds[1].trim());
+            float x = Float.parseFloat(ds[2].trim());
+            float y = Float.parseFloat(ds[3].trim());
+            float z = Float.parseFloat(ds[4].trim());
+            float vx = Float.parseFloat(ds[5].trim());
+            float vy = Float.parseFloat(ds[6].trim());
+            float vz = Float.parseFloat(ds[7].trim());
+            return  new Ddsj(new Pdxp(c), t, x, y, z, vx, vy, vz);
         } else {
             return new Ddsj(new Pdxp(this.count), this.count, 10.12f, 11.32f, 12.34f, 11.12f, 12.123f, 13.45646f);
         }
@@ -74,7 +76,7 @@ public class Sender implements Runnable {
     private String[] getDdLine() {
         String ddStr = Config.FILE_LINE_READER.readLine();
         if (StrKit.notBlank(ddStr)) {
-            if (ddStr.startsWith("T")) {
+            if (ddStr.contains("index")) {
                 ddStr = Config.FILE_LINE_READER.readLine();
             }
         }
