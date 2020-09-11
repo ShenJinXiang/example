@@ -49,17 +49,18 @@ public class IndexService {
                     "\n\tparams: " + param +
                     "\n\tresult: " + resultStr
             );
-            Map<String, Object> map = objectMapper.readValue(resultStr, Map.class);
-            String message = (String) map.get("message");
             if (check == 1) {
+                Map<String, Object> map = objectMapper.readValue(resultStr, Map.class);
+                String message = (String) map.get("message");
                 message = DESUtil.decrypt(message);
                 map.put("message", message);
+                result.setResult(objectMapper.writeValueAsString(map));
+                result.setSuccess(true);
+                return result;
             }
-
-            result.setResult(objectMapper.writeValueAsString(map));
+            result.setResult(resultStr);
             result.setSuccess(true);
             return result;
-
         } catch (Exception e) {
             logger.error("提交数据出现错误",e );
             return Result.error(e.getMessage());
