@@ -1,9 +1,12 @@
 package com.shenjinxiang.interaction;
 
 import com.shenjinxiang.interaction.io.NettyTcpServer;
+import com.shenjinxiang.interaction.kit.ByteKit;
 import com.shenjinxiang.interaction.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * @ClassName Application
@@ -16,6 +19,14 @@ public class Application {
 
     public static void main(String[] args) {
         logger.info("Central Start...");
-        ThreadPool.getThread().execute(new NettyTcpServer(9999));
+//        ThreadPool.getThread().execute(new NettyTcpServer(9999));
+        byte[] bytes1 = "\n".getBytes();
+        byte[] bytes2 = "\n".getBytes(StandardCharsets.UTF_8);
+        byte[] bytes3 = "\n".getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes4 = "\n".getBytes(StandardCharsets.US_ASCII);
+        System.out.println(ByteKit.byteArrayToHexStr(bytes1));
+        System.out.println(ByteKit.byteArrayToHexStr(bytes2));
+        System.out.println(ByteKit.byteArrayToHexStr(bytes3));
+        System.out.println(ByteKit.byteArrayToHexStr(bytes4));
     }
 }

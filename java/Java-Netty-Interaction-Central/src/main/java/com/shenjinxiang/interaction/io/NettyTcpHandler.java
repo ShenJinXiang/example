@@ -32,8 +32,7 @@ public class NettyTcpHandler extends ChannelInboundHandlerAdapter {
         byte[] bytes = new byte[readBytes];
         byteBuf.readBytes(bytes);
         String x = ByteKit.byteArrayToHexStr(bytes);
-        str = str + x;
-        System.out.println(str);
+        System.out.println(x);
 
 //        channel = ctx.channel();
 //        String content = msg.toString();
