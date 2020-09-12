@@ -164,4 +164,79 @@ public class IOKit {
         };
     }
 
+
+    /**
+     * @Description: 关闭Qt TCP服务
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closeQtServer() {
+        if (QT_HANDLER.isConn()) {
+            QT_HANDLER.close();
+        }
+    }
+
+    /**
+     * @Description: 关闭Ar TCP链接
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closeArClient() {
+        if (AR_HANDLER.isConn()) {
+            AR_HANDLER.close();
+        }
+    }
+
+    /**
+     * @Description: 关闭和算法中心的TCP连接
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closeAlgClient() {
+        if (ALG_HANDLER.isConn()) {
+            ALG_HANDLER.close();
+        }
+    }
+
+    /**
+     * @Description: 关闭UDP 监听服务
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closePointUdpServer() {
+        if (POINT_HANDLER.isConn()) {
+            POINT_HANDLER.close();
+        }
+    }
+
+    /**
+     * @Description: 推出UDP 组播
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closeMulticastUdpServer() {
+        if (MULTICAST_HANDLER.isConn()) {
+            MULTICAST_HANDLER.close();
+        }
+    }
+
+    public static boolean isQtConn() {
+        return QT_HANDLER.isConn();
+    }
+
+    public static boolean isArConn() {
+        return AR_HANDLER.isConn();
+    }
+
+    public static boolean isAlgConn() {
+        return ALG_HANDLER.isConn();
+    }
+
+    public static boolean isPointUdpConn() {
+        return POINT_HANDLER.isConn();
+    }
+
+    public static boolean isMulticastUdpConn() {
+        return MULTICAST_HANDLER.isConn();
+    }
 }

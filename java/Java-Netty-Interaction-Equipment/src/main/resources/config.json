@@ -1,0 +1,8 @@
+{
+  "udpServerListenPort": 7001,
+  "udpMulticastNetwokinterface": "lo",
+  "udpMulticastHost": "224.255.10.0",
+  "udpMulticastPort": 7000,
+  "sblx": "LXB",
+  "sendInterval": 2000
+}
