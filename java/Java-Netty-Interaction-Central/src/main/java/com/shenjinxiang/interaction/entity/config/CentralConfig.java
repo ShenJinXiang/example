@@ -1,4 +1,4 @@
-package com.shenjinxiang.interaction.entity;
+package com.shenjinxiang.interaction.entity.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

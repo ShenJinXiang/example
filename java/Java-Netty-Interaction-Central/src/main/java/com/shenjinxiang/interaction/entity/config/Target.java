@@ -1,4 +1,4 @@
-package com.shenjinxiang.interaction.entity;
+package com.shenjinxiang.interaction.entity.config;
 
 import java.net.InetSocketAddress;
 

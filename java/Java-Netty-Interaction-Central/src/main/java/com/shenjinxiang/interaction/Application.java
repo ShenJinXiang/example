@@ -1,9 +1,9 @@
 package com.shenjinxiang.interaction;
 
 import com.shenjinxiang.interaction.core.Config;
-import com.shenjinxiang.interaction.entity.CentralConfig;
-import com.shenjinxiang.interaction.entity.Target;
-import com.shenjinxiang.interaction.io.IoKit;
+import com.shenjinxiang.interaction.entity.config.CentralConfig;
+import com.shenjinxiang.interaction.entity.config.Target;
+import com.shenjinxiang.interaction.io.IOKit;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.PathKit;
 import org.slf4j.Logger;
@@ -29,7 +29,8 @@ public class Application {
         logger.info("Central Start...");
         initConfig();
         Config.CENTRAL_CONFIG.log();
-        IoKit.runMulticastUdpServer();
+//        IOKit.runQtServer();
+        IOKit.runPointUdpServer();
     }
 
     private static void initConfig() throws Exception {

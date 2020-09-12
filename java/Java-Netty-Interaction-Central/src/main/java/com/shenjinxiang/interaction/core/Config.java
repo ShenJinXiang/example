@@ -1,8 +1,6 @@
 package com.shenjinxiang.interaction.core;
 
-import com.shenjinxiang.interaction.entity.CentralConfig;
-import com.shenjinxiang.interaction.io.tcp.handler.ArTcpHandler;
-import com.shenjinxiang.interaction.io.tcp.handler.TcpHandler;
+import com.shenjinxiang.interaction.entity.config.CentralConfig;
 
 /**
  * @ClassName Const

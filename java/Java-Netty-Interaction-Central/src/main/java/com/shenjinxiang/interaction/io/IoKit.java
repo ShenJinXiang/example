@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
  * @Author: ShenJinXiang
  * @Date: 2020/9/12 06:54
  */
-public class IoKit {
+public class IOKit {
 
     private static final int MAX_TCP_DATA_LENGTH;
 
