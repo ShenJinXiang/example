@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @Date: 2020/8/18 21:42
  */
 @ChannelHandler.Sharable
-public abstract class TcpHandler extends ChannelInboundHandlerAdapter {
+public abstract class TcpHandler<T> extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(TcpHandler.class);
 
@@ -20,7 +20,7 @@ public abstract class TcpHandler extends ChannelInboundHandlerAdapter {
     protected Channel channel;
     protected boolean isConnected = false;
 
-    public abstract void sendMsg(String msg);
+    public abstract void sendMsg(T msg);
 
     public void close() {
         if (isConnected) {
@@ -44,27 +44,4 @@ public abstract class TcpHandler extends ChannelInboundHandlerAdapter {
         logger.error("TCP链接，服务端出现错误", cause);
     }
 
-    public ChannelHandlerContext getContext() {
-        return context;
-    }
-
-    public void setContext(ChannelHandlerContext context) {
-        this.context = context;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    public void setConnected(boolean connected) {
-        isConnected = connected;
-    }
 }
