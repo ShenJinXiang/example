@@ -48,6 +48,7 @@ public class CommandReader implements Runnable {
                     if (CONN.equalsIgnoreCase(words[0])) {
                         IOKit.runMulticastUdpServer();
                         IOKit.runPointUdpServer();
+                        IOKit.runDdsjFileReader();
                         Thread.sleep(3000);
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {

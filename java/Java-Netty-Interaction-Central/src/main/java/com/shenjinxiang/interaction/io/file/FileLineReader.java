@@ -1,4 +1,4 @@
-package com.shenjinxiang.interaction.kit;
+package com.shenjinxiang.interaction.io.file;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +45,12 @@ public class FileLineReader implements Runnable {
     }
 
     public String readLine() {
-        System.out.println("缓冲区大小: " + lines.size());
         return this.lines.poll();
     }
 
     public void close() {
         this.lines.clear();
-        System.out.println("清理缓冲区大小: " + lines.size());
+//        System.out.println("清理缓冲区大小: " + lines.size());
         this.end = true;
     }
 

@@ -29,7 +29,5 @@ public class UdpMulticastHandler extends UdpHandler {
         ByteBuf buf = datagramPacket.copy().content();
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
-        String content = ByteKit.byteArrayToHexStr(req);
-        logger.info("接收到内容：" + content);
     }
 }

@@ -1,6 +1,7 @@
 package com.shenjinxiang.interaction.io;
 
 import com.shenjinxiang.interaction.core.Config;
+import com.shenjinxiang.interaction.io.file.FileLineReader;
 import com.shenjinxiang.interaction.io.tcp.handler.AlgTcpHandler;
 import com.shenjinxiang.interaction.io.tcp.handler.ArTcpHandler;
 import com.shenjinxiang.interaction.io.tcp.handler.QtTcpHandler;
@@ -20,6 +21,7 @@ import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
@@ -55,6 +57,9 @@ public class IOKit {
     private static final UdpHandler POINT_HANDLER;
     private static final UdpHandler MULTICAST_HANDLER;
 
+    private static final String DDSJ_FILE_PATH;
+    private static final FileLineReader DDSJ_READER;
+
     static {
         MAX_TCP_DATA_LENGTH = Config.CENTRAL_CONFIG.getMaxTcpDataLength();
         QT_SERVER_LISTEN_PORT = Config.CENTRAL_CONFIG.getQtServerListenPort();
@@ -72,6 +77,8 @@ public class IOKit {
         UDP_MULTICAST_HOST = Config.CENTRAL_CONFIG.getUdpMulticastHost();
         UDP_MULTICAST_PORT = Config.CENTRAL_CONFIG.getUdpMulticastPort();
 
+        DDSJ_FILE_PATH = Config.CENTRAL_CONFIG.getDdFilePath();
+
         QT_HANDLER = new QtTcpHandler<String>();
         AR_HANDLER = new ArTcpHandler<String>();
         ALG_HANDLER = new AlgTcpHandler<byte[]>();
@@ -79,6 +86,8 @@ public class IOKit {
         MULTICAST_GROUP_ADDRESS = new InetSocketAddress(UDP_MULTICAST_HOST, UDP_MULTICAST_PORT);
         POINT_HANDLER = new PointUdpHandler(UDP_SERVER_LISTEN_PORT);
         MULTICAST_HANDLER = new UdpMulticastHandler(MULTICAST_GROUP_ADDRESS);
+
+        DDSJ_READER = new FileLineReader(new File(DDSJ_FILE_PATH));
     }
 
     /**
@@ -152,6 +161,10 @@ public class IOKit {
         }
     }
 
+    public static void runDdsjFileReader() {
+        ThreadPool.getThread().execute(DDSJ_READER);
+    }
+
     private static ChannelInitializer createLineBaseChannelInitializer(TcpHandler tcpHandler) {
         return new ChannelInitializer() {
             @Override
@@ -220,6 +233,16 @@ public class IOKit {
         }
     }
 
+
+    /**
+     * @Description: 关闭读取dd数据线程
+     * @Author: ShenJinXiang
+     * @return: void
+     **/
+    public static void closeDdsjReader() {
+        DDSJ_READER.close();
+    }
+
     public static boolean isQtConn() {
         return QT_HANDLER.isConn();
     }
@@ -239,4 +262,18 @@ public class IOKit {
     public static boolean isMulticastUdpConn() {
         return MULTICAST_HANDLER.isConn();
     }
+
+    /**
+     * @Description: 读取弹道数据
+     * @Author: ShenJinXiang
+     * @return: java.lang.String
+     **/
+    public static String readDdsj() {
+        return DDSJ_READER.readLine();
+    }
+
+    public static void sendPointUdpMsg(byte[] data, InetSocketAddress address) {
+        POINT_HANDLER.sendMsg(data, address);
+    }
+
 }

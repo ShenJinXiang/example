@@ -1,5 +1,6 @@
 package com.shenjinxiang.interaction;
 
+import com.shenjinxiang.interaction.core.CommandReader;
 import com.shenjinxiang.interaction.core.Config;
 import com.shenjinxiang.interaction.core.Sender;
 import com.shenjinxiang.interaction.entity.config.EquipmentConfig;
@@ -23,6 +24,7 @@ public class Application {
         logger.info("Java-Netty-Interaction-Equipment start...");
         initConfig();
         ThreadPool.getThread().execute(new Sender());
+        ThreadPool.getThread().execute(new CommandReader());
     }
 
     private static void initConfig() throws Exception {

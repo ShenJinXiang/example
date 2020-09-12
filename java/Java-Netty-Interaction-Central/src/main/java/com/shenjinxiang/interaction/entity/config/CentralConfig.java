@@ -21,6 +21,7 @@ public class CentralConfig {
     private String udpMulticastHost;
     private int udpMulticastPort;
     private String ddFilePath;
+    private int sendInterval;
     private List<Target> targets;
 
     public void log() {
@@ -37,6 +38,8 @@ public class CentralConfig {
                 .append("\n\tudpMulticastNetwokinterface: ").append(udpMulticastNetwokinterface)
                 .append("\n\tudpMulticastHost: ").append(udpMulticastHost)
                 .append("\n\tudpMulticastPort: ").append(udpMulticastPort)
+                .append("\n\tddFilePath: ").append(ddFilePath)
+                .append("\n\tsendInterval: ").append(sendInterval)
                 .append("\n\ttargets: ");
         for (Target target: targets) {
             stringBuffer.append("\n\t\t").append(target.toString());
@@ -139,6 +142,14 @@ public class CentralConfig {
 
     public List<Target> getTargets() {
         return targets;
+    }
+
+    public int getSendInterval() {
+        return sendInterval;
+    }
+
+    public void setSendInterval(int sendInterval) {
+        this.sendInterval = sendInterval;
     }
 
     public void setTargets(List<Target> targets) {

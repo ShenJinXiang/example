@@ -11,6 +11,7 @@
   "udpMulticastHost": "224.255.10.0",
   "udpMulticastPort": 5000,
   "ddFilePath": "D:\\mission\\xlpg\\49669e45-2662-44ac-8fca-3455eaddc083\\trainConfig\\train_DD.csv",
+  "sendInterval": 3000,
   "targets": [
     { "udpHost":  "127.0.0.1", "udpPort":  "6001", "sblx": "LXB" },
     { "udpHost":  "127.0.0.1", "udpPort":  "6002", "sblx": "DMC" },

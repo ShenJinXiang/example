@@ -1,11 +1,14 @@
 package com.shenjinxiang.interaction;
 
+import com.shenjinxiang.interaction.core.CommandReader;
 import com.shenjinxiang.interaction.core.Config;
+import com.shenjinxiang.interaction.core.Sender;
 import com.shenjinxiang.interaction.entity.config.CentralConfig;
 import com.shenjinxiang.interaction.entity.config.Target;
 import com.shenjinxiang.interaction.io.IOKit;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.PathKit;
+import com.shenjinxiang.interaction.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +32,8 @@ public class Application {
         logger.info("Java-Netty-Interaction-Central Start...");
         initConfig();
         Config.CENTRAL_CONFIG.log();
-//        IOKit.runQtServer();
-        IOKit.runPointUdpServer();
+        ThreadPool.getThread().execute(new Sender());
+        ThreadPool.getThread().execute(new CommandReader());
     }
 
     private static void initConfig() throws Exception {
