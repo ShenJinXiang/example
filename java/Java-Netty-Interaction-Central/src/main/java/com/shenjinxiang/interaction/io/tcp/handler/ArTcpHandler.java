@@ -1,6 +1,5 @@
-package com.shenjinxiang.interaction.io.handler;
+package com.shenjinxiang.interaction.io.tcp.handler;
 
-import com.shenjinxiang.interaction.io.TcpHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 /**

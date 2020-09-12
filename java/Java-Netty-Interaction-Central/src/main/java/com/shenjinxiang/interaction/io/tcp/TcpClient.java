@@ -1,4 +1,4 @@
-package com.shenjinxiang.interaction.io;
+package com.shenjinxiang.interaction.io.tcp;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

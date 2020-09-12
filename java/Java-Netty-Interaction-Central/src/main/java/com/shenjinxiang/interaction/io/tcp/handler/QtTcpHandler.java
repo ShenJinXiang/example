@@ -1,6 +1,4 @@
-package com.shenjinxiang.interaction.io.handler;
-
-import com.shenjinxiang.interaction.io.TcpHandler;
+package com.shenjinxiang.interaction.io.tcp.handler;
 
 /**
  * @Author: ShenJinXiang

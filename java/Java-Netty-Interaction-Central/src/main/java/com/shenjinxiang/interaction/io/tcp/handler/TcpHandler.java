@@ -1,4 +1,4 @@
-package com.shenjinxiang.interaction.io;
+package com.shenjinxiang.interaction.io.tcp.handler;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -18,15 +18,15 @@ public abstract class TcpHandler<T> extends ChannelInboundHandlerAdapter {
 
     protected ChannelHandlerContext context;
     protected Channel channel;
-    protected boolean isConnected = false;
+    protected boolean conn = false;
 
     public abstract void sendMsg(T msg);
 
     public void close() {
-        if (isConnected) {
+        if (conn) {
             this.context.close();
             logger.info("关闭TCP链接，地址[" + this.channel.remoteAddress() + "] ID: " + this.channel.id());
-            isConnected = false;
+            conn = false;
         }
     }
 
@@ -35,7 +35,7 @@ public abstract class TcpHandler<T> extends ChannelInboundHandlerAdapter {
         super.channelActive(ctx);
         this.context = ctx;
         this.channel = ctx.channel();
-        this.isConnected = true;
+        this.conn = true;
         logger.info("建立连接，地址：" + this.channel.remoteAddress() + " ID: " + this.channel.id());
     }
 
@@ -44,4 +44,11 @@ public abstract class TcpHandler<T> extends ChannelInboundHandlerAdapter {
         logger.error("TCP链接，服务端出现错误", cause);
     }
 
+    public boolean isConn() {
+        return conn;
+    }
+
+    public void setConn(boolean conn) {
+        this.conn = conn;
+    }
 }
