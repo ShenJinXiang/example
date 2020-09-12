@@ -29,33 +29,82 @@ import java.nio.charset.StandardCharsets;
  */
 public class IoKit {
 
-    private static TcpHandler<String> QT_HANDLER = new QtTcpHandler();
-    private static TcpHandler<String> AR_HANDLER = new ArTcpHandler();
-    private static TcpHandler<byte[]> ALG_HANDLER = new AlgTcpHandler<>();
+    private static final int MAX_TCP_DATA_LENGTH;
 
-    private static InetSocketAddress MULTICAST_GROUP_ADDRESS = new InetSocketAddress(Config.UDP_MULTICAST_HOST, Config.UDP_MULTICAST_PORT);
-    private static UdpHandler POINT_HANDLER = new PointUdpHandler(Config.UDP_SERVER_LISTEN_PORT);
-    private static UdpHandler MULTICAST_HANDLER = new UdpMulticastHandler(MULTICAST_GROUP_ADDRESS);
+    private static final int QT_SERVER_LISTEN_PORT;
+
+    private static final String AR_SERVER_HOST;
+    private static final int AR_SERVER_PORT;
+
+    private static final String ALG_SERVER_HOST;
+    private static final int ALG_SERVER_PORT;
+    private static final int ALG_FIXED_DATA_LENGTH;
+
+    private static final int UDP_SERVER_LISTEN_PORT;
+
+    private static final String UDP_MULTICAST_NETWOKINTERFACE;
+    private static final String UDP_MULTICAST_HOST;
+    private static final int UDP_MULTICAST_PORT;
+
+
+    private static final TcpHandler<String> QT_HANDLER;
+    private static final TcpHandler<String> AR_HANDLER;
+    private static final TcpHandler<byte[]> ALG_HANDLER;
+
+    private static final InetSocketAddress MULTICAST_GROUP_ADDRESS;
+    private static final UdpHandler POINT_HANDLER;
+    private static final UdpHandler MULTICAST_HANDLER;
+
+    static {
+        MAX_TCP_DATA_LENGTH = Config.CENTRAL_CONFIG.getMaxTcpDataLength();
+        QT_SERVER_LISTEN_PORT = Config.CENTRAL_CONFIG.getQtServerListenPort();
+
+        AR_SERVER_HOST = Config.CENTRAL_CONFIG.getArServerHost();
+        AR_SERVER_PORT = Config.CENTRAL_CONFIG.getArServerPort();
+
+        ALG_SERVER_HOST = Config.CENTRAL_CONFIG.getAlgServerHost();
+        ALG_SERVER_PORT = Config.CENTRAL_CONFIG.getAlgServerPort();
+        ALG_FIXED_DATA_LENGTH = Config.CENTRAL_CONFIG.getAlgFixedDataLength();
+
+        UDP_SERVER_LISTEN_PORT = Config.CENTRAL_CONFIG.getUdpServerListenPort();
+
+        UDP_MULTICAST_NETWOKINTERFACE = Config.CENTRAL_CONFIG.getUdpMulticastNetwokinterface();
+        UDP_MULTICAST_HOST = Config.CENTRAL_CONFIG.getUdpMulticastHost();
+        UDP_MULTICAST_PORT = Config.CENTRAL_CONFIG.getUdpMulticastPort();
+
+        QT_HANDLER = new QtTcpHandler<String>();
+        AR_HANDLER = new ArTcpHandler<String>();
+        ALG_HANDLER = new AlgTcpHandler<byte[]>();
+
+        MULTICAST_GROUP_ADDRESS = new InetSocketAddress(UDP_MULTICAST_HOST, UDP_MULTICAST_PORT);
+        POINT_HANDLER = new PointUdpHandler(UDP_SERVER_LISTEN_PORT);
+        MULTICAST_HANDLER = new UdpMulticastHandler(MULTICAST_GROUP_ADDRESS);
+    }
 
     /**
      * 启动和qt对接的tcp服务端
      */
     public static void runQtServer() {
-        ThreadPool.getThread().execute(new TcpServer(
-                Config.QT_SERVER_LISTEN_PORT,
-                createLineBaseChannelInitializer(QT_HANDLER)
-        ));
+        if (!QT_HANDLER.isConn()) {
+            ThreadPool.getThread().execute(new TcpServer(
+                    QT_SERVER_LISTEN_PORT,
+                    createLineBaseChannelInitializer(QT_HANDLER)
+            ));
+
+        }
     }
 
     /**
      * 启动AR对接的tcp客户端
      */
     public static void runArClient() {
-        ThreadPool.getThread().execute(new TcpClient(
-                Config.AR_SERVER_HOST,
-                Config.AR_SERVER_PORT,
-                createLineBaseChannelInitializer(AR_HANDLER)
-        ));
+        if (!AR_HANDLER.isConn()) {
+            ThreadPool.getThread().execute(new TcpClient(
+                    AR_SERVER_HOST,
+                    AR_SERVER_PORT,
+                    createLineBaseChannelInitializer(AR_HANDLER)
+            ));
+        }
     }
 
 
@@ -63,49 +112,56 @@ public class IoKit {
      * 启动算法中心对接的TCP客户端
      */
     public static void runAlgClient() {
-        ThreadPool.getThread().execute(new TcpClient(
-                Config.ALG_SERVER_HOST,
-                Config.ALG_SERVER_PORT,
-                new ChannelInitializer() {
-                    @Override
-                    protected void initChannel(Channel channel) throws Exception {
-                        channel.pipeline().addLast(new FixedLengthFrameDecoder(Config.ALG_FIXED_DATA_LENGTH));
-                        channel.pipeline().addLast(ALG_HANDLER);
+        if (ALG_HANDLER.isConn()) {
+            ThreadPool.getThread().execute(new TcpClient(
+                    ALG_SERVER_HOST,
+                    ALG_SERVER_PORT,
+                    new ChannelInitializer() {
+                        @Override
+                        protected void initChannel(Channel channel) throws Exception {
+                            channel.pipeline().addLast(new FixedLengthFrameDecoder(ALG_FIXED_DATA_LENGTH));
+                            channel.pipeline().addLast(ALG_HANDLER);
+                        }
                     }
-                }
-        ));
+            ));
+        }
     }
 
     /**
      * 启动UPD服务 发送udp数据
      */
     public static void runPointUdpServer() {
-        ThreadPool.getThread().execute(new UdpServer(
-                Config.UDP_SERVER_LISTEN_PORT,
-                POINT_HANDLER
-        ));
+        if (!POINT_HANDLER.isConn()) {
+            ThreadPool.getThread().execute(new UdpServer(
+                    UDP_SERVER_LISTEN_PORT,
+                    POINT_HANDLER
+            ));
+        }
     }
 
     /**
      * 启动UDP 组播
      */
     public static void runMulticastUdpServer() {
-        ThreadPool.getThread().execute(new UdpMulticastServer(
-                MULTICAST_GROUP_ADDRESS,
-                Config.UDP_MULTICAST_NETWOKINTERFACE,
-                MULTICAST_HANDLER
-        ));
+        if (!MULTICAST_HANDLER.isConn()) {
+            ThreadPool.getThread().execute(new UdpMulticastServer(
+                    MULTICAST_GROUP_ADDRESS,
+                    UDP_MULTICAST_NETWOKINTERFACE,
+                    MULTICAST_HANDLER
+            ));
+        }
     }
 
     private static ChannelInitializer createLineBaseChannelInitializer(TcpHandler tcpHandler) {
         return new ChannelInitializer() {
             @Override
             protected void initChannel(Channel channel) throws Exception {
-                channel.pipeline().addLast(new LineBasedFrameDecoder(Config.MAX_TCP_DATA_LENGTH));
+                channel.pipeline().addLast(new LineBasedFrameDecoder(MAX_TCP_DATA_LENGTH));
                 channel.pipeline().addLast(new StringDecoder(StandardCharsets.UTF_8));
                 channel.pipeline().addLast(tcpHandler);
                 channel.pipeline().addLast(new StringEncoder(StandardCharsets.UTF_8));
             }
         };
     }
+
 }

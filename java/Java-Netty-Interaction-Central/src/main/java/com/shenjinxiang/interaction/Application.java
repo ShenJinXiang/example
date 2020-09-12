@@ -1,9 +1,19 @@
 package com.shenjinxiang.interaction;
 
-import com.shenjinxiang.interaction.kit.ByteKit;
+import com.shenjinxiang.interaction.core.Config;
+import com.shenjinxiang.interaction.entity.CentralConfig;
+import com.shenjinxiang.interaction.entity.Target;
+import com.shenjinxiang.interaction.io.IoKit;
+import com.shenjinxiang.interaction.kit.JsonKit;
+import com.shenjinxiang.interaction.kit.PathKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -15,16 +25,44 @@ public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         logger.info("Central Start...");
-//        ThreadPool.getThread().execute(new NettyTcpServer(9999));
-        byte[] bytes1 = "\n".getBytes();
-        byte[] bytes2 = "\n".getBytes(StandardCharsets.UTF_8);
-        byte[] bytes3 = "\n".getBytes(StandardCharsets.ISO_8859_1);
-        byte[] bytes4 = "\n".getBytes(StandardCharsets.US_ASCII);
-        System.out.println(ByteKit.byteArrayToHexStr(bytes1));
-        System.out.println(ByteKit.byteArrayToHexStr(bytes2));
-        System.out.println(ByteKit.byteArrayToHexStr(bytes3));
-        System.out.println(ByteKit.byteArrayToHexStr(bytes4));
+        initConfig();
+        Config.CENTRAL_CONFIG.log();
+        IoKit.runMulticastUdpServer();
+    }
+
+    private static void initConfig() throws Exception {
+        String fileName = "config.json";
+        InputStream inputStream = null;
+        try {
+            if (PathKit.isJar()) {
+                File file = new File(PathKit.getCurrentPath(), fileName);
+                inputStream = file.exists() ? new FileInputStream(file) : null;
+            }
+            if (null == inputStream) {
+                inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+            }
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            int len = 0;
+            byte[] buff = new byte[1024 * 1024];
+            while ((len = inputStream.read(buff)) != -1) {
+                byteArrayOutputStream.write(buff, 0, len);
+            }
+            byteArrayOutputStream.flush();
+
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            String content = new String(bytes, StandardCharsets.UTF_8);
+            Config.CENTRAL_CONFIG = JsonKit.fromJson(content, CentralConfig.class);
+            if (null == Config.CENTRAL_CONFIG) {
+                logger.error("未读取到解析config.json配置内容");
+            }
+            for (Target target : Config.CENTRAL_CONFIG.getTargets()) {
+                target.setAddress(new InetSocketAddress(target.getUdpHost(), target.getUdpPort()));
+            }
+        } catch (Exception e) {
+            logger.error("解析 config.json 配置出错", e);
+            throw e;
+        }
     }
 }
