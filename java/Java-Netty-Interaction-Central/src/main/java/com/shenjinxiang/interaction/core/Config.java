@@ -11,4 +11,6 @@ public class Config {
 
     public static CentralConfig CENTRAL_CONFIG;
 
+    public static final Sender SENDER = new Sender();
+
 }

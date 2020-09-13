@@ -2,10 +2,7 @@ package com.shenjinxiang.interaction;
 
 import com.shenjinxiang.interaction.core.CommandReader;
 import com.shenjinxiang.interaction.core.Config;
-import com.shenjinxiang.interaction.core.Sender;
-import com.shenjinxiang.interaction.entity.config.CentralConfig;
-import com.shenjinxiang.interaction.entity.config.Target;
-import com.shenjinxiang.interaction.io.IOKit;
+import com.shenjinxiang.interaction.entity.QtConfig;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.PathKit;
 import com.shenjinxiang.interaction.kit.ThreadPool;
@@ -19,25 +16,13 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
-/**
- * @ClassName Application
- * @Author ShenjinXiang
- * @Date 2020/9/10 22:36
- */
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) throws Exception {
-        logger.info("Java-Netty-Interaction-Central Start...");
+        logger.info("Java-Netty-Interaction-Qt Start...");
         initConfig();
-        Config.CENTRAL_CONFIG.log();
-
-        // 启动发送udp数据的线程
-        ThreadPool.getThread().execute(Config.SENDER);
-        // 启动qt服务
-        IOKit.runQtServer();
-        // 接收命令输入
         ThreadPool.getThread().execute(new CommandReader());
     }
 
@@ -62,13 +47,11 @@ public class Application {
 
             byte[] bytes = byteArrayOutputStream.toByteArray();
             String content = new String(bytes, StandardCharsets.UTF_8);
-            Config.CENTRAL_CONFIG = JsonKit.fromJson(content, CentralConfig.class);
-            if (null == Config.CENTRAL_CONFIG) {
+            Config.QT_CONFIG = JsonKit.fromJson(content, QtConfig.class);
+            if (null == Config.QT_CONFIG) {
                 logger.error("未读取到解析config.json配置内容");
             }
-            for (Target target : Config.CENTRAL_CONFIG.getTargets()) {
-                target.setAddress(new InetSocketAddress(target.getUdpHost(), target.getUdpPort()));
-            }
+            Config.QT_CONFIG.log();
         } catch (Exception e) {
             logger.error("解析 config.json 配置出错", e);
             throw e;

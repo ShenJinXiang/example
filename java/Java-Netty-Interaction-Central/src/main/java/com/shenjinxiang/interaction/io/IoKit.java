@@ -60,6 +60,8 @@ public class IOKit {
     private static final String DDSJ_FILE_PATH;
     private static final FileLineReader DDSJ_READER;
 
+    private static boolean QT_START = false;
+
     static {
         MAX_TCP_DATA_LENGTH = Config.CENTRAL_CONFIG.getMaxTcpDataLength();
         QT_SERVER_LISTEN_PORT = Config.CENTRAL_CONFIG.getQtServerListenPort();
@@ -247,6 +249,14 @@ public class IOKit {
         return QT_HANDLER.isConn();
     }
 
+    public static boolean isQtStart() {
+        return QT_START;
+    }
+
+    public static void setQtStart(boolean qtStart) {
+        QT_START = qtStart;
+    }
+
     public static boolean isArConn() {
         return AR_HANDLER.isConn();
     }
@@ -276,4 +286,7 @@ public class IOKit {
         POINT_HANDLER.sendMsg(data, address);
     }
 
+    public static void sendQtTcpMsg(String data) {
+        QT_HANDLER.sendMsg(data);
+    }
 }

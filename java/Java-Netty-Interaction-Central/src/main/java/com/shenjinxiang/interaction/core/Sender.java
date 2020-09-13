@@ -21,9 +21,9 @@ public class Sender implements Runnable {
     public void run() {
         while (true) {
             try {
-//                if (flag) {
+                if (flag) {
                     send();
-//                }
+                }
                 Thread.sleep(Config.CENTRAL_CONFIG.getSendInterval());
             } catch (Exception e) {
                 logger.error("错误", e);
@@ -33,6 +33,7 @@ public class Sender implements Runnable {
 
     public void send() {
         if (IOKit.isPointUdpConn()) {
+            logger.info("发送udp数据");
             T0 t0 = new T0(new Pdxp(this.count), 2);
             Lljs lljs = new Lljs(new Pdxp(this.count), this.count);
             Ddsj ddsj = createDdsj();

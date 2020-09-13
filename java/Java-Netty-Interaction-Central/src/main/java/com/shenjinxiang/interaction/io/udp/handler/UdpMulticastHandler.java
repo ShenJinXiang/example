@@ -1,5 +1,6 @@
 package com.shenjinxiang.interaction.io.udp.handler;
 
+import com.shenjinxiang.interaction.core.UdpDataUtil;
 import com.shenjinxiang.interaction.kit.ByteKit;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -29,7 +30,6 @@ public class UdpMulticastHandler extends UdpHandler {
         ByteBuf buf = datagramPacket.copy().content();
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
-        String content = ByteKit.byteArrayToHexStr(req);
-        logger.info("接收到内容：" + content);
+        UdpDataUtil.dataService(req);
     }
 }
