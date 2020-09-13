@@ -24,6 +24,7 @@ public class CommandReader implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(CommandReader.class);
 
+    private static final String PREPARE = "prepare";
     private static final String START = "start";
     private static final String END = "end";
     private static final String EXIT = "exit";
@@ -55,8 +56,15 @@ public class CommandReader implements Runnable {
                         IOKit.closePointUdpServer();
                         IOKit.closeMulticastUdpServer();
                     }
+                    // 准备
+                    if (PREPARE.equalsIgnoreCase(words[0])) {
+                        IOKit.runAlgClient();
+                        IOKit.runArClient();
+                    }
+                    // 开始
                     if (START.equalsIgnoreCase(words[0])) {
                     }
+                    // 结束
                     if (END.equalsIgnoreCase(words[0])) {
                     }
                     if (EXIT.equalsIgnoreCase(words[0])) {

@@ -1,0 +1,5 @@
+{
+  "maxTcpDataLength": 124000,
+  "serverPort": 6002,
+  "sendInterval": 3000
+}
