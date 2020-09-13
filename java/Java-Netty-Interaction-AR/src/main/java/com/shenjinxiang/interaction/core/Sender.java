@@ -11,7 +11,7 @@ public class Sender implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(Sender.class);
 
-    private int count = 1;
+    private int count = 20;
     private boolean flag = false;
 
     @Override
@@ -31,7 +31,9 @@ public class Sender implements Runnable {
     private void sendMsg() {
         if (IOKit.isTcpConn()) {
             String head = ByteKit.byteArrayToHexStr(ByteArrayConveter.getByteArray(this.count));
-            String msg = head + "000001380103020403010402000300000000000000000000000000000000";
+//            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+//            IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + str);
+            String msg = head +  "000001380103020403010402000300000000000000000000000000000000";
             IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + msg);
             this.count++;
         }
@@ -44,6 +46,14 @@ public class Sender implements Runnable {
 
     public void end() {
         this.flag = false;
+    }
+
+    public static void main(String[] args) {
+        String head = ByteKit.byteArrayToHexStr(ByteArrayConveter.getByteArray(1));
+        String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+        String msg = head +  "000001380103020403010402000300000000000000000000000000000000";
+        System.out.println(str);
+        System.out.println(msg);
     }
 
 }

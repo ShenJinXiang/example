@@ -18,7 +18,9 @@ public class TcpClient2 {
 
             OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream();
-            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+//            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+//            String str = "00000019000101380103020403010402000300000000000000000000000000000000";
+            String str = "00000004000101380103020403010402000300000000000000000000000000000000";
             byte[] bytes = ByteKit.hexStrToByteArray(str);
 //            outputStream.write(str.getBytes());
             outputStream.write(bytes);

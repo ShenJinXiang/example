@@ -15,6 +15,8 @@ import com.shenjinxiang.interaction.io.udp.handler.UdpHandler;
 import com.shenjinxiang.interaction.io.udp.handler.UdpMulticastHandler;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.ThreadPool;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
@@ -58,7 +60,7 @@ public class IOKit {
 
     private static final TcpHandler<String> QT_HANDLER;
     private static final TcpHandler<String> AR_HANDLER;
-    private static final TcpHandler<byte[]> ALG_HANDLER;
+    private static final TcpHandler<ByteBuf> ALG_HANDLER;
 
     private static final InetSocketAddress MULTICAST_GROUP_ADDRESS;
     private static final UdpHandler POINT_HANDLER;
@@ -90,7 +92,7 @@ public class IOKit {
 
         QT_HANDLER = new QtTcpHandler<String>();
         AR_HANDLER = new ArTcpHandler<String>();
-        ALG_HANDLER = new AlgTcpHandler<byte[]>();
+        ALG_HANDLER = new AlgTcpHandler<ByteBuf>();
 
         MULTICAST_GROUP_ADDRESS = new InetSocketAddress(UDP_MULTICAST_HOST, UDP_MULTICAST_PORT);
         POINT_HANDLER = new PointUdpHandler(UDP_SERVER_LISTEN_PORT);
@@ -131,7 +133,7 @@ public class IOKit {
      */
     public static void runAlgClient() {
         logger.info("开始建立和算法中心连接，地址[" + ALG_SERVER_HOST + ":" + ALG_SERVER_PORT + "]");
-        if (ALG_HANDLER.isConn()) {
+        if (!ALG_HANDLER.isConn()) {
             ThreadPool.getThread().execute(new TcpClient(
                     ALG_SERVER_HOST,
                     ALG_SERVER_PORT,
@@ -295,7 +297,7 @@ public class IOKit {
     }
 
     public static void sendAlgTcpMsg(byte[] data) {
-        ALG_HANDLER.sendMsg(data);
+        ALG_HANDLER.sendMsg(Unpooled.copiedBuffer(data));
     }
 
     public static void sendQtTcpMsg(String data) {

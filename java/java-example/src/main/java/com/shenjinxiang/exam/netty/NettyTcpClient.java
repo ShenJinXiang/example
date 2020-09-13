@@ -39,7 +39,7 @@ public class NettyTcpClient implements Runnable {
             @Override
             protected void initChannel(Channel channel) throws Exception {
 //                channel.pipeline().addLast(new LineBasedFrameDecoder(1024 * 50));
-                channel.pipeline().addLast(new FixedLengthFrameDecoder(4104));
+                channel.pipeline().addLast(new FixedLengthFrameDecoder(4104 * 4));
 //                channel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                 channel.pipeline().addLast(handler);
                 channel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));

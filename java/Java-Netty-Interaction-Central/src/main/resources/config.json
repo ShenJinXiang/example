@@ -5,16 +5,16 @@
   "arServerPort": 6002,
   "algServerHost": "127.0.0.1",
   "algServerPort": 6000,
-  "algFixedDataLength": 4096,
-  "udpServerListenPort": 5001,
+  "algFixedDataLength": 16416,
+  "udpServerListenPort": 7004,
   "udpMulticastNetwokinterface": "lo",
   "udpMulticastHost": "224.255.10.0",
-  "udpMulticastPort": 5000,
-  "ddFilePath": "D:\\mission\\xlpg\\49669e45-2662-44ac-8fca-3455eaddc083\\trainConfig\\train_DD.csv",
+  "udpMulticastPort": 7000,
+  "ddFilePath": "D:\\temp\\test\\train_DD.csv",
   "sendInterval": 3000,
   "targets": [
-    { "udpHost":  "127.0.0.1", "udpPort":  "6001", "sblx": "LXB" },
-    { "udpHost":  "127.0.0.1", "udpPort":  "6002", "sblx": "DMC" },
-    { "udpHost":  "127.0.0.1", "udpPort":  "6003", "sblx": "YC" }
+    { "udpHost":  "127.0.0.1", "udpPort":  "7001", "sblx": "LXB" },
+    { "udpHost":  "127.0.0.1", "udpPort":  "7002", "sblx": "DMC" },
+    { "udpHost":  "127.0.0.1", "udpPort":  "7003", "sblx": "YC" }
   ]
 }
