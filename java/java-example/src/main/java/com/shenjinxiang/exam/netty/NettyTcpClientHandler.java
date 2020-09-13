@@ -2,6 +2,7 @@ package com.shenjinxiang.exam.netty;
 
 import com.shenjinxiang.exam.kit.ByteKit;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -32,20 +33,28 @@ public class NettyTcpClientHandler extends ChannelInboundHandlerAdapter {
         logger.info("建立链接，服务器：" + channel.remoteAddress());
         conn = true;
         logger.info("fasong...");
+        byte[] bytes = ByteKit.hexStrToByteArray("00000014000101380103020403010402000300000000000000000000000000000000");
         while (true) {
             System.out.println("fs");
-            this.channel.writeAndFlush("12345678901234567890123456789012345678901234567890".getBytes());
+//            this.channel.writeAndFlush("12345678901234567890123456789012345678901234567890".getBytes());
+            this.channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
+            Thread.sleep(2000);
         }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        int readBytes = byteBuf.readableBytes();
-        byte[] bytes = new byte[readBytes];
-        byteBuf.readBytes(bytes);
-        String content = ByteKit.byteArrayToHexStr(bytes);
-        System.out.println("接收到的数据：" + content);
+        logger.info("0000");
+//        ByteBuf byteBuf = (ByteBuf) msg;
+//        int readBytes = byteBuf.readableBytes();
+//        byte[] bytes = new byte[readBytes];
+//        byteBuf.readBytes(bytes);
+//        String content = ByteKit.byteArrayToHexStr(bytes);
+//        System.out.println("接收到的数据：" + content);
+
+        channel = ctx.channel();
+        String content1 = msg.toString();
+        logger.info("接收到内容：" + content1);
     }
 
     @Override

@@ -17,10 +17,17 @@ public class TcpClient2 {
             Socket socket = new Socket(host, port);
 
             OutputStream outputStream = socket.getOutputStream();
-            String str = "00000001000001380103020403010402000300000000000000000000000000000000";
+            InputStream inputStream = socket.getInputStream();
+            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
             byte[] bytes = ByteKit.hexStrToByteArray(str);
+//            outputStream.write(str.getBytes());
             outputStream.write(bytes);
             outputStream.flush();
+            byte[] bytes1 = new byte[4104];
+            int len = 0;
+            while ((len = inputStream.read(bytes1)) != -1) {
+                System.out.println(ByteKit.byteArrayToHexStr(bytes1));
+            }
             socket.shutdownOutput();
             socket.close();
         } catch (IOException e) {
