@@ -27,16 +27,16 @@ public class NettyTcpServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         logger.info("1111111111111111111111");
-//        ByteBuf byteBuf = (ByteBuf) msg;
-//        int readBytes = byteBuf.readableBytes();
-//        byte[] bytes = new byte[readBytes];
-//        byteBuf.readBytes(bytes);
-//
-//        logger.info("接收到内容：" + ByteKit.byteArrayToHexStr(bytes));
+        ByteBuf byteBuf = (ByteBuf) msg;
+        int readBytes = byteBuf.readableBytes();
+        byte[] bytes = new byte[readBytes];
+        byteBuf.readBytes(bytes);
 
-        channel = ctx.channel();
-        String content = msg.toString();
-        logger.info("接收到内容：" + content);
+        logger.info("接收到内容：" + ByteKit.byteArrayToHexStr(bytes));
+
+//        channel = ctx.channel();
+//        String content = msg.toString();
+//        logger.info("接收到内容：" + content);
 //        channel.writeAndFlush(content + "\n");
     }
 

@@ -45,9 +45,9 @@ public class NettyTcpServer implements Runnable {
 //                            socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024 * 1024, byteBuf));
 //                        socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024 * 50));
                         socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(10));
-                        socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
+//                        socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                         socketChannel.pipeline().addLast(new NettyTcpServerHandler());
-                        socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
+//                        socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
                     }
                 });
         server.option(ChannelOption.SO_BACKLOG, 128);

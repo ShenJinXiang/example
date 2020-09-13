@@ -34,8 +34,7 @@ public class NettyTcpClientHandler extends ChannelInboundHandlerAdapter {
         logger.info("fasong...");
         while (true) {
             System.out.println("fs");
-            this.channel.writeAndFlush("12345678901234567890123456789012345678901234567890");
-            Thread.sleep(1000);
+            this.channel.writeAndFlush("12345678901234567890123456789012345678901234567890".getBytes());
         }
     }
 

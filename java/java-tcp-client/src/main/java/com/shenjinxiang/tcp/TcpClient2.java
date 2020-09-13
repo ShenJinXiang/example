@@ -15,22 +15,20 @@ public class TcpClient2 {
 
             //初始化一个socket
             Socket socket = new Socket(host, port);
-            //通过socket获取字符流
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            //通过标准输入流获取字符流
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
-            String str;
-            do {
-                str = bufferedReader.readLine();
-                bufferedWriter.write(str);
-                bufferedWriter.write("\n");
-                bufferedWriter.flush();
-            } while (!"exit".equals(str));
+            OutputStream outputStream = socket.getOutputStream();
+            String str = "00000001000001380103020403010402000300000000000000000000000000000000";
+            byte[] bytes = ByteKit.hexStrToByteArray(str);
+            outputStream.write(bytes);
+            outputStream.flush();
             socket.shutdownOutput();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        new TcpClient2("localhost", 6000);
     }
 }
