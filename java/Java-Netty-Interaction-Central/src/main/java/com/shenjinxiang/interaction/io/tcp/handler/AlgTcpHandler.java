@@ -1,5 +1,9 @@
 package com.shenjinxiang.interaction.io.tcp.handler;
 
+import com.shenjinxiang.interaction.core.Config;
+import com.shenjinxiang.interaction.io.IOKit;
+import com.shenjinxiang.interaction.kit.ByteKit;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -8,13 +12,17 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public class AlgTcpHandler<T> extends TcpHandler<T> {
 
+    private static final String WAVE_DATA_PREFIX = Config.WAVE_DATA_PREFIX;
+
     /**
      * 发送消息
      * @param msg
      */
     @Override
     public void sendMsg(T msg) {
-
+        if (conn) {
+            this.channel.writeAndFlush(msg);
+        }
     }
 
     /**
@@ -25,5 +33,11 @@ public class AlgTcpHandler<T> extends TcpHandler<T> {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ByteBuf byteBuf = (ByteBuf) msg;
+        int readBytes = byteBuf.readableBytes();
+        byte[] bytes = new byte[readBytes];
+        byteBuf.readBytes(bytes);
+        String content = WAVE_DATA_PREFIX + ByteKit.byteArrayToHexStr(bytes);
+        IOKit.sendArTcpMsg(content);
     }
 }

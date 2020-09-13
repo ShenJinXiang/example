@@ -7,6 +7,6 @@ package com.shenjinxiang.tcp;
 public class Start {
 
     public static void main(String[] args) {
-        new TcpClient("127.0.0.1", 9999);
+        new TcpClient("127.0.0.1", 6000);
     }
 }

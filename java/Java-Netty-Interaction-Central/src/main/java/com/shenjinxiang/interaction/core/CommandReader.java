@@ -1,6 +1,7 @@
 package com.shenjinxiang.interaction.core;
 
 import com.shenjinxiang.interaction.io.IOKit;
+import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.StrKit;
 import com.shenjinxiang.interaction.kit.ThreadPool;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: ShenJinXiang
@@ -51,21 +54,49 @@ public class CommandReader implements Runnable {
                         IOKit.runPointUdpServer();
                         IOKit.runDdsjFileReader();
                         Thread.sleep(3000);
+                        continue;
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
                         IOKit.closePointUdpServer();
                         IOKit.closeMulticastUdpServer();
+                        continue;
                     }
                     // 准备
                     if (PREPARE.equalsIgnoreCase(words[0])) {
                         IOKit.runAlgClient();
                         IOKit.runArClient();
+                        continue;
                     }
                     // 开始
                     if (START.equalsIgnoreCase(words[0])) {
+                        if (!IOKit.isAlgConn()) {
+                            logger.info("和算法中心未建立连接，不能开始考核");
+                            continue;
+                        }
+                        if (!IOKit.isArConn()) {
+                            logger.info("和AR模拟仿真未建立连接，不能开始考核");
+                            continue;
+                        }
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("command", "isReady");
+                        Map<String, Object> result = IOKit.sendArMessageSync(data);
+                        if (!(boolean) result.get("success")) {
+                            logger.info("AR模拟仿真尚未准备好，不能开始考核");
+                            continue;
+                        }
+                        data = new HashMap<>();
+                        data.put("ksid", "1");
+                        data.put("command", "start");
+                        IOKit.sendArTcpMsg(JsonKit.toJson(data));
                     }
                     // 结束
                     if (END.equalsIgnoreCase(words[0])) {
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("ksid", "1");
+                        data.put("command", "end");
+                        IOKit.sendArTcpMsg(JsonKit.toJson(data));
+                        IOKit.closeAlgClient();
+                        IOKit.closeArClient();
                     }
                     if (EXIT.equalsIgnoreCase(words[0])) {
                         logger.info("程序结束！");

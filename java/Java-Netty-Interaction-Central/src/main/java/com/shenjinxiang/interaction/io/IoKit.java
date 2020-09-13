@@ -13,6 +13,7 @@ import com.shenjinxiang.interaction.io.udp.UdpServer;
 import com.shenjinxiang.interaction.io.udp.handler.PointUdpHandler;
 import com.shenjinxiang.interaction.io.udp.handler.UdpHandler;
 import com.shenjinxiang.interaction.io.udp.handler.UdpMulticastHandler;
+import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.ThreadPool;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -20,16 +21,22 @@ import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @Author: ShenJinXiang
  * @Date: 2020/9/12 06:54
  */
 public class IOKit {
+
+    private static final Logger logger = LoggerFactory.getLogger(IOKit.class);
 
     private static final int MAX_TCP_DATA_LENGTH;
 
@@ -123,6 +130,7 @@ public class IOKit {
      * 启动算法中心对接的TCP客户端
      */
     public static void runAlgClient() {
+        logger.info("开始建立和算法中心连接，地址[" + ALG_SERVER_HOST + ":" + ALG_SERVER_PORT + "]");
         if (ALG_HANDLER.isConn()) {
             ThreadPool.getThread().execute(new TcpClient(
                     ALG_SERVER_HOST,
@@ -286,7 +294,49 @@ public class IOKit {
         POINT_HANDLER.sendMsg(data, address);
     }
 
+    public static void sendAlgTcpMsg(byte[] data) {
+        ALG_HANDLER.sendMsg(data);
+    }
+
     public static void sendQtTcpMsg(String data) {
         QT_HANDLER.sendMsg(data);
+    }
+
+
+    public static void sendArTcpMsg(String data) {
+        AR_HANDLER.sendMsg(data);
+    }
+
+    /**
+     * 发送消息，同步模式，等待获取结果
+     * @param data
+     * @return
+     */
+    public static Map<String, Object> sendArMessageSync(Map<String, Object> data) {
+        String token = UUID.randomUUID().toString().replace("-", "");
+        data.put("token", token);
+        AR_HANDLER.sendMsg(JsonKit.toJson(data));
+        if (null != token) {
+            return resultByToken(token);
+        }
+        return null;
+    }
+
+    private static Map<String, Object> resultByToken(String token) {
+        while (true) {
+            try {
+                if (Config.RESULT_MAP.containsKey(token)) {
+                    Map<String, Object> data = (Map<String, Object>) Config.RESULT_MAP.get(token);
+                    Config.RESULT_MAP.remove(token);
+                    if (null != data && data.containsKey(token)) {
+                        data.remove(token);
+                    }
+                    return data;
+                }
+                Thread.sleep(0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
