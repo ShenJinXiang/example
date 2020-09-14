@@ -25,7 +25,7 @@ public class TcpClient2 {
 //            outputStream.write(str.getBytes());
             outputStream.write(bytes);
             outputStream.flush();
-            byte[] bytes1 = new byte[4104];
+            byte[] bytes1 = new byte[4];
             int len = 0;
             while ((len = inputStream.read(bytes1)) != -1) {
                 System.out.println(ByteKit.byteArrayToHexStr(bytes1));

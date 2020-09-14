@@ -33,8 +33,10 @@ public class NettyTcpClientHandler extends ChannelInboundHandlerAdapter {
         logger.info("建立链接，服务器：" + channel.remoteAddress());
         conn = true;
         logger.info("fasong...");
-        byte[] bytes = ByteKit.hexStrToByteArray("00000014000101380103020403010402000300000000000000000000000000000000");
-        this.channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
+        String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+//        byte[] bytes = ByteKit.hexStrToByteArray("00000014000101380103020403010402000300000000000000000000000000000000");
+//        this.channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
+        this.channel.writeAndFlush(str);
 //        while (true) {
 //            System.out.println("fs");
 //            Thread.sleep(2000);
@@ -43,18 +45,19 @@ public class NettyTcpClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        logger.info("0000");
-        ByteBuf byteBuf = (ByteBuf) msg;
-        int readBytes = byteBuf.readableBytes();
-        byte[] bytes = new byte[readBytes];
-        byteBuf.readBytes(bytes);
-        String content = ByteKit.byteArrayToHexStr(bytes);
-        System.out.println("接收到的数据：" + content);
-        System.out.println("长度:" + bytes.length);
+//        logger.info("0000");
+//        ByteBuf byteBuf = (ByteBuf) msg;
+//        int readBytes = byteBuf.readableBytes();
+//        byte[] bytes = new byte[readBytes];
+//        byteBuf.readBytes(bytes);
+//
+//        String content = ByteKit.byteArrayToHexStr(bytes);
+//        System.out.println("接收到的数据：" + content);
+//        System.out.println("长度:" + bytes.length);
 
-//        channel = ctx.channel();
-//        String content1 = msg.toString();
-//        logger.info("接收到内容：" + content1);
+        channel = ctx.channel();
+        String content1 = msg.toString();
+        logger.info("接收到内容：" + content1);
     }
 
     @Override

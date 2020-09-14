@@ -26,6 +26,7 @@ public class TcpDataUtil {
         Config.RUNSTATUS = RunStatus.WORK;
         byte[] bytes = ByteKit.hexStrToByteArray(data);
         logger.info("接收到波形数据，数据长度: " + bytes.length);
+        logger.info("内容: " + ByteKit.byteArrayToHexStr(bytes));
     }
 
     private static void handlerCommand(String content) {

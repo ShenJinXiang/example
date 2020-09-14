@@ -31,10 +31,10 @@ public class Sender implements Runnable {
     private void sendMsg() {
         if (IOKit.isTcpConn()) {
             String head = ByteKit.byteArrayToHexStr(ByteArrayConveter.getByteArray(this.count));
-//            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
-//            IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + str);
-            String msg = head +  "000001380103020403010402000300000000000000000000000000000000";
-            IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + msg);
+            String str = "00000014000101380103020403010402000300000000000000000000000000000000";
+            IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + str);
+//            String msg = head +  "000001380103020403010402000300000000000000000000000000000000";
+//            IOKit.sendTcpMsg(Config.WAVE_DATA_PREFIX + msg);
             this.count++;
         }
     }

@@ -23,6 +23,7 @@ import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,7 +142,9 @@ public class IOKit {
                         @Override
                         protected void initChannel(Channel channel) throws Exception {
                             channel.pipeline().addLast(new FixedLengthFrameDecoder(ALG_FIXED_DATA_LENGTH));
+                            channel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                             channel.pipeline().addLast(ALG_HANDLER);
+                            channel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
                         }
                     }
             ));
