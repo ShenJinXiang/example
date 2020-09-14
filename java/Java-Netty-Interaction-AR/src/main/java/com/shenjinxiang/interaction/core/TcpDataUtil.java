@@ -3,11 +3,16 @@ package com.shenjinxiang.interaction.core;
 import com.shenjinxiang.interaction.entity.ControTcpCommand;
 import com.shenjinxiang.interaction.entity.ControTcpResult;
 import com.shenjinxiang.interaction.entity.RunStatus;
+import com.shenjinxiang.interaction.entity.Wave;
 import com.shenjinxiang.interaction.io.IOKit;
+import com.shenjinxiang.interaction.kit.ByteArrayConveter;
 import com.shenjinxiang.interaction.kit.ByteKit;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TcpDataUtil {
 
@@ -24,9 +29,36 @@ public class TcpDataUtil {
 
     public static void handlerWaveData(String data) {
         Config.RUNSTATUS = RunStatus.WORK;
-        byte[] bytes = ByteKit.hexStrToByteArray(data);
-        logger.info("接收到波形数据，数据长度: " + bytes.length);
-        logger.info("内容: " + ByteKit.byteArrayToHexStr(bytes));
+        List<Wave> waves = parase(data);
+        logger.info("接收到内容：" + JsonKit.toJson(waves));
+    }
+
+    private static List<Wave> parase(String str) {
+        int len = str.length() / 4;
+        String[] strs = new String[] {
+                str.substring(0, len),
+                str.substring(len, 2 * len),
+                str.substring(2 * len, 3 * len),
+                str.substring(3 * len, 4 * len)
+        };
+        List<Wave> waves = new ArrayList<>();
+
+        for(String s: strs) {
+            byte[] bytes = ByteKit.hexStrToByteArray(s);
+            Wave wave = new Wave();
+            int p = ByteArrayConveter.getInt(bytes, 0);
+            wave.setPickpoint(p);
+            int index = 4;
+            List<Float> floats = new ArrayList<>();
+            while (index < bytes.length) {
+                float f = ByteArrayConveter.getFloat(bytes, index);
+                floats.add(f);
+                index+=4;
+            }
+            wave.setData(floats);
+            waves.add(wave);
+        }
+        return waves;
     }
 
     private static void handlerCommand(String content) {
