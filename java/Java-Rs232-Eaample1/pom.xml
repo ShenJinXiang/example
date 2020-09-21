@@ -21,8 +21,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
 
@@ -110,10 +110,29 @@
             <version>2.11.0</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.bidib.jbidib.org.qbang.rxtx</groupId>-->
+<!--            <artifactId>rxtxcomm</artifactId>-->
+<!--            <version>2.2</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>org.bidib.jbidib.org.qbang.rxtx</groupId>
+            <groupId>com.sj.rxtx.comm</groupId>
             <artifactId>rxtxcomm</artifactId>
-            <version>2.2</version>
+            <version>2.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>3.0.11.RELEASE</version>
         </dependency>
 
     </dependencies>

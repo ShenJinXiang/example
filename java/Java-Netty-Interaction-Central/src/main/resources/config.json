@@ -5,7 +5,7 @@
   "arServerPort": 6002,
   "algServerHost": "127.0.0.1",
   "algServerPort": 6000,
-  "algFixedDataLength": 16416,
+  "algFixedDataLength": 65664,
   "udpServerListenPort": 7004,
   "udpMulticastNetwokinterface": "lo",
   "udpMulticastHost": "224.255.10.0",
