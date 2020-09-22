@@ -14,6 +14,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
@@ -117,9 +118,11 @@ public class SerialPortUtils implements SerialPortEventListener {
 //                    byte[] bytes = new byte[1];
 //                    int l = inputStream1.read(bytes);
 //                    System.out.println(bytesToHexString(bytes));
+//                    byte[] bytes = readData(serialPort);
                     byte[] bytes = read(serialPort);
+//                    byte[] bytes = readFromPort2(serialPort);
                     System.out.println(ByteKit.byteArrayToHexStr(bytes));
-
+//
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -151,23 +154,39 @@ public class SerialPortUtils implements SerialPortEventListener {
         }
     }
 
-    public static byte[] read(SerialPort serialPort) {
+    public static byte[] readData(SerialPort serialPort) {
         try {
-            InputStream inputStream = null;
-            ByteBuf buff = Unpooled.buffer();
-            inputStream = serialPort.getInputStream();
-            byte[] bs = new byte[1];
-            int len = 1;
-            while (len > 0) {
-                len = inputStream.read(bs);
-                if (len <= 0) {
-                    break;
-                }
-                buff.writeBytes(bs);
-            }
 
+            ByteBuf buff = Unpooled.buffer();
+            InputStream inputStream = serialPort.getInputStream();
+            int bufflenth = inputStream.available();
+            while (bufflenth > 0) {
+                byte[] bytes = new byte[bufflenth];
+                inputStream.read(bytes);
+                buff.writeBytes(bytes);
+                bufflenth = inputStream.available();
+            }
             byte[] message = new byte[buff.readableBytes()];
             buff.readBytes(message);
+            return message;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] read(SerialPort serialPort) {
+        try {
+            ByteBuf buff = Unpooled.buffer();
+            InputStream inputStream = serialPort.getInputStream();
+            byte[] bs = new byte[1];
+            int len;
+            while ((len = inputStream.read(bs)) > 0) {
+                buff.writeBytes(bs);
+            }
+            byte[] message = new byte[buff.readableBytes()];
+            buff.readBytes(message);
+            System.out.println(Arrays.toString(message));
             return message;
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,6 +228,40 @@ public class SerialPortUtils implements SerialPortEventListener {
         return bytes;
 
     }
+
+    public static byte[] readFromPort2(SerialPort serialPort) throws Exception {
+
+        InputStream in = null;
+        byte[] bytes = null;
+
+        try {
+
+            in = serialPort.getInputStream();
+            int bufflenth = in.available(); //获取buffer里的数据长度
+
+            while (bufflenth != 0) {
+                bytes = new byte[bufflenth]; //初始化byte数组为buffer中数据的长度
+                in.read(bytes);
+                bufflenth = in.available();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                    in = null;
+                }
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        System.out.println("读取成功");
+        return bytes;
+
+    }
+
 
 
     public static byte[] readFromPort(SerialPort serialPort) {
@@ -440,8 +493,11 @@ public class SerialPortUtils implements SerialPortEventListener {
         // 初始化设置,打开串口，开始监听读取串口数据
         serialPort.init(paramConfig);
         // 调用串口操作类的sendComm方法发送数据到串口
-        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
-        serialPort.sendComm(com);
+//        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
+//        String com = "AA0218AD01000000FFFFFF7F00000000EE55";
+//        serialPort.sendComm(com);
+        // AA 02 19 AD 00 00 00 00 FE FF FF 7F 07 97 07 B2 44 55 01
+//         AA 02 19 AD 00 00 00 00 FE FF FF 7F 07 96 07 B0 41 55 01
         // 关闭串口
 //        serialPort.closeSerialPort();
     }
