@@ -1,5 +1,6 @@
 package com.shenjinxiang.rs232.demo1;
 
+import com.shenjinxiang.rs232.kit.ByteArrayConveter;
 import com.shenjinxiang.rs232.kit.ByteKit;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
@@ -489,9 +490,10 @@ public class SerialPortUtils implements SerialPortEventListener {
         // 实例化串口操作类对象
         SerialPortUtils serialPort = new SerialPortUtils();
         // 创建串口必要参数接收类并赋值，赋值串口号，波特率，校验位，数据位，停止位
-        ParamConfig paramConfig = new ParamConfig("COM3", 9600, 2, 8, 1);
+        ParamConfig paramConfig = new ParamConfig("COM3", 9600, 0, 8, 1);
         // 初始化设置,打开串口，开始监听读取串口数据
         serialPort.init(paramConfig);
+
         // 调用串口操作类的sendComm方法发送数据到串口
 //        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
 //        String com = "AA0218AD01000000FFFFFF7F00000000EE55";
@@ -500,6 +502,18 @@ public class SerialPortUtils implements SerialPortEventListener {
 //         AA 02 19 AD 00 00 00 00 FE FF FF 7F 07 96 07 B0 41 55 01
         // 关闭串口
 //        serialPort.closeSerialPort();
+//        String com = "AA0218AD00400000FFFFFF7F000000002D55";
+//        serialPort.sendComm(com);
+
+
+        // AA0219AD00000000FEFFFF7F079107B7435501
+//        int a = 0xAA + 0x02 + 0x19 + 0xAD + 0x00 + 0x00 + 0x00 + 0x00 + 0xFE + 0xFF + 0xFF + 0x7F +0x07 + 0x91 + 0x07 + 0xB7; // + 0x43 ;//5501
+        // AA0218AD00400000FFFFFF7F000000002D55
+//        a = 0xAA + 0x02 + 0x18 + 0xAD + 0x00 + 0x40 + 0x00 + 0x00 + 0xFF + 0xFF + 0xFF + 0x7F + 0x00 + 0x00 + 0x00 + 0x00; // 2D55
+//        System.out.println(a);
+//        byte[] bytes = ByteArrayConveter.getByteArray(a);
+//        System.out.println(Arrays.toString(bytes));
+//        System.out.println(ByteKit.byteArrayToHexStr(bytes));
     }
 
     
