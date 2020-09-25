@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
@@ -493,6 +494,20 @@ public class SerialPortUtils implements SerialPortEventListener {
         ParamConfig paramConfig = new ParamConfig("COM3", 9600, 0, 8, 1);
         // 初始化设置,打开串口，开始监听读取串口数据
         serialPort.init(paramConfig);
+
+
+        String str = "社会主义核心价值观是社会主义核心价值体系的内核";
+        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+        String hex = ByteKit.byteArrayToHexStr(bytes);
+        hex = "AA0218ADF0000000FFFFFF7F00000000FF550000000000000000000";
+        for (int i =0; i < 100; i++) {
+            serialPort.sendComm(hex);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         // 调用串口操作类的sendComm方法发送数据到串口
 //        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
