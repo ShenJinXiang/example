@@ -9,6 +9,9 @@ import io.netty.channel.rxtx.RxtxChannel;
 import io.netty.channel.rxtx.RxtxChannelConfig;
 import io.netty.channel.rxtx.RxtxDeviceAddress;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,10 +44,10 @@ public class RxtxClient implements Runnable {
                     .handler(new ChannelInitializer<RxtxChannel>() {
                         @Override
                         protected void initChannel(RxtxChannel rxtxChannel) throws Exception {
-                            rxtxChannel.pipeline().addLast(new FixedLengthFrameDecoder(19));
+                            rxtxChannel.pipeline().addLast(new FixedLengthFrameDecoder(38));
+//                            rxtxChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
 //                            rxtxChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                             rxtxChannel.pipeline().addLast(new RxtxHandler());
-//                            rxtxChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
                         }
                     });
 

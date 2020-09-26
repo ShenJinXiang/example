@@ -37,6 +37,7 @@ public class SerialPortUtils implements SerialPortEventListener {
     private OutputStream outputStream;
     // 保存串口返回信息
     private String data;
+    private ByteBuf buff = Unpooled.buffer();
     // 保存串口返回信息十六进制
     private String dataHex;
 
@@ -115,16 +116,10 @@ public class SerialPortUtils implements SerialPortEventListener {
 //                readComm();
                 try {
 
-//                    InputStream inputStream1 = serialPort.getInputStream();
-//                    InputStream inputStream1 = serialPort.getInputStream();
-//                    byte[] bytes = new byte[1];
-//                    int l = inputStream1.read(bytes);
-//                    System.out.println(bytesToHexString(bytes));
-//                    byte[] bytes = readData(serialPort);
-                    byte[] bytes = read(serialPort);
-//                    byte[] bytes = readFromPort2(serialPort);
-                    System.out.println(ByteKit.byteArrayToHexStr(bytes));
-//
+//                    byte[] bytes = read(serialPort);
+//                    System.out.println(ByteKit.byteArrayToHexStr(bytes));
+//                    print(bytes);
+                    read2601(serialPort);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -132,6 +127,41 @@ public class SerialPortUtils implements SerialPortEventListener {
             default:
                 break;
         }
+    }
+
+    private void print(byte[] bytes) {
+        byte led1 = bytes[4];
+        byte led2 = bytes[5];
+        byte led3 = bytes[6];
+        byte led4 = bytes[7];
+
+        byte press1 = bytes[8];
+        byte press2 = bytes[9];
+        byte press3 = bytes[10];
+        byte press4 = bytes[11];
+
+        String led1Str = getBit(led1);
+        String led2Str = getBit(led2);
+        String led3Str = getBit(led3);
+        String led4Str = getBit(led4);
+        String press1Str = getBit(press1);
+        String press2Str = getBit(press2);
+        String press3Str = getBit(press3);
+        String press4Str = getBit(press4);
+        byte[] bytes1 = new byte[] {0x00, 0x00, bytes[12], bytes[13]};
+        byte[] bytes2 = new byte[] {0x00, 0x00, bytes[14], bytes[15]};
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(led1Str).append("   ")
+                .append(led2Str).append("    ")
+                .append(led3Str).append("    ")
+                .append(led4Str).append("    ")
+                .append(press1Str).append("    ")
+                .append(press2Str).append("    ")
+                .append(press3Str).append("    ")
+                .append(press4Str).append("    ")
+                .append(ByteArrayConveter.getInt(bytes1, 0)).append("    ")
+                .append(ByteArrayConveter.getInt(bytes2, 0));
+        System.out.println(stringBuilder.toString());
     }
 
     public static byte[] read1(SerialPort serialPort) {
@@ -177,9 +207,8 @@ public class SerialPortUtils implements SerialPortEventListener {
         return null;
     }
 
-    public static byte[] read(SerialPort serialPort) {
+    public byte[] read(SerialPort serialPort) {
         try {
-            ByteBuf buff = Unpooled.buffer();
             InputStream inputStream = serialPort.getInputStream();
             byte[] bs = new byte[1];
             int len;
@@ -193,6 +222,29 @@ public class SerialPortUtils implements SerialPortEventListener {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void read2601(SerialPort serialPort) {
+        try {
+            InputStream inputStream = serialPort.getInputStream();
+            byte[] bs = new byte[1];
+            int len;
+            while ((len = inputStream.read(bs)) > 0) {
+                buff.writeBytes(bs);
+                if (buff.readableBytes() == 19) {
+                    ByteBuf buff1 = buff.readSlice(19);
+                    byte[] message = new byte[buff1.readableBytes()];
+                    buff1.readBytes(message);
+                    System.out.println(Arrays.toString(message));
+                    print(message);
+                }
+            }
+//            byte[] message = new byte[buff.readableBytes()];
+//            buff.readBytes(message);
+//            System.out.println(Arrays.toString(message));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -486,6 +538,40 @@ public class SerialPortUtils implements SerialPortEventListener {
         return sb.toString();
     }
 
+    public static String getBit(byte by) {
+        StringBuffer sb = new StringBuffer();
+        sb.append((by>>7)&0x1)
+                .append((by>>6)&0x1)
+                .append((by>>5)&0x1)
+                .append((by>>4)&0x1)
+                .append((by>>3)&0x1)
+                .append((by>>2)&0x1)
+                .append((by>>1)&0x1)
+                .append((by>>0)&0x1);
+        return sb.toString();
+    }
+
+    public static byte bitToByte(String bit) {
+        int re, len;
+        if (null == bit) {
+            return 0;
+        }
+        len = bit.length();
+        if (len != 4 && len != 8) {
+            return 0;
+        }
+        if (len == 8) {// 8 bit处理
+            if (bit.charAt(0) == '0') {// 正数
+                re = Integer.parseInt(bit, 2);
+            } else {// 负数
+                re = Integer.parseInt(bit, 2) - 256;
+            }
+        } else {//4 bit处理
+            re = Integer.parseInt(bit, 2);
+        }
+        return (byte) re;
+    }
+
 
     public static void main(String[] args) {
         // 实例化串口操作类对象
@@ -496,18 +582,18 @@ public class SerialPortUtils implements SerialPortEventListener {
         serialPort.init(paramConfig);
 
 
-        String str = "社会主义核心价值观是社会主义核心价值体系的内核";
-        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
-        String hex = ByteKit.byteArrayToHexStr(bytes);
-        hex = "AA0218ADF0000000FFFFFF7F00000000FF550000000000000000000";
-        for (int i =0; i < 100; i++) {
-            serialPort.sendComm(hex);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        String str = "社会主义核心价值观是社会主义核心价值体系的内核";
+//        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+//        String hex = ByteKit.byteArrayToHexStr(bytes);
+//        hex = "AA0218ADF0000000FFFFFF7F00000000FF550000000000000000000";
+//        for (int i =0; i < 100; i++) {
+//            serialPort.sendComm(hex);
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         // 调用串口操作类的sendComm方法发送数据到串口
 //        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";

@@ -22,14 +22,17 @@ public class RxtxHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel channel = ctx.channel();
-        System.out.println(channel);
         ByteBuf byteBuf = (ByteBuf) msg;
         int readBytes = byteBuf.readableBytes();
         byte[] bytes = new byte[readBytes];
         byteBuf.readBytes(bytes);
 
+        System.out.println(readBytes);
         String content = ByteKit.byteArrayToHexStr(bytes);
         logger.info("接收到信息：" + content);
+
+//        String content = msg.toString();
+//        logger.info("接收到信息：" + content);
+
     }
 }
