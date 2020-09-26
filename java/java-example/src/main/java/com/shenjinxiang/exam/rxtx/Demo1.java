@@ -14,6 +14,11 @@ public class Demo1 {
         // 55
         // 01
         String str = "AA0219AD00000000FEFFFF7F079707B6485501";
+        // AA0218AD00000000FFFFFF7F0000000055;
+        int int00 = 0xAA + 0X02 + 0x18 + 0xAD + 0x00 + 0x00 + 0x00 + 0x00 + 0xFF + 0xFF + 0xFF + 0x7F + 0x00 + 0x00  + 0x00 + 0x00;
+        byte[] bytes11 = ByteArrayConveter.getByteArray(int00);
+        System.out.println("...");
+        System.out.println(ByteKit.byteArrayToHexStr(bytes11));
         byte[] bytes = ByteKit.hexStrToByteArray(str);
         byte led1 = bytes[4];
         byte led2 = bytes[5];
