@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 
 public class Client {
 
+    // mvn install:install-file -DgroupId=com.sj.rxtx.comm -DartifactId=rxtxcomm -Dversion=2.2.0 -Dpackaging=jar -Dfile=E:\shenjinxiang\work\radar\串口工具\mfz-rxtx-2.2-20081207-win-x64\RXTXcomm.jar
+
     public static void main(String[] args) {
         SerialPortUtils serialPort = new SerialPortUtils();
         // 创建串口必要参数接收类并赋值，赋值串口号，波特率，校验位，数据位，停止位

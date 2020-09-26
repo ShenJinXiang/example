@@ -12,6 +12,5 @@ public class Application {
     public static void main(String[] args) {
         logger.info("Java-Rxtx-Kit Start ...");
         ThreadPool.getThread().execute(new RxtxClient("COM3"));
-//        ThreadPool.getThread().execute(new Run());
     }
 }

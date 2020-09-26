@@ -236,6 +236,7 @@ public class SerialPortUtils implements SerialPortEventListener {
                     ByteBuf buff1 = buff.readSlice(19);
                     byte[] message = new byte[buff1.readableBytes()];
                     buff1.readBytes(message);
+                    System.out.println(ByteKit.byteArrayToHexStr(message));
                     System.out.println(Arrays.toString(message));
                     print(message);
                 }

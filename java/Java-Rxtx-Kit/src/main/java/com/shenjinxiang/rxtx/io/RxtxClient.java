@@ -44,7 +44,7 @@ public class RxtxClient implements Runnable {
                     .handler(new ChannelInitializer<RxtxChannel>() {
                         @Override
                         protected void initChannel(RxtxChannel rxtxChannel) throws Exception {
-                            rxtxChannel.pipeline().addLast(new FixedLengthFrameDecoder(38));
+                            rxtxChannel.pipeline().addLast(new FixedLengthFrameDecoder(19));
 //                            rxtxChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
 //                            rxtxChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                             rxtxChannel.pipeline().addLast(new RxtxHandler());
