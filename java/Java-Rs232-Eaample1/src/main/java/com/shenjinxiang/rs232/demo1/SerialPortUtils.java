@@ -1,15 +1,22 @@
 package com.shenjinxiang.rs232.demo1;
 
+import com.shenjinxiang.rs232.kit.ByteArrayConveter;
+import com.shenjinxiang.rs232.kit.ByteKit;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
@@ -30,6 +37,7 @@ public class SerialPortUtils implements SerialPortEventListener {
     private OutputStream outputStream;
     // 保存串口返回信息
     private String data;
+    private ByteBuf buff = Unpooled.buffer();
     // 保存串口返回信息十六进制
     private String dataHex;
 
@@ -105,11 +113,258 @@ public class SerialPortUtils implements SerialPortEventListener {
                 break;
             case SerialPortEvent.DATA_AVAILABLE: // 有数据到达
                 // 调用读取数据的方法
-                readComm();
+//                readComm();
+                try {
+
+//                    byte[] bytes = read(serialPort);
+//                    System.out.println(ByteKit.byteArrayToHexStr(bytes));
+//                    print(bytes);
+                    read2601(serialPort);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    private void print(byte[] bytes) {
+        byte led1 = bytes[4];
+        byte led2 = bytes[5];
+        byte led3 = bytes[6];
+        byte led4 = bytes[7];
+
+        byte press1 = bytes[8];
+        byte press2 = bytes[9];
+        byte press3 = bytes[10];
+        byte press4 = bytes[11];
+
+        String led1Str = getBit(led1);
+        String led2Str = getBit(led2);
+        String led3Str = getBit(led3);
+        String led4Str = getBit(led4);
+        String press1Str = getBit(press1);
+        String press2Str = getBit(press2);
+        String press3Str = getBit(press3);
+        String press4Str = getBit(press4);
+        byte[] bytes1 = new byte[] {0x00, 0x00, bytes[12], bytes[13]};
+        byte[] bytes2 = new byte[] {0x00, 0x00, bytes[14], bytes[15]};
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(led1Str).append("   ")
+                .append(led2Str).append("    ")
+                .append(led3Str).append("    ")
+                .append(led4Str).append("    ")
+                .append(press1Str).append("    ")
+                .append(press2Str).append("    ")
+                .append(press3Str).append("    ")
+                .append(press4Str).append("    ")
+                .append(ByteArrayConveter.getInt(bytes1, 0)).append("    ")
+                .append(ByteArrayConveter.getInt(bytes2, 0));
+        System.out.println(stringBuilder.toString());
+    }
+
+    public static byte[] read1(SerialPort serialPort) {
+        try {
+            InputStream inputStream = null;
+            ByteBuf buff = Unpooled.buffer();
+            DataInputStream ins = new DataInputStream(serialPort.getInputStream());
+            byte b = 0;
+            while (true) {
+                b = (byte) ins.read();
+                buff.writeByte(b);
+                if(b == 0) {
+                    break;
+                }
+            }
+            byte[] message = new byte[buff.readableBytes()];
+            buff.readBytes(message);
+            return message;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static byte[] readData(SerialPort serialPort) {
+        try {
+
+            ByteBuf buff = Unpooled.buffer();
+            InputStream inputStream = serialPort.getInputStream();
+            int bufflenth = inputStream.available();
+            while (bufflenth > 0) {
+                byte[] bytes = new byte[bufflenth];
+                inputStream.read(bytes);
+                buff.writeBytes(bytes);
+                bufflenth = inputStream.available();
+            }
+            byte[] message = new byte[buff.readableBytes()];
+            buff.readBytes(message);
+            return message;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public byte[] read(SerialPort serialPort) {
+        try {
+            InputStream inputStream = serialPort.getInputStream();
+            byte[] bs = new byte[1];
+            int len;
+            while ((len = inputStream.read(bs)) > 0) {
+                buff.writeBytes(bs);
+            }
+            byte[] message = new byte[buff.readableBytes()];
+            buff.readBytes(message);
+            System.out.println(Arrays.toString(message));
+            return message;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void read2601(SerialPort serialPort) {
+        try {
+            InputStream inputStream = serialPort.getInputStream();
+            byte[] bs = new byte[1];
+            int len;
+            while ((len = inputStream.read(bs)) > 0) {
+                buff.writeBytes(bs);
+                if (buff.readableBytes() == 19) {
+                    ByteBuf buff1 = buff.readSlice(19);
+                    byte[] message = new byte[buff1.readableBytes()];
+                    buff1.readBytes(message);
+                    System.out.println(ByteKit.byteArrayToHexStr(message));
+                    System.out.println(Arrays.toString(message));
+                    print(message);
+                }
+            }
+//            byte[] message = new byte[buff.readableBytes()];
+//            buff.readBytes(message);
+//            System.out.println(Arrays.toString(message));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static byte[] readFromPort1(SerialPort serialPort) {
+
+        InputStream in = null;
+        byte[] bytes = null;
+
+        try {
+
+            in = serialPort.getInputStream();
+            int bufflenth = in.available(); //获取buffer里的数据长度
+
+            while (bufflenth != 0) {
+                bytes = new byte[bufflenth]; //初始化byte数组为buffer中数据的长度
+                in.read(bytes);
+                bufflenth = in.available();
+            }
+        } catch (IOException e) {
+//            throw new ReadDataFromSerialPortFailure();
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                    in = null;
+                }
+            } catch(IOException e) {
+//                throw new SerialPortInputStreamCloseFailure();
+                e.printStackTrace();
+            }
+
+        }
+        System.out.println("读取成功");
+        return bytes;
+
+    }
+
+    public static byte[] readFromPort2(SerialPort serialPort) throws Exception {
+
+        InputStream in = null;
+        byte[] bytes = null;
+
+        try {
+
+            in = serialPort.getInputStream();
+            int bufflenth = in.available(); //获取buffer里的数据长度
+
+            while (bufflenth != 0) {
+                bytes = new byte[bufflenth]; //初始化byte数组为buffer中数据的长度
+                in.read(bytes);
+                bufflenth = in.available();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                    in = null;
+                }
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        System.out.println("读取成功");
+        return bytes;
+
+    }
+
+
+
+    public static byte[] readFromPort(SerialPort serialPort) {
+//        ByteBuf buffer = Unpooled.buffer();
+//        for (byte[] byteArr: bytes) {
+//            buffer.writeBytes(byteArr);
+//        }
+//        byte[] message = new byte[buffer.readableBytes()];
+//        buffer.readBytes(message);
+//        return message;
+
+        InputStream in = null;
+        byte[] bytes = {};
+        ByteBuf buffer = Unpooled.buffer();
+        try {
+            in = serialPort.getInputStream();
+            // 缓冲区大小为一个字节
+            byte[] readBuffer = new byte[1];
+            int bytesNum = 1;
+            int n = 0;
+            while (bytesNum > 0) {
+                //如果缓冲区读取结束，且数组长度为7（防止串口数据发送缓慢读取到空数据），跳出循环
+                n = in.available();
+                if (n >0 && n != 7) {
+                    bytesNum = in.read(readBuffer);
+                    buffer.writeBytes(readBuffer);
+                } else {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+//            new ReadDataFromSerialPortFailure().printStackTrace();
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                    in = null;
+                }
+            } catch (IOException e) {
+//                new SerialPortInputStreamCloseFailure().printStackTrace();
+                e.printStackTrace();
+            }
+        }
+        byte[] message = new byte[buffer.readableBytes()];
+        buffer.readBytes(message);
+        return message;
+//        return bytes;
     }
 
     /**
@@ -121,20 +376,24 @@ public class SerialPortUtils implements SerialPortEventListener {
      */
     public void readComm() {
         try {
-            inputStream = serialPort.getInputStream();
+            InputStream inputStream1 = null;
+            inputStream1 = serialPort.getInputStream();
+//            byte[] bytes = new byte[10];
+//            inputStream1.read(bytes);
             // 通过输入流对象的available方法获取数组字节长度
-            byte[] readBuffer = new byte[inputStream.available()];
+            int l  = inputStream1.available();
+            byte[] readBuffer = new byte[l];
             // 从线路上读取数据流
             int len = 0;
-            while ((len = inputStream.read(readBuffer)) != -1) {
+            while ((len = inputStream1.read(readBuffer)) != -1) {
                 // 直接获取到的数据
                 data = new String(readBuffer, 0, len).trim();
                 // 转为十六进制数据
                 dataHex = bytesToHexString(readBuffer);
                 System.out.println("data:" + data);
                 System.out.println("dataHex:" + dataHex);// 读取后置空流对象
-                inputStream.close();
-                inputStream = null;
+                inputStream1.close();
+                inputStream1 = null;
                 break;
             }
         } catch (IOException e) {
@@ -280,19 +539,83 @@ public class SerialPortUtils implements SerialPortEventListener {
         return sb.toString();
     }
 
+    public static String getBit(byte by) {
+        StringBuffer sb = new StringBuffer();
+        sb.append((by>>7)&0x1)
+                .append((by>>6)&0x1)
+                .append((by>>5)&0x1)
+                .append((by>>4)&0x1)
+                .append((by>>3)&0x1)
+                .append((by>>2)&0x1)
+                .append((by>>1)&0x1)
+                .append((by>>0)&0x1);
+        return sb.toString();
+    }
+
+    public static byte bitToByte(String bit) {
+        int re, len;
+        if (null == bit) {
+            return 0;
+        }
+        len = bit.length();
+        if (len != 4 && len != 8) {
+            return 0;
+        }
+        if (len == 8) {// 8 bit处理
+            if (bit.charAt(0) == '0') {// 正数
+                re = Integer.parseInt(bit, 2);
+            } else {// 负数
+                re = Integer.parseInt(bit, 2) - 256;
+            }
+        } else {//4 bit处理
+            re = Integer.parseInt(bit, 2);
+        }
+        return (byte) re;
+    }
+
 
     public static void main(String[] args) {
         // 实例化串口操作类对象
         SerialPortUtils serialPort = new SerialPortUtils();
         // 创建串口必要参数接收类并赋值，赋值串口号，波特率，校验位，数据位，停止位
-        ParamConfig paramConfig = new ParamConfig("COM3", 9600, 2, 8, 1);
+        ParamConfig paramConfig = new ParamConfig("COM3", 9600, 0, 8, 1);
         // 初始化设置,打开串口，开始监听读取串口数据
         serialPort.init(paramConfig);
+
+
+//        String str = "社会主义核心价值观是社会主义核心价值体系的内核";
+//        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+//        String hex = ByteKit.byteArrayToHexStr(bytes);
+//        hex = "AA0218ADF0000000FFFFFF7F00000000FF550000000000000000000";
+//        for (int i =0; i < 100; i++) {
+//            serialPort.sendComm(hex);
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         // 调用串口操作类的sendComm方法发送数据到串口
-        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
-        serialPort.sendComm(com);
+//        String com = "AA0218ADF0000000FFFFFF7F00000000FF55";
+//        String com = "AA0218AD01000000FFFFFF7F00000000EE55";
+//        serialPort.sendComm(com);
+        // AA 02 19 AD 00 00 00 00 FE FF FF 7F 07 97 07 B2 44 55 01
+//         AA 02 19 AD 00 00 00 00 FE FF FF 7F 07 96 07 B0 41 55 01
         // 关闭串口
 //        serialPort.closeSerialPort();
+//        String com = "AA0218AD00400000FFFFFF7F000000002D55";
+//        serialPort.sendComm(com);
+
+
+        // AA0219AD00000000FEFFFF7F079107B7435501
+//        int a = 0xAA + 0x02 + 0x19 + 0xAD + 0x00 + 0x00 + 0x00 + 0x00 + 0xFE + 0xFF + 0xFF + 0x7F +0x07 + 0x91 + 0x07 + 0xB7; // + 0x43 ;//5501
+        // AA0218AD00400000FFFFFF7F000000002D55
+//        a = 0xAA + 0x02 + 0x18 + 0xAD + 0x00 + 0x40 + 0x00 + 0x00 + 0xFF + 0xFF + 0xFF + 0x7F + 0x00 + 0x00 + 0x00 + 0x00; // 2D55
+//        System.out.println(a);
+//        byte[] bytes = ByteArrayConveter.getByteArray(a);
+//        System.out.println(Arrays.toString(bytes));
+//        System.out.println(ByteKit.byteArrayToHexStr(bytes));
     }
 
     
