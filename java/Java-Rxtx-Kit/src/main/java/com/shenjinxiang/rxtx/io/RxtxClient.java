@@ -21,8 +21,10 @@ public class RxtxClient implements Runnable {
 
     private final RxtxChannel CHANNEL;
     private String serialNumber;
+    private RxtxHandler rxtxHandler;
 
-    public RxtxClient(String serialNumber) {
+    public RxtxClient(String serialNumber, RxtxHandler rxtxHandler) {
+        this.rxtxHandler = rxtxHandler;
         CHANNEL = new RxtxChannel();
         RxtxChannelConfig channelConfig = CHANNEL.config();
         channelConfig.setBaudrate(9600);
@@ -47,7 +49,7 @@ public class RxtxClient implements Runnable {
                             rxtxChannel.pipeline().addLast(new FixedLengthFrameDecoder(19));
 //                            rxtxChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
 //                            rxtxChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
-                            rxtxChannel.pipeline().addLast(new RxtxHandler());
+                            rxtxChannel.pipeline().addLast(rxtxHandler);
                         }
                     });
 

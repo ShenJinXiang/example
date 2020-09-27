@@ -1,5 +1,6 @@
 package com.shenjinxiang.rxtx;
 
+import com.shenjinxiang.rxtx.io.CommandReader;
 import com.shenjinxiang.rxtx.io.RxtxClient;
 import com.shenjinxiang.rxtx.kit.ThreadPool;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ public class Application {
 
     public static void main(String[] args) {
         logger.info("Java-Rxtx-Kit Start ...");
-        ThreadPool.getThread().execute(new RxtxClient("COM3"));
+//        ThreadPool.getThread().execute(new RxtxClient("COM3"));
+        ThreadPool.getThread().execute(new CommandReader());
     }
 }
