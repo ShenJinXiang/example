@@ -3,9 +3,13 @@ package com.shenjinxiang.rxtx;
 import com.shenjinxiang.rxtx.io.CommandReader;
 import com.shenjinxiang.rxtx.io.ParamConfig;
 import com.shenjinxiang.rxtx.io.SerialPortUtils;
+import com.shenjinxiang.rxtx.kit.JsonKit;
 import com.shenjinxiang.rxtx.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
 
 public class Application {
 

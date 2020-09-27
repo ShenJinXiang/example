@@ -57,12 +57,14 @@ public class CommandReader implements Runnable {
                         String str = line.substring(SEND.length());
                         str = str.replace(" ", "");
                         IOKit.sendData(ByteKit.hexStrToByteArray(str));
+                        continue;
                     }
                     if (PARSE.equalsIgnoreCase(words[0])) {
                         String str = line.substring(PARSE.length());
                         str = str.replace(" ", "");
                         byte[] bytes = ByteKit.hexStrToByteArray(str);
                         DataParser.parse(bytes);
+                        continue;
                     }
                     if (EXIT.equalsIgnoreCase(words[0])) {
                         logger.info("程序结束！");
