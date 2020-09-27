@@ -6,8 +6,15 @@ def collatz(number):
     else:
         return number * 3 + 1
 
+
 if __name__ == '__main__':
-    number = int(input('请输入一个数字：'))
+    while True:
+        try:
+            number = int(input('请输入一个数字：'))
+        except ValueError:
+            print('value error')
+        else:
+            break;
     count = 0
     while number != 1:
         number = collatz(number)
