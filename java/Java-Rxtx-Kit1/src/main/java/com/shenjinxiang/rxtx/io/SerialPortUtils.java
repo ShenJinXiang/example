@@ -51,7 +51,7 @@ public class SerialPortUtils implements SerialPortEventListener {
      * @return: void
      */
     @SuppressWarnings("unchecked")
-    public void init(ParamConfig paramConfig) {
+    public boolean init(ParamConfig paramConfig) {
         // 获取系统中所有的通讯端口
         portList = CommPortIdentifier.getPortIdentifiers();
         // 记录是否含有指定串口
@@ -76,22 +76,28 @@ public class SerialPortUtils implements SerialPortEventListener {
                         // 设置串口通讯参数:波特率，数据位，停止位,校验方式
                         serialPort.setSerialPortParams(paramConfig.getBaudRate(), paramConfig.getDataBit(),
                                 paramConfig.getStopBit(), paramConfig.getCheckoutBit());
+                        return true;
                     } catch (PortInUseException e) {
                         logger.info("端口被占用");
+                        return false;
                     } catch (TooManyListenersException e) {
                         logger.info("监听器过多");
+                        return false;
                     } catch (UnsupportedCommOperationException e) {
                         logger.info("不支持的COMM端口操作异常");
+                        return false;
                     }
                     // 结束循环
-                    break;
+//                    break;
                 }
             }
         }
         // 若不存在该串口则抛出异常
         if (!isExsist) {
             logger.info("不存在该串口！");
+            return false;
         }
+        return false;
     }
 
     /**
