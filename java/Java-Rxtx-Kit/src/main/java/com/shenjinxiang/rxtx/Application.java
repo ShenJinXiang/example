@@ -1,7 +1,6 @@
 package com.shenjinxiang.rxtx;
 
 import com.shenjinxiang.rxtx.io.CommandReader;
-import com.shenjinxiang.rxtx.io.RxtxClient;
 import com.shenjinxiang.rxtx.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
