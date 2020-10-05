@@ -1,18 +1,14 @@
 package com.shenjinxiang.rxtx.io;
 
-import com.shenjinxiang.rxtx.kit.ByteArrayConveter;
-import com.shenjinxiang.rxtx.kit.ByteKit;
 import gnu.io.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
