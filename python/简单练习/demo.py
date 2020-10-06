@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from random import randint, shuffle
+from random import *
 import sys
 
 def d1():
@@ -24,6 +24,46 @@ def d3():
         print(items)
 
 def d4():
+    n = 10
+    print('random(): ', end=' ')
+    for i in range(n):
+        print(random(), end='    ')
+    print()
+
+    print('uniform(10, 20): ', end='  ')
+    for i in range(n):
+        print(uniform(10, 20), end='    ')
+    print()
+
+    print('randint(10, 20): ', end='  ')
+    for i in range(n):
+        print(randint(10, 20), end='    ')
+    print()
+
+    print('randrange(3, 20, 2): ', end='  ')
+    for i in range(n):
+        print(randrange(3, 20, 2), end='    ')
+    print()
+
+    print('choice(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]): ', end='  ')
+    for i in range(n):
+        print(choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']), end='    ')
+    print()
+
+    print('shuffle(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]): ', end='  ')
+    for i in range(n):
+        l = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
+        shuffle(l)
+        print(l, end = '    ')
+    print()
+
+    print('sample("ABCDEFGHIJKLMN", 2): ', end='  ')
+    for i in range(n):
+        print(sample("ABCDEFGHIJKLMN", 2), end='    ')
+    print()
+
+
+def d5():
     print("sys.argv: ")
     print(sys.argv)
     print('sys.path: ')
