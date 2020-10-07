@@ -3,7 +3,6 @@ package com.shenjinxiang.interaction.core;
 import com.shenjinxiang.interaction.io.IOKit;
 import com.shenjinxiang.interaction.kit.JsonKit;
 import com.shenjinxiang.interaction.kit.StrKit;
-import com.shenjinxiang.interaction.kit.ThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
@@ -52,7 +50,7 @@ public class CommandReader implements Runnable {
                     if (CONN.equalsIgnoreCase(words[0])) {
                         IOKit.runMulticastUdpServer();
                         IOKit.runPointUdpServer();
-                        IOKit.runDdsjFileReader();
+//                        IOKit.runDdsjFileReader();
                         Thread.sleep(3000);
                         continue;
                     }
