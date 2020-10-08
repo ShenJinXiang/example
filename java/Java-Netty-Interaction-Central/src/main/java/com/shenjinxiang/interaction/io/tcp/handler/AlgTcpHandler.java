@@ -47,7 +47,7 @@ public class AlgTcpHandler<T> extends TcpHandler<T> {
 
         channel = ctx.channel();
         String content = WAVE_DATA_PREFIX + msg.toString();
-//        logger.info("content:" + content);
+        logger.info("算法中心波形数据:" + msg.toString());
         IOKit.sendArTcpMsg(content);
     }
 }

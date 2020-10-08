@@ -3,7 +3,7 @@
   "qtServerListenPort": 6001,
   "arServerHost": "127.0.0.1",
   "arServerPort": 6002,
-  "algServerHost": "127.0.0.1",
+  "algServerHost": "192.168.5.100",
   "algServerPort": 6000,
   "algFixedDataLength": 65664,
   "udpServerListenPort": 7004,
