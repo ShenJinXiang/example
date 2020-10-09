@@ -180,7 +180,7 @@ public class IOKit {
         ThreadPool.getThread().execute(DDSJ_READER);
     }
 
-    private static ChannelInitializer createLineBaseChannelInitializer(TcpHandler tcpHandler) {
+    private static ChannelInitializer createLineBaseChannelInitializer(final TcpHandler tcpHandler) {
         return new ChannelInitializer() {
             @Override
             protected void initChannel(Channel channel) throws Exception {
