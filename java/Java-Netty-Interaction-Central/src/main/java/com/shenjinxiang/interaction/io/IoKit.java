@@ -138,16 +138,19 @@ public class IOKit {
             ThreadPool.getThread().execute(new TcpClient(
                     ALG_SERVER_HOST,
                     ALG_SERVER_PORT,
-                    new ChannelInitializer() {
-                        @Override
-                        protected void initChannel(Channel channel) throws Exception {
-                            channel.pipeline().addLast(new FixedLengthFrameDecoder(ALG_FIXED_DATA_LENGTH));
-                            channel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
-                            channel.pipeline().addLast(ALG_HANDLER);
-                            channel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-                        }
-                    }
-            ));
+                    createLineBaseChannelInitializer(ALG_HANDLER))
+            );
+
+//            new ChannelInitializer() {
+//                        @Override
+//                        protected void initChannel(Channel channel) throws Exception {
+//                            channel.pipeline().addLast(new FixedLengthFrameDecoder(ALG_FIXED_DATA_LENGTH));
+//                            channel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
+//                            channel.pipeline().addLast(ALG_HANDLER);
+//                            channel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
+//                        }
+//                    }
+//            ));
         }
     }
 
