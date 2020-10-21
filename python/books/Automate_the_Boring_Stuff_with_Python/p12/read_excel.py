@@ -15,7 +15,4 @@ print(sheet1['A1'].value)
 
 for r in sheet1:
     for c in r:
-        print(type(c.value), c.value)
-
-for n in range(10):
-    print('170426')
+        print(f'type: {type(c.value)}, value: {c.value}')
