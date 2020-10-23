@@ -1,5 +1,5 @@
 * { margin: 0; padding: 0; }
-.myHead { width: 100%; height: 700px; background: url(images/banner.jpg) no-repeat center; background-size: cover; }
+.myHead { width: 100%; height: 700px; background: url(../images/banner.jpg) no-repeat center; background-size: cover; }
 .huManCen { margin-top: 1.3rem; }
 .huManCen > p { font-size: 48px; text-align: center; color: #333; font-weight: bold; margin-bottom: 40px; }
 .huManCen > p span.em { color: #77A3F9; }
