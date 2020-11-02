@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"  href="zhuce.css" />
+    <title>XLZX注册</title>
+</head>
+<body>
+<div class="center-block">
+    <div class="title" >
+        <img src="./images/ic_login_logo@3x.png" />
+        <h1>海之心</h1>
+    </div>
+</div>
+<div class="center-block">
+    <div class="row">
+        <div class="input-item">
+            <span class="hyzh-span">+86</span>
+            <input type="text" id="hyzh" name="hyzh" class="form-input hyzh-input" placeholder="请输入手机号" autocapitalize="off"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-item">
+            <input type="text" id="yzm" name="yzm" class="form-input yzm-input" placeholder="请输入验证码" autocapitalize="off"/>
+            <span class="hqyzm-span">获取验证码</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="default-item">
+            <input type="checkbox" id="yhxyChk" class="checkbox">
+            <label for="yhxyChk">我已阅读并同意<a href="">《用户协议手册》</a></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="default-item">
+            <button type="button" class="primary-btn">注册</button>
+        </div>
+    </div>
+</div>
+<script src="/plugins/jquery.js" ></script>
+<script>
+    console.log(window.location);
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    console.log(getQueryString('zxsid'));
+</script>
+</body>
+</html>
