@@ -35,10 +35,11 @@ body {
     font-size: 13px;
     border-top: 1px dotted #DCDCDC;
 }
-.hfs-container {
-    margin-top: 40px;
+.wt-container .wt-foot span {
+    display: inline-block;
+    margin-right: 40px;
 }
-.hfs-container .hfs-btn-container {
+.hfs-btn-container {
     text-align: right;
     margin: 20px 0px;
 }
