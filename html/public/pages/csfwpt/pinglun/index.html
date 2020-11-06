@@ -17,8 +17,8 @@
         </div>
         <div class="wt-foot">
             <div class="pull-left">
-                <span>提问人员：张三丰</span>
-                <span>问题分类：电子税务局</span>
+                <span class="left-item">提问人员：<span>张三丰</span></span>
+                <span class="left-item">问题分类：<span>电子税务局</span></span>
             </div>
             <div class="pull-right">
                 提问时间: <span>2020-10-24 12:50:16</span>
@@ -27,11 +27,21 @@
     </div>
 
     <div class="hf-input-container" >
-        <textarea class="form-control" ></textarea>
-        <div class="btn-container">
-            <button type="button" class="btn btn-primary" >确定</button>
-            <button type="button" class="btn btn-default">清空</button>
-        </div>
+        <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label for="WT_NR" class="col-xs-1 control-label">回复内容</label>
+                <div class="col-xs-11">
+                    <textarea id="WT_NR" name="" class="form-control" ></textarea>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="text-center">
+                    <button type="button" class="btn btn-default" onclick="closeCurrentLayer()">关闭</button>
+                    <button type="button" class="btn btn-primary" >确定</button>
+                    <button type="button" class="btn btn-default">清空</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="hfs-btn-container" >

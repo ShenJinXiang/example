@@ -35,7 +35,7 @@ body {
     font-size: 13px;
     border-top: 1px dotted #DCDCDC;
 }
-.wt-container .wt-foot span {
+.wt-container .wt-foot .left-item {
     display: inline-block;
     margin-right: 40px;
 }
