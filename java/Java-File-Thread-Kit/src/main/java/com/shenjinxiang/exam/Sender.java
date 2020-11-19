@@ -32,7 +32,7 @@ public class Sender implements Runnable {
                 data.setCount(count);
                 data.setName("刘备");
                 data.setName(StrKit.randomDigit(4));
-                String line = JsonKit.toJson(data) + "\n";
+                String line = JsonKit.toJson(data) + ",\n";
                 logger.info("发送：" + line);
                 FILE_LINE_WRITER.write(line);
                 this.count++;

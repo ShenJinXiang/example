@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class FileLineWriter implements Runnable {
 
@@ -30,6 +31,10 @@ public class FileLineWriter implements Runnable {
 
     public FileLineWriter(File file, String startStr, String endStr) {
         this.file = file;
+        File parent = file.getParentFile();
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
         this.run = true;
         this.startStr = startStr;
         this.endStr = endStr;
@@ -45,8 +50,8 @@ public class FileLineWriter implements Runnable {
                 bufferedWriter.write(startStr);
             }
             while (this.run) {
-//                String line = lines.poll();
-                String line = lines.take();
+                String line = lines.poll(20, TimeUnit.MILLISECONDS);
+//                String line = lines.take();
                 logger.info("获取到数据：" + line);
                 if (null != line) {
                     bufferedWriter.write(line);
