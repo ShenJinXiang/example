@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/plugins/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"  href="edit.css" />
+    <title>测评编辑</title>
+</head>
+<body>
+
+<div class="layer-content">
+    <div class="container-fluid">
+        <form id="rwForm" class="form-horizontal">
+            <div class="page-header">
+                <h4>基本信息</h4>
+            </div>
+            <div class="form-group form-group-sm">
+                <label for="title" class="col-xs-2 control-label">标题</label>
+                <div class="col-xs-10">
+                    <input type="hidden" id="id" name="id" >
+                    <input type="text" class="form-control" id="title" name="title" >
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label for="cplx" class="col-xs-2 control-label">类型</label>
+                <div class="col-xs-4">
+                    <select class="form-control" id="cplx" >
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+                <label for="cplx" class="col-xs-2 control-label">允许时长</label>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="yxsc" name="yxsc" placeholder="请输入允许时长" autocomplete="off">
+                        <span class="input-group-addon">分钟</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label for="title" class="col-xs-2 control-label">描述</label>
+                <div class="col-xs-10">
+                    <textarea type="text" class="form-control" id="bz" name="bz" ></textarea>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-xs-2 control-label">测评方式</label>
+                <div class="col-xs-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 手动
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 自动
+                    </label>
+                </div>
+                <label class="col-xs-2 control-label">录题方式</label>
+                <div class="col-xs-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio11" value="option1"> 批量
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio21" value="option2"> 单个
+                    </label>
+                </div>
+            </div>
+            <div class="page-header">
+                <h4>题目答案</h4>
+            </div>
+            <div class="cp-tmda-item">
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" name="title" >
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <button type="button" >上传图片</button>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <img src="" />
+                    </div>
+                </div>
+            </div>
+            <div class="cp-tmda-item">
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" name="title" >
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <button type="button" >上传图片</button>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label">标题</label>
+                    <div class="col-xs-10">
+                        <img src="" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="/plugins/jquery.js" ></script>
+<script src="/plugins/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<!--<script src="index.js" ></script>-->
+</body>
+</html>
