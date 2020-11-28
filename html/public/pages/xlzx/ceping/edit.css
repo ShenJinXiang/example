@@ -14,5 +14,29 @@
 .cp-tmda-item {
     width: 100%;
     border-bottom: 1px dashed #ccc;
-    padding: 20px 0px;
+    padding: 20px;
+}
+.cp-tmda-item:hover {
+    background: #fafafa;
+}
+.cp-tmda-item:last-child {
+    border-bottom: none;
+}
+.cp-tmda-item .cp-tmda-title {
+    height: 42px;
+    line-height: 42px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.cp-pfgz-item {
+    width: 100%;
+    border-bottom: 1px dashed #ccc;
+    padding: 20px;
+}
+.cp-pfgz-item:hover {
+    background: #fafafa;
+}
+.cp-pfgz-item:last-child {
+    border-bottom: none;
 }
