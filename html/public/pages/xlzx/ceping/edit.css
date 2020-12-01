@@ -40,3 +40,7 @@
 .cp-pfgz-item:last-child {
     border-bottom: none;
 }
+
+.form-group-sm .form-control-static {
+    height: auto;
+}
