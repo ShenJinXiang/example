@@ -70,6 +70,7 @@ public class CommandReader implements Runnable {
                     }
                     if (CLOSE.equalsIgnoreCase(words[0])) {
                         Config.HANDLER.close();
+                        continue;
                     }
                     logger.info("没有任务!");
                 }
