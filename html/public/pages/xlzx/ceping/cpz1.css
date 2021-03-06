@@ -1,0 +1,108 @@
+@charset "utf-8";
+body{ font-size:16px;background: #E8EAEA;margin: 0; padding: 0;}
+
+.cep-main-container {
+    margin: 0;
+    padding: 0;
+}
+.cep-tm-con {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+.cep-tm-con .cep-tm-item {
+    display: none;
+    position: relative;
+}
+.cep-tm-con .cep-tm-item.active {
+    display: block;
+}
+.cep-tm-item h3 {
+    font-size: 0.4rem;
+    display: block;
+    margin: 0rem;
+    margin-top: 10%;
+    font-weight: 300;
+    text-align: center;
+    line-height: 1rem;
+}
+.cep-tm-item .cep-tm-item-con {
+    width: 80%;
+    margin: 0rem auto;
+    padding: 0.5rem 0.3rem;
+    box-shadow: 0px 0px 0.1rem #888;
+    border-radius: 0.3rem;
+    background: #fff;
+}
+.cep-tm-sm {
+    font-size: 0.3rem;
+    font-weight: 500;
+}
+.cep-tm-item-con .cep-tm-xx-con {
+}
+.cep-tm-item-con .cep-tm-xx-con .cep-tm-xx-item {
+    display: block;
+    margin: 0.2rem 0;
+    background: #DDE3E4;
+    padding: 0.2rem 0.3rem;
+    border-radius: 2rem;
+    font-size: 0.3rem;
+    font-weight: 300;
+    color: #444
+}
+.cep-tm-item-con .cep-tm-xx-con .cep-tm-xx-item.active {
+    background: #BDE3D0;
+    color: #67C98F;
+}
+
+.cep-tm-btn-con {
+    width: 90%;
+    margin: 0.3rem auto;
+}
+
+.cep-tm-btn-con .cep-btn {
+    font-size: 0.35rem;
+    font-weight: 300;
+    height: 0.8rem;
+    border-radius: 1rem;
+    text-align: center;
+    background: #fff;
+    color: #666;
+    border: 1px solid #cccccc;
+    outline: none;
+}
+.cep-tm-btn-con .cep-btn.green {
+    background: #28C071;
+    border-color: #28C071;
+    color: #fff;
+}
+.cep-tm-btn-con .cep-btn.cep-btn-w {
+    width: 100%;
+}
+.cep-tm-btn-con .cep-btn.cep-btn-h {
+    width: 48%;
+}
+.cep-tm-btn-con .cep-btn.cep-btn-h:last-child {
+    float: right;
+}
+
+.cpjg-container {
+    margin: 0 0.3rem;
+}
+.cpjg-container .cepjg-img {
+    width: 100%;
+}
+.cpjg-container .cpjg-con {
+    margin: 0.5rem auto;
+}
+
+.cpjg-con .cpjg-tit {
+    font-size: 0.4rem;
+}
+.cpjg-con p {
+    font-size: 0.35rem;
+    font-weight: 300;
+    line-height: 0.5rem;
+    text-align: justify;
+}
